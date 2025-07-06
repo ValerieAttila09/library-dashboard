@@ -3,20 +3,13 @@ import React, { useEffect, useState } from "react";
 const SvgElement = ({
   widthElement,
   heightElement,
-  hoveredPointElement,
-  setHoveredPointElement,
-  pointsElement,
   areaPathElement,
   smoothPathElement,
-  maxIndexElement
 }) => {
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-lg max-w-xl mx-auto relative">
-      <h2 className="text-lg font-semibold mb-4 text-gray-800">Weekly Line Chart</h2>
-
       <svg
         viewBox={`0 0 ${widthElement} ${heightElement}`}
-        className="w-full h-60"
+        className="w-full h-30"
         preserveAspectRatio="none"
       >
         <defs>
@@ -31,60 +24,7 @@ const SvgElement = ({
 
         {/* Smooth Line */}
         <path d={smoothPathElement} stroke="#6366f1" strokeWidth="2" fill="none" />
-
-        {/* Data Points + Hover Events */}
-        {pointsElement.map((p, i) => (
-          <g key={i}>
-            <circle
-              cx={p.x}
-              cy={p.y}
-              r="5"
-              fill={i === maxIndexElement ? "#f59e0b" : "#6366f1"}
-              className="cursor-pointer transition duration-200"
-              onMouseEnter={() => setHoveredPointElement(p)}
-              onMouseLeave={() => setHoveredPointElement(null)}
-            />
-          </g>
-        ))}
-
-        {/* Max Value Label */}
-        <text
-          x={pointsElement[maxIndexElement].x}
-          y={pointsElement[maxIndexElement].y - 12}
-          fontSize="12"
-          fill="#f59e0b"
-          textAnchor="middle"
-          className="font-semibold"
-        >
-          Max: {pointsElement[maxIndexElement].value}
-        </text>
-
-        {/* Tooltip on Hovered Point */}
-        {hoveredPointElement && (
-          <g>
-            <rect
-              x={hoveredPointElement.x - 20}
-              y={hoveredPointElement.y - 35}
-              width="40"
-              height="20"
-              rx="4"
-              fill="#111827"
-              opacity="0.9"
-            />
-            <text
-              x={hoveredPointElement.x}
-              y={hoveredPointElement.y - 20}
-              fontSize="12"
-              fill="#ffffff"
-              textAnchor="middle"
-              className="font-medium"
-            >
-              {hoveredPointElement.value}
-            </text>
-          </g>
-        )}
       </svg>
-    </div>
   )
 }
 
@@ -110,7 +50,7 @@ export const LineChartIncome = () => {
 
   const width = 500;
   const height = 200;
-  const padding = 30;
+  const padding = 0;
 
   const values = data.map((d) => d.value);
   const maxValue = Math.max(...values);
@@ -147,8 +87,6 @@ export const LineChartIncome = () => {
       setHoveredPointElement={setHoveredPoint}
       areaPathElement={areaPath}
       smoothPathElement={smoothPath}
-      pointsElement={points}
-      maxIndexElement={maxIndex}
     />
   );
 };
@@ -175,7 +113,7 @@ export const LineChartLoan = () => {
 
   const width = 500;
   const height = 200;
-  const padding = 30;
+  const padding = 0;
 
   const values = data.map((d) => d.value);
   const maxValue = Math.max(...values);
@@ -212,8 +150,6 @@ export const LineChartLoan = () => {
       setHoveredPointElement={setHoveredPoint}
       areaPathElement={areaPath}
       smoothPathElement={smoothPath}
-      pointsElement={points}
-      maxIndexElement={maxIndex}
     />
   );
 };
@@ -240,7 +176,7 @@ export const LineChartMembers = () => {
 
   const width = 500;
   const height = 200;
-  const padding = 30;
+  const padding = 0;
 
   const values = data.map((d) => d.value);
   const maxValue = Math.max(...values);
@@ -277,8 +213,6 @@ export const LineChartMembers = () => {
       setHoveredPointElement={setHoveredPoint}
       areaPathElement={areaPath}
       smoothPathElement={smoothPath}
-      pointsElement={points}
-      maxIndexElement={maxIndex}
     />
   );
 };

@@ -92,13 +92,13 @@ export default function DashboardContent() {
 
   return (
     <div className="w-full h-full flex bg-[#fafafa] overflow-y-auto">
-      <div className="w-5/7 h-full overflow-y-auto">
-        <div className="w-full flex items-center justify-between gap-[8rem] p-8 border-b-1 border-[#ebebeb]">
+      <div className="md:w-5/7 w-full h-full overflow-y-auto">
+        <div className="w-full flex flex-col items-start justify-between gap-[1rem] p-8 border-b-1 border-[#ebebeb]">
           <div className="w-full flex flex-col gap-1 py-1">
             <h1 className="text-5xl sg-semibold text-neutral-900">Hello, Valerie Attila Al-fath</h1>
             <span className="text-lg text-neutral-500">Set up and manage your library here and don't forget to keep the spirit up!</span>
           </div>
-          <div className="w-auto flex justify-start items-center gap-2 py-1">
+          <div className="w-auto flex justify-start items-start gap-2 py-1">
             <span className="text-neutral-700 sg-medium text-lg text-nowrap">
               {`${day} ${monthName}, ${year}`}
             </span>
@@ -112,7 +112,7 @@ export default function DashboardContent() {
         <div className="w-full h-full grid">
           <div className="w-full p-4 flex items-center border-b-1 border-[#ebebeb]">
             <div className="w-full rounded-lg grid lg:flex lg:items-center gap-2">
-              <div className="w-full h-[16rem] lg:h-[15rem] border border-[#ebebeb] p-4 lg:p-4 bg-white/70 shadow rounded-lg hover:bg-green-50/30 hover:shadow-lg hover:-translate-y-1 transition-all">
+              <div className="w-full h-[16rem] lg:h-[18rem] border border-[#ebebeb] p-4 lg:p-4 bg-white/70 shadow rounded-lg hover:bg-green-50/30 hover:shadow-lg transition-all">
                 <div className="w-full h-full flex flex-col gap-2">
                   <div className="w-full h-1/3 flex items-center justify-between">
                     <div className="w-full">
@@ -147,7 +147,7 @@ export default function DashboardContent() {
                   </div>
                 </div>
               </div>
-              <div className="w-full h-[16rem] lg:h-[15rem] border border-[#ebebeb] p-4 lg:p-4 bg-white/70 shadow rounded-lg hover:bg-green-50/30 hover:shadow-lg hover:-translate-y-1 transition-all">
+              <div className="w-full h-[16rem] lg:h-[18rem] border border-[#ebebeb] p-4 lg:p-4 bg-white/70 shadow rounded-lg hover:bg-green-50/30 hover:shadow-lg transition-all">
                 <div className="w-full h-full flex flex-col gap-2">
                   <div className="w-full h-1/3 flex items-center justify-between">
                     <div className="w-full">
@@ -182,7 +182,7 @@ export default function DashboardContent() {
                   </div>
                 </div>
               </div>
-              <div className="w-full h-[16rem] lg:h-[15rem] border border-[#ebebeb] p-4 lg:p-4 bg-white/70 shadow rounded-lg hover:bg-green-50/30 hover:shadow-lg hover:-translate-y-1 transition-all">
+              <div className="w-full h-[16rem] lg:h-[18rem] border border-[#ebebeb] p-4 lg:p-4 bg-white/70 shadow rounded-lg hover:bg-green-50/30 hover:shadow-lg transition-all">
                 <div className="w-full h-full flex flex-col gap-2">
                   <div className="w-full h-1/3 flex items-center justify-between">
                     <div className="w-full">
@@ -221,13 +221,11 @@ export default function DashboardContent() {
           </div>
           <div className="w-full p-4">
             <div className="w-full h-auto grid bg-[#fbfbfb] p-2 border border-[#ebebeb] shadow rounded-2xl">
-              <div className="w-full h-auto py-1 flex items-center justify-between mb-2">
-                <div className="w-full flex items-center gap-2">
-                  <button className="border border-[#d7d7d7] bg-white rounded-full px-3 py-1 hover:shadow hover:bg-[#fafafa] transition-all">Borrowing & Returning</button>
-                  <button className="border border-[#d7d7d7] bg-white rounded-full px-3 py-1 hover:shadow hover:bg-[#fafafa] transition-all">Popular categories</button>
-                  <button className="border border-[#d7d7d7] bg-white rounded-full px-3 py-1 hover:shadow hover:bg-[#fafafa] transition-all">Average loan duration</button>
+              <div className="w-full h-auto flex items-center justify-between mb-2">
+                <div className="w-full flex items-center gap-2 px-1">
+                  <h1 className="text-md text-neutral-700">Additional statistical information</h1>
                 </div>
-                <div className="w-auto flex items-center gap-2">
+                <div className="w-auto flex items-center gap-1">
                   <button className="border border-[#d7d7d7] bg-white rounded-full p-1 hover:shadow hover:bg-[#fafafa] transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                       stroke="currentColor" className="size-5 text-neutral-800">
@@ -255,12 +253,12 @@ export default function DashboardContent() {
         </div>
       </div>
 
-      <div className="w-2/7 h-full flex flex-col gap-4 p-4 border-l-1 border-[#ebebeb] overflow-y-auto">
+      <div className="hidden md:w-2/7 h-full md:flex flex-col gap-4 p-4 border-l-1 border-[#ebebeb] overflow-y-auto">
         <div className="w-full h-auto p-4 border border-[#ebebeb] rounded-2xl shadow bg-white">
           <div className="w-full flex justify-between items-center">
             <h1 className="text-lg text-neutral-800 sg-medium">Team members</h1>
-            <button className="rounded-full flex items-center gap-1 px-2 py-1 border border-[#8e8e8e] bg-white hover:bg-green-100/35 hover:border-green-600 hover:text-green-600 transition-all">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="size-5 text-neutral-900">
+            <button className="rounded-full flex items-center gap-1 px-2 py-1 border border-[#ebebeb] bg-white hover:bg-green-100/35 hover:border-green-600 hover:text-green-600 transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="size-5 text-neutral-600">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
               <span className="text-sm text-nowrap text-neutral-600">Invite</span>
@@ -295,7 +293,7 @@ export default function DashboardContent() {
               </div>
             </div>
             <div className="w-full flex items-center justify-start">
-              <button className="w-auto px-3 py-1 border-1 border-[#9a9a9a] rounded-full hover:bg-green-100/35 hover:border-green-600 hover:text-green-600 transition-all">
+              <button className="w-auto px-3 py-1 border-1 border-[#ebebeb] rounded-full hover:bg-green-100/35 hover:border-green-600 hover:text-green-600 transition-all">
                 Show more
               </button>
             </div>

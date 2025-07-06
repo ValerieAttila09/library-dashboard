@@ -67,8 +67,9 @@ export default function BorrowingsContent() {
     <div className="w-full h-full overflow-y-auto bg-transparent">
       <div className="w-full h-auto flex flex-col gap-4">
 
-        <div className="w-full flex items-center flex-wrap gap-4 px-4 py-2">
-          <div className="w-auto h-[8rem] rounded-lg border border-[#ebebeb] shadow px-6 py-4 hover:bg-green-50/30 hover:shadow-lg hover:-translate-y-1 transition-all">
+        <div className="w-full grid md:flex items-center flex-wrap gap-4 px-4 py-2">
+          
+          <div className="w-full md:w-[32%] h-[8rem] rounded-lg border border-[#ebebeb] shadow px-6 py-4 hover:bg-green-50/30 hover:shadow-lg transition-all">
             <div className="w-full h-full flex flex-col justify-start">
               <div className="w-full flex flex-col justify-between gap-4">
 
@@ -89,7 +90,7 @@ export default function BorrowingsContent() {
                 </div>
 
                 <div className="w-full flex items-center justify-start gap-4">
-                  <span className="text-4xl text-neutral-900 sg-semibold">
+                  <span className="text-5xl text-neutral-900 sg-semibold">
                     257
                   </span>
                   <div className="px-[5px] py-[2px] rounded-md bg-green-100 flex gap-1 items-center">
@@ -104,7 +105,7 @@ export default function BorrowingsContent() {
             </div>
           </div>
 
-          <div className="w-auto h-[8rem] rounded-lg border border-[#ebebeb] shadow px-6 py-4 hover:bg-green-50/30 hover:shadow-lg hover:-translate-y-1 transition-all">
+          <div className="w-full md:w-[32%] h-[8rem] rounded-lg border border-[#ebebeb] shadow px-6 py-4 hover:bg-green-50/30 hover:shadow-lg transition-all">
             <div className="w-full h-full flex flex-col justify-start">
               <div className="w-full flex flex-col justify-between gap-4">
 
@@ -125,7 +126,7 @@ export default function BorrowingsContent() {
                 </div>
 
                 <div className="w-full flex items-center justify-start gap-4">
-                  <span className="text-4xl text-neutral-900 sg-semibold">
+                  <span className="text-5xl text-neutral-900 sg-semibold">
                     43
                   </span>
                   <div className="px-[5px] py-[2px] rounded-md bg-green-100 flex gap-1 items-center">
@@ -140,7 +141,7 @@ export default function BorrowingsContent() {
             </div>
           </div>
 
-          <div className="w-auto h-[8rem] rounded-lg border border-[#ebebeb] shadow px-6 py-4 hover:bg-green-50/30 hover:shadow-lg hover:-translate-y-1 transition-all">
+          <div className="w-full md:w-[32%] h-[8rem] rounded-lg border border-[#ebebeb] shadow px-6 py-4 hover:bg-green-50/30 hover:shadow-lg transition-all">
             <div className="w-full h-full flex flex-col justify-start">
               <div className="w-full flex flex-col justify-between gap-4">
 
@@ -161,7 +162,7 @@ export default function BorrowingsContent() {
                 </div>
 
                 <div className="w-full flex items-center justify-start gap-4">
-                  <span className="text-4xl text-neutral-900 sg-semibold">
+                  <span className="text-5xl text-neutral-900 sg-semibold">
                     7
                   </span>
                   <div className="px-[5px] py-[2px] rounded-md bg-red-100 flex gap-1 items-center">
@@ -175,6 +176,7 @@ export default function BorrowingsContent() {
               </div>
             </div>
           </div>
+
         </div>
 
         <div className="w-full overflow-x-auto">

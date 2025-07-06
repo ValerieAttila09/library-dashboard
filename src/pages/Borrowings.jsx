@@ -11,7 +11,7 @@ export default function Borrowings() {
 
   return (
     <div className="w-full h-full flex">
-      <Sidebar isOpen={isSidebarOpen} />
+      <Sidebar isOpen={isSidebarOpen} onToggleSidebar={toggleSidebar}/>
       <Header onToggleSidebar={toggleSidebar} />
     </div>
   )

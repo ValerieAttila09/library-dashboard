@@ -1,6 +1,7 @@
 import ListContent from "./content/ListContent"
 import DashboardContent from "./content/DashboardContent"
 import BorrowingsContent from "./content/BorrowingsContent"
+import MembersContent from "./content/MembersContent"
 import UserPic from "../assets/image/user.jpg"
 
 function SetContent() {
@@ -9,6 +10,7 @@ function SetContent() {
   const linkDashboard = "/"
   const linkList = "/list"
   const linkBorrowings = "/borrowings"
+  const linkMembers = "/members"
 
   if (pathName == linkDashboard) {
     return <DashboardContent />
@@ -16,6 +18,8 @@ function SetContent() {
     return <ListContent />
   } else if (pathName == linkBorrowings) {
     return <BorrowingsContent />
+  } else if (pathName == linkMembers) {
+    return <MembersContent/>
   }
 }
 
@@ -25,6 +29,7 @@ function SetContentLabel() {
   const linkDashboard = "/"
   const linkList = "/list"
   const linkBorrowings = "/borrowings"
+  const linkMembers = "/members"
 
   if (pathName == linkDashboard) {
     return (
@@ -65,39 +70,58 @@ function SetContentLabel() {
         <span className="text-md text-neutral-500 hover:text-neutral-700">Borrowings</span>
       </span>
     )
+  } else if (pathName == linkMembers) {
+    return (
+      <span className="flex items-center justify-start gap-3">
+        <span className="text-md text-neutral-500 hover:text-neutral-700">General</span>
+        <span className="text-md text-neutral-500 hover:text-neutral-700">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+            stroke="currentColor" className="size-4">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+          </svg>
+        </span>
+        <span className="text-md text-neutral-500 hover:text-neutral-700">Members</span>
+      </span>
+    )
   }
 }
 
 export default function Header({ onToggleSidebar }) {
   return (
-    <div id="content" className="bg-transparent w-full overflow-auto max-h-[100vh]">
+    <div id="content" className="ms-[47px] md:ms-0 bg-transparent w-full overflow-auto max-h-[100vh]">
       <div className="w-auto h-full flex flex-col relative border-l-1 border-[#dfdfdf]">
         {/* Content Header */}
-        <div className="w-full flex justify-between border-b-1 border-[#dfdfdf]">
-          <div className="w-full flex justify-start items-center p-1">
-            <button onClick={onToggleSidebar} className="p-2 border border-transparent rounded-md hover:bg-white hover:border hover:border-[#efefef] transition-all">
-              <svg className="size-6 text-neutral-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-                <path fillRule="evenodd" clipRule="evenodd"
-                  d="M6 4C4.34315 4 3 5.34315 3 7V17C3 18.6569 4.34315 20 6 20H18C19.6569 20 21 18.6569 21 17V7C21 5.34315 19.6569 4 18 4H6ZM5 7C5 6.44772 5.44772 6 6 6H9V18H6C5.44772 18 5 17.5523 5 17V7ZM11 18H18C18.5523 18 19 17.5523 19 17V7C19 6.44772 18.5523 6 18 6H11V18Z"
-                  fill="#3d3d3a" />
-              </svg>
-            </button>
-            <div className="mx-1 w-[1px] h-5/7 bg-[#ebebeb]"></div>
-            <div className="w-auto p-1">
-              <SetContentLabel />
-            </div>
-            <div className="mx-1 w-[1px] h-5/7 bg-[#ebebeb]"></div>
-            <div className="flex items-center gap-3 px-4">
-              <div className="size-8 border border-[#ebebeb] bg-transparent overflow-hidden rounded-full">
-                <img src={UserPic} className="object-cover" alt="User Picture" />
+        <div className="w-full flex justify-start md:justify-between border-b-1 border-[#dfdfdf]">
+          <div className="w-full flex justify-between items-center p-1">
+            <div className="w-full flex justify-start items-center">
+              <button onClick={onToggleSidebar} className="p-2 border border-transparent rounded-md hover:bg-white hover:border hover:border-[#efefef] transition-all">
+                <svg className="size-6 text-neutral-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                  <path fillRule="evenodd" clipRule="evenodd"
+                    d="M6 4C4.34315 4 3 5.34315 3 7V17C3 18.6569 4.34315 20 6 20H18C19.6569 20 21 18.6569 21 17V7C21 5.34315 19.6569 4 18 4H6ZM5 7C5 6.44772 5.44772 6 6 6H9V18H6C5.44772 18 5 17.5523 5 17V7ZM11 18H18C18.5523 18 19 17.5523 19 17V7C19 6.44772 18.5523 6 18 6H11V18Z"
+                    fill="#3d3d3a" />
+                </svg>
+              </button>
+              <div className="mx-1 w-[1px] h-5/7 bg-[#ebebeb]"></div>
+              <div className="w-auto mx-1 p-1">
+                <SetContentLabel />
               </div>
-              <span className="text-[16px] sg-semibold text-neutral-900 flex gap-2 items-center">
-                <span className="text-nowrap">Valerie Attila Al-fath</span>
-                <span className="bg-yellow-100 text-yellow-600 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Admin</span>
-              </span>
+              <div className="hidden md:block mx-1 w-[1px] h-5/7 bg-[#ebebeb]"></div>
+              <div className="hidden md:flex items-center gap-3 px-4">
+                <div className="size-8 border border-[#ebebeb] bg-transparent overflow-hidden rounded-full">
+                  <img src={UserPic} className="object-cover" alt="User Picture" />
+                </div>
+                <span className="text-[16px] sg-semibold text-neutral-900 flex gap-2 items-center">
+                  <span className="text-nowrap">Valerie Attila Al-fath</span>
+                  <span className="bg-yellow-100 text-yellow-600 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Admin</span>
+                </span>
+              </div>
             </div>
+
+            <button className="md:hidden mx-2 w-10 h-auto border border-[#ebebeb] bg-transparent overflow-hidden rounded-full">
+              <img src={UserPic} className="w-full h-full object-cover" alt="User Picture" />
+            </button>
           </div>
-          <div className="w-full flex justify-end items-center gap-1 px-5 py-1">
+          <div className="hidden w-full md:flex justify-end items-center gap-1 px-5 py-1">
             <label htmlFor="search" className="w-1/2 relative rounded-full border border-[#ebebeb] flex items-center hover:bg-green-100/30 transition-all">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                 stroke="currentColor" className="size-4 text-neutral-500 absolute left-2">
