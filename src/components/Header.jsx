@@ -1,0 +1,123 @@
+import ListContent from "./content/ListContent"
+import DashboardContent from "./content/DashboardContent"
+import BorrowingsContent from "./content/BorrowingsContent"
+import UserPic from "../assets/image/user.jpg"
+
+function SetContent() {
+  const pathName = window.location.pathname
+
+  const linkDashboard = "/"
+  const linkList = "/list"
+  const linkBorrowings = "/borrowings"
+
+  if (pathName == linkDashboard) {
+    return <DashboardContent />
+  } else if (pathName == linkList) {
+    return <ListContent />
+  } else if (pathName == linkBorrowings) {
+    return <BorrowingsContent />
+  }
+}
+
+function SetContentLabel() {
+  const pathName = window.location.pathname
+
+  const linkDashboard = "/"
+  const linkList = "/list"
+  const linkBorrowings = "/borrowings"
+
+  if (pathName == linkDashboard) {
+    return (
+      <span className="flex items-center justify-start gap-3">
+        <span className="text-md text-neutral-500 hover:text-neutral-700">General</span>
+        <span className="text-md text-neutral-500 hover:text-neutral-700">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+            stroke="currentColor" className="size-4">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+          </svg>
+        </span>
+        <span className="text-md text-neutral-500 hover:text-neutral-700">Dashboard</span>
+      </span>
+    )
+  } else if (pathName == linkList) {
+    return (
+      <span className="flex items-center justify-start gap-3">
+        <span className="text-md text-neutral-500 hover:text-neutral-700">General</span>
+        <span className="text-md text-neutral-500 hover:text-neutral-700">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+            stroke="currentColor" className="size-4">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+          </svg>
+        </span>
+        <span className="text-md text-neutral-500 hover:text-neutral-700 text-nowrap">Book List</span>
+      </span>
+    )
+  } else if (pathName == linkBorrowings) {
+    return (
+      <span className="flex items-center justify-start gap-3">
+        <span className="text-md text-neutral-500 hover:text-neutral-700">General</span>
+        <span className="text-md text-neutral-500 hover:text-neutral-700">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+            stroke="currentColor" className="size-4">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+          </svg>
+        </span>
+        <span className="text-md text-neutral-500 hover:text-neutral-700">Borrowings</span>
+      </span>
+    )
+  }
+}
+
+export default function Header({ onToggleSidebar }) {
+  return (
+    <div id="content" className="bg-transparent w-full overflow-auto max-h-[100vh]">
+      <div className="w-auto h-full flex flex-col relative border-l-1 border-[#dfdfdf]">
+        {/* Content Header */}
+        <div className="w-full flex justify-between border-b-1 border-[#dfdfdf]">
+          <div className="w-full flex justify-start items-center p-1">
+            <button onClick={onToggleSidebar} className="p-2 border border-transparent rounded-md hover:bg-white hover:border hover:border-[#efefef] transition-all">
+              <svg className="size-6 text-neutral-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                <path fillRule="evenodd" clipRule="evenodd"
+                  d="M6 4C4.34315 4 3 5.34315 3 7V17C3 18.6569 4.34315 20 6 20H18C19.6569 20 21 18.6569 21 17V7C21 5.34315 19.6569 4 18 4H6ZM5 7C5 6.44772 5.44772 6 6 6H9V18H6C5.44772 18 5 17.5523 5 17V7ZM11 18H18C18.5523 18 19 17.5523 19 17V7C19 6.44772 18.5523 6 18 6H11V18Z"
+                  fill="#3d3d3a" />
+              </svg>
+            </button>
+            <div className="mx-1 w-[1px] h-5/7 bg-[#ebebeb]"></div>
+            <div className="w-auto p-1">
+              <SetContentLabel />
+            </div>
+            <div className="mx-1 w-[1px] h-5/7 bg-[#ebebeb]"></div>
+            <div className="flex items-center gap-3 px-4">
+              <div className="size-8 border border-[#ebebeb] bg-transparent overflow-hidden rounded-full">
+                <img src={UserPic} className="object-cover" alt="User Picture" />
+              </div>
+              <span className="text-[16px] sg-semibold text-neutral-900 flex gap-2 items-center">
+                <span className="text-nowrap">Valerie Attila Al-fath</span>
+                <span className="bg-yellow-100 text-yellow-600 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Admin</span>
+              </span>
+            </div>
+          </div>
+          <div className="w-full flex justify-end items-center gap-1 px-5 py-1">
+            <label htmlFor="search" className="w-1/2 relative rounded-full border border-[#ebebeb] flex items-center hover:bg-green-100/30 transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                stroke="currentColor" className="size-4 text-neutral-500 absolute left-2">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+              </svg>
+              <input type="text" placeholder="search..." name="search" id="search" className="w-full ps-8 py-1 outline-none border-1 border-transparent rounded-full focus:border-[#eee] transition-all" />
+            </label>
+            <button className="p-1 bg-white rounded-full group hover:bg-green-50 border border-transparent hover:border-[#ebebeb] transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                stroke="currentColor" className="size-6 text-neutral-500 group-hover:text-text-neutral-800 transition-all">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                  d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        {/* Main Content */}
+        <SetContent />
+      </div>
+    </div>
+  )
+}
