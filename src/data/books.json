@@ -1,7 +1,7 @@
 {
   "books": [
     {
-      "id": 148533,
+      "id": "148533",
       "title": "React.js Advanced",
       "status": true,
       "email": "ggwp123@gmail.com",
@@ -9,7 +9,7 @@
       "city": "medan"
     },
     {
-      "id": 248392,
+      "id": "248392",
       "title": "Node.js for Beginners",
       "status": true,
       "email": "johndoe@gmail.com",
@@ -17,7 +17,7 @@
       "city": "london"
     },
     {
-      "id": 343534,
+      "id": "343534",
       "title": "Express Basics",
       "status": true,
       "email": "jnsmith54@gmail.com",
@@ -25,7 +25,7 @@
       "city": "minnesota"
     },
     {
-      "id": 349924,
+      "id": "349924",
       "title": "HTML Dasar",
       "status": false,
       "email": "dnsIP5678@gmail.com",
@@ -33,7 +33,7 @@
       "city": "palembang"
     },
     {
-      "id": 412835,
+      "id": "412835",
       "title": "Fundamental Pemrograman by Dijie",
       "status": true,
       "email": "just_dijie322@gmail.com",
@@ -41,7 +41,7 @@
       "city": "surabaya"
     },
     {
-      "id": 649904,
+      "id": "649904",
       "title": "Integrasi Algoritma di Coding",
       "status": true,
       "email": "silvia0909@gmail.com",
@@ -49,7 +49,7 @@
       "city": "Jakarta"
     },
     {
-      "id": 128493,
+      "id": "128493",
       "title": "RESTful API & AJAX by Christoper Garrison",
       "status": false,
       "email": "mark71chris@gmail.com",
@@ -57,7 +57,7 @@
       "city": "boston"
     },
     {
-      "id": 739274,
+      "id": "739274",
       "title": "MySQL & PostgreeSQL Database",
       "status": true,
       "email": "mark_level999@gmail.com",
@@ -65,7 +65,7 @@
       "city": "dublin"
     },
     {
-      "id": 339428,
+      "id": "339428",
       "title": "Flutter Advanced part 2",
       "status": true,
       "email": "franz_de_kaizer121212@gmail.com",
@@ -73,7 +73,7 @@
       "city": "frankfurt"
     },
     {
-      "id": 222354,
+      "id": "222354",
       "title": "Binary System",
       "status": false,
       "email": "vivian_stinka@gmail.com",

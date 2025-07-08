@@ -246,19 +246,58 @@ const books = {
   ]
 }
 
+
+class TambahBorrower {
+  constructor(books) {
+    this.books = books;
+  }
+
+  addBorrowerById(bookId, borrowerData) {
+    const book = this.books.book.find(b => b.id === bookId);
+    if (book) {
+      book.borrower.push(borrowerData);
+      return true;
+    }
+    return false;
+  }
+
+  addBorrowerByTitle(title, borrowerData) {
+    const book = this.books.book.find(b => b.title === title);
+    if (book) {
+      book.borrower.push(borrowerData);
+      return true;
+    }
+    return false;
+  }
+}
+
+const tambah = new TambahBorrower(books);
+tambah.addBorrowerById("14853348", {
+  name: "WWWcecepSumargo",
+  email: "panggilAjaCecep@baru.com",
+  city: "bandung",
+  amount: 3
+});
+tambah.addBorrowerByTitle("React.js Advanced", {
+  name: "Bryan Malik",
+  email: "coding_is_fun@email.com",
+  city: "chicago",
+  amount: 5
+});
+
 const borrowers = [
   [books.book[0], "Daniel Morgan", "morganDevOps311@gmail.com", "dublin", 4],
-  [books.book[4], "Marry Jane", "marryJaneXP@gmail.com", "amsterdam", 4],
-  [books.book[3], "Michael Sunthar", "bigboomArmy78@gmail.com", "paris", 4],
-  [books.book[3], "Jack Collins", "fatman1945@gmail.com", "lyon", 4],
-  [books.book[6], "Daryl Martinius", "dear_god_help_me@gmail.com", "nurnberg", 4],
-  [books.book[3], "Jeffry McKlinton", "only_jeffMaster@gmail.com", "praha", 4],
-  [books.book[2], "Nikita Viskya", "CATcanMakeMeHappy@gmail.com", "riga", 4],
-  [books.book[2], "Lana Butcher", "lookingforaJOB@gmail.com", "berlin", 4],
-  [books.book[6], "Nathan Danson", "nathan999999@gmail.com", "hamburg", 4],
+  [books.book[4], "Marry Jane", "marryJaneXP@gmail.com", "amsterdam", 5],
+  [books.book[3], "Michael Sunthar", "bigboomArmy78@gmail.com", "paris", 1],
+  [books.book[3], "Jack Collins", "fatman1945@gmail.com", "lyon", 2],
+  [books.book[6], "Daryl Martinius", "dear_god_help_me@gmail.com", "nurnberg", 8],
+  [books.book[3], "Jeffry McKlinton", "only_jeffMaster@gmail.com", "praha", 11],
+  [books.book[2], "Nikita Viskya", "CATcanMakeMeHappy@gmail.com", "riga", 8],
+  [books.book[2], "Lana Butcher", "lookingforaJOB@gmail.com", "berlin", 5],
+  [books.book[6], "Nathan Danson", "nathan999999@gmail.com", "hamburg", 5],
   [books.book[0], "Ashton Nakamura", "happinessCrisist@gmail.com", "leeds", 4],
-  [books.book[4], "Abdullah Samanhuddin", "gambleIsHaram@gmail.com", "istanbul", 4],
-  [books.book[7], "Dan Layton", "capt_noobMaster@gmail.com", "columbus", 4],
+  [books.book[4], "Abdullah Samanhuddin", "gambleIsHaram@gmail.com", "istanbul", 7],
+  [books.book[7], "Dan Layton", "capt_noobMaster@gmail.com", "columbus", 3],
 ];
 
 borrowers.forEach(data => {
@@ -275,17 +314,18 @@ books.book.forEach(borrowerUser => {
     console.log(`
       Book : ${borrowerUser.title}
       Borrower : ${data.map(i => {
-        return ` ${i.name}`
-      })}
+      return ` ${i.name}`
+    })}
       Email : ${data.map(i => {
-        return `\n\t${i.name} : ${i.email}`
-      })}
+      return `\n\t${i.name} : ${i.email}`
+    })}
       City : ${data.map(i => {
-        return ` ${i.city}`
-      })}
+      return ` ${i.city}`
+    })}
       Amount : ${data.map(i => {
-        return `\n\t${i.name} : ${i.amount}`
-      })}
+      return `\n\t${i.name} : ${i.amount}`
+    })}
     `)
   }
 })
+

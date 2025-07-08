@@ -2,6 +2,7 @@ import ListContent from "./content/ListContent"
 import DashboardContent from "./content/DashboardContent"
 import BorrowingsContent from "./content/BorrowingsContent"
 import MembersContent from "./content/MembersContent"
+import CalendarContent from "./content/CalendarContent"
 import UserPic from "../assets/image/user.jpg"
 
 function SetContent() {
@@ -11,6 +12,7 @@ function SetContent() {
   const linkList = "/list"
   const linkBorrowings = "/borrowings"
   const linkMembers = "/members"
+  const linkCalendar = "/calendar"
 
   if (pathName == linkDashboard) {
     return <DashboardContent />
@@ -19,7 +21,9 @@ function SetContent() {
   } else if (pathName == linkBorrowings) {
     return <BorrowingsContent />
   } else if (pathName == linkMembers) {
-    return <MembersContent/>
+    return <MembersContent />
+  } else if (pathName == linkCalendar) {
+    return <CalendarContent />
   }
 }
 
@@ -30,6 +34,7 @@ function SetContentLabel() {
   const linkList = "/list"
   const linkBorrowings = "/borrowings"
   const linkMembers = "/members"
+  const linkCalendar = "/calendar"
 
   if (pathName == linkDashboard) {
     return (
@@ -83,6 +88,19 @@ function SetContentLabel() {
         <span className="text-md text-neutral-500 hover:text-neutral-700">Members</span>
       </span>
     )
+  } else if (pathName == linkCalendar) {
+    return (
+      <span className="flex items-center justify-start gap-3">
+        <span className="text-md text-neutral-500 hover:text-neutral-700">General</span>
+        <span className="text-md text-neutral-500 hover:text-neutral-700">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+            stroke="currentColor" className="size-4">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+          </svg>
+        </span>
+        <span className="text-md text-neutral-500 hover:text-neutral-700">Calendar</span>
+      </span>
+    )
   }
 }
 
@@ -106,36 +124,19 @@ export default function Header({ onToggleSidebar }) {
                 <SetContentLabel />
               </div>
               <div className="hidden md:block mx-1 w-[1px] h-5/7 bg-[#ebebeb]"></div>
-              <div className="hidden md:flex items-center gap-3 px-4">
-                <div className="size-8 border border-[#ebebeb] bg-transparent overflow-hidden rounded-full">
-                  <img src={UserPic} className="object-cover" alt="User Picture" />
-                </div>
-                <span className="text-[16px] sg-semibold text-neutral-900 flex gap-2 items-center">
-                  <span className="text-nowrap">Valerie Attila Al-fath</span>
-                  <span className="bg-yellow-100 text-yellow-600 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Admin</span>
-                </span>
+            </div>
+            <div className="hidden md:flex items-center gap-3 px-4">
+              <span className="text-[16px] sg-semibold text-neutral-900 flex gap-2 items-center">
+                <span className="bg-yellow-100 text-yellow-600 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Admin</span>
+                <span className="text-nowrap">Valerie Attila Al-fath</span>
+              </span>
+              <div className="size-8 border border-[#ebebeb] bg-transparent overflow-hidden rounded-full">
+                <img src={UserPic} className="object-cover" alt="User Picture" />
               </div>
             </div>
 
             <button className="md:hidden mx-2 w-10 h-auto border border-[#ebebeb] bg-transparent overflow-hidden rounded-full">
               <img src={UserPic} className="w-full h-full object-cover" alt="User Picture" />
-            </button>
-          </div>
-          <div className="hidden w-full md:flex justify-end items-center gap-1 px-5 py-1">
-            <label htmlFor="search" className="w-1/2 relative rounded-full border border-[#ebebeb] flex items-center hover:bg-green-100/30 transition-all">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                stroke="currentColor" className="size-4 text-neutral-500 absolute left-2">
-                <path strokeLinecap="round" strokeLinejoin="round"
-                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-              </svg>
-              <input type="text" placeholder="search..." name="search" id="search" className="w-full ps-8 py-1 outline-none border-1 border-transparent rounded-full focus:border-[#eee] transition-all" />
-            </label>
-            <button className="p-1 bg-white rounded-full group hover:bg-green-50 border border-transparent hover:border-[#ebebeb] transition-all">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                stroke="currentColor" className="size-6 text-neutral-500 group-hover:text-text-neutral-800 transition-all">
-                <path strokeLinecap="round" strokeLinejoin="round"
-                  d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-              </svg>
             </button>
           </div>
         </div>

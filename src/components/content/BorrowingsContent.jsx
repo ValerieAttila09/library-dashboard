@@ -38,6 +38,7 @@ function RowData({ data }) {
 
 export default function BorrowingsContent() {
   const [loanData, setLoanData] = useState([])
+  const [search, setSearch] = useState("")
 
   useEffect(() => {
     const getBookLoanData = async () => {
@@ -63,12 +64,18 @@ export default function BorrowingsContent() {
     console.log(loanData)
   }
 
+  const getSearch = loanData.filter(get => 
+    get.id.toLowerCase().includes(search.toLowerCase()) ||
+    get.book.toLowerCase().includes(search.toLowerCase()) ||
+    get.borrower.toLowerCase().includes(search.toLowerCase())
+  )
+
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent">
       <div className="w-full h-auto flex flex-col gap-4">
 
         <div className="w-full grid md:flex items-center flex-wrap gap-4 px-4 py-2">
-          
+
           <div className="w-full md:w-[32%] h-[8rem] rounded-lg border border-[#ebebeb] shadow px-6 py-4 hover:bg-green-50/30 hover:shadow-lg transition-all">
             <div className="w-full h-full flex flex-col justify-start">
               <div className="w-full flex flex-col justify-between gap-4">
@@ -179,47 +186,76 @@ export default function BorrowingsContent() {
 
         </div>
 
-        <div className="w-full overflow-x-auto">
-          <table className="w-full table-auto">
-            <thead>
-              <tr className="bg-white/60">
-                <th className="px-2 py-1 text-center text-neutral-700">No</th>
-                <th className="border-s border-[#ebebeb] px-2 py-1 text-center text-neutral-700">Book ID</th>
-                <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Title</th>
-                <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Status</th>
-                <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Author</th>
-                <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Borrower</th>
-                <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Date</th>
-                <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Deadline</th>
-                <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Action</th>
-              </tr>
-            </thead>
-            <tbody id="bookTable">
-              {loanData.map((data) => {
-                const status = data.status ? "active" : "non-active"
-                const statusColor = data.status ? "green" : "red"
-                const statusBook = data.status
+        <div className="w-full h-auto md:h-[26rem]  flex flex-col md:flex-row">
+          <div className="w-full md:w-3/5 border-r-1 overflow-hidden border-b-1 border-t-1 border-[#ebebeb]">
+            <div className="w-full p-1">
+              <label htmlFor="search" className="w-1/2 relative rounded-full border border-[#ebebeb] flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                  stroke="currentColor" className="size-4 text-neutral-500 absolute left-2">
+                  <path strokeLinecap="round" strokeLinejoin="round"
+                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+                <input value={search} onChange={e => setSearch(e.target.value)} type="text" placeholder="search..." name="search" id="search" className="w-full ps-8 py-1 outline-none" />
+              </label>
+            </div>
+            <div className="w-full h-full overflow-y-scroll overflow-x-scroll">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-white/60">
+                    <th className="px-2 py-1 text-center text-neutral-700">No</th>
+                    <th className="border-s border-[#ebebeb] px-2 py-1 text-center text-neutral-700">Book ID</th>
+                    <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Title</th>
+                    <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Status</th>
+                    <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Author</th>
+                    <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Borrower</th>
+                    <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Date</th>
+                    <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Deadline</th>
+                    <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="bookTable">
+                  {getSearch.map((data) => {
+                    const status = data.status ? "active" : "non-active"
+                    const statusColor = data.status ? "green" : "red"
+                    const statusBook = data.status
 
-                return (
-                  <RowData
-                    key={data.id}
-                    data={{
-                      number: loanData.indexOf(data) + 1,
-                      id: data.id,
-                      book: data.book,
-                      author: data.author,
-                      borrower: data.borrower,
-                      loanDate: data.loanDate,
-                      deadline: data.deadline,
-                      status: status,
-                      bookElement: statusBook,
-                      statusColor: statusColor,
-                    }}
-                  />
-                )
-              })}
-            </tbody>
-          </table>
+                    return (
+                      <RowData
+                        key={data.id}
+                        data={{
+                          number: loanData.indexOf(data) + 1,
+                          id: data.id,
+                          book: data.book,
+                          author: data.author,
+                          borrower: data.borrower,
+                          loanDate: data.loanDate,
+                          deadline: data.deadline,
+                          status: status,
+                          bookElement: statusBook,
+                          statusColor: statusColor,
+                        }}
+                      />
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div className="w-full h-full md:h-full md:w-2/5 border-b-1 border-t-1 border-[#ebebeb]">
+            <div className="w-full h-full p-2">
+              <div className="w-full h-full rounded-md border border-[#ebebeb] shadow p-4">
+                <div className="w-full flex justify-start items-center">
+                  <h1 className="text-4xl text-neutral-900">Some title</h1>
+                </div>
+                <div className="w-full my-1">
+                  <p className="text-md text-neutral-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae laudantium cupiditate aliquid possimus aliquam saepe totam numquam. Harum natus eos aspernatur velit beatae necessitatibus, odit distinctio voluptas temporibus atque autem accusamus omnis rem laboriosam saepe voluptatum nostrum?</p>
+                </div>
+                <div className="w-full">
+                  <button className="text-md text-neutral-800 border border-[#ebebeb] bg-white px-3 py-2 rounded-full shadow hover:shadow-lg hover:bg-[#ebebeb] transition-all">Some button</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -37,7 +37,6 @@ function RowData({ data, onDelete }) {
 
 export default function ListContent() {
   const [books, setBooks] = useState([]);
-  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -77,13 +76,6 @@ export default function ListContent() {
       console.log('gagal menghapus data buku : ', error)
     }
   }
-
-  const filteredBook = books.filter(book => 
-    book.title.toLowerCase().includes(search.toLowerCase()) ||
-    book.author.toLowerCase().includes(search.toLowerCase()) ||
-    book.id.toLowerCase().includes(search.toLowerCase())
-  )
-
   return (
     <div className='w-full h-full overflow-y-auto' >
       <div className="w-auto pt-2 px-2 border-b-1 border-[#dfdfdf]">
@@ -127,7 +119,7 @@ export default function ListContent() {
             <path strokeLinecap="round" strokeLinejoin="round"
               d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>
-          <input value={search} onChange={e => setSearch(e.target.value)} type="text" placeholder="search..." name="search" id="search" className="w-full ps-8 py-1 outline-none" />
+          <input type="text" placeholder="search..." name="search" id="search" className="w-full ps-8 py-1 outline-none" />
         </label>
         <div className="flex gap-2">
           <button id="menuWrapped"
@@ -172,7 +164,7 @@ export default function ListContent() {
             </tr>
           </thead>
           <tbody id="bookTable">
-            {filteredBook.map((book) => {
+            {books.map((book) => {
               const status = book.status ? "available" : "unavailable"
               const statusColor = book.status ? "green" : "red"
               const statusBook = book.status
