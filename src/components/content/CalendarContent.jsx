@@ -109,6 +109,24 @@ function MiniCalendar() {
           {calendar}
         </div>
       </div>
+      <div className="w-full mt-6 h-[1px] rounded-full bg-[#ebebeb]"></div>
+      <div className="w-full p-4">
+        <h1 className="text-2xl text-neutral-800 outfit-medium">Categories</h1>
+        <div className="w-full flex flex-col gap-1 py-2">
+          <div className="w-full flex items-center justify-start gap-2">
+            <div className="size-2 bg-blue-400 rounded-full"></div>
+            <span className="text-md text-neutral-700">Priority</span>
+          </div>
+          <div className="w-full flex items-center justify-start gap-2">
+            <div className="size-2 bg-violet-400 rounded-full"></div>
+            <span className="text-md text-neutral-700">Secondary</span>
+          </div>
+          <div className="w-full flex items-center justify-start gap-2">
+            <div className="size-2 bg-red-400 rounded-full"></div>
+            <span className="text-md text-neutral-700">Tertiary</span>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
@@ -148,20 +166,20 @@ export default function CalendarContent() {
       <div key={i} className={`${isHariIni ? 'bg-green-100/35' : "bg-white"} px-3 w-1/7 h-[140px] hover:bg-[#f7f7f7] transition-all flex flex-col`}>
         <div className="w-full h-1/5 flex items-center justify-center">{i}</div>
         <div className="w-full h-4/5 flex flex-col gap-1 p-1">
-          <div className="w-full rounded-md overflow-hidden shadow flex items-center gap-2 py-1 pe-2">
+          <div className="w-full rounded-md overflow-hidden shadow flex items-center gap-2 p-1">
             <div className="w-1 h-4/5 bg-blue-400 rounded-full"></div>
             <div className="w-full flex items-center">
               <span className="text-[12px] text-nowrap text-neutral-800">Schedule</span>
             </div>
           </div>
-          <div className="w-full rounded-md overflow-hidden shadow flex items-center gap-2 py-1 pe-2">
-            <div className="w-1 h-4/5 bg-blue-400 rounded-full"></div>
+          <div className="w-full rounded-md overflow-hidden shadow flex items-center gap-2 p-1">
+            <div className="w-1 h-4/5 bg-violet-400 rounded-full"></div>
             <div className="w-full flex items-center">
               <span className="text-[12px] text-nowrap text-neutral-800">Schedule</span>
             </div>
           </div>
-          <div className="w-full rounded-md overflow-hidden shadow flex items-center gap-2 py-1 pe-2">
-            <div className="w-1 h-4/5 bg-blue-400 rounded-full"></div>
+          <div className="w-full rounded-md overflow-hidden shadow flex items-center gap-2 p-1">
+            <div className="w-1 h-4/5 bg-red-400 rounded-full"></div>
             <div className="w-full flex items-center">
               <span className="text-[12px] text-nowrap text-neutral-800">Schedule</span>
             </div>
