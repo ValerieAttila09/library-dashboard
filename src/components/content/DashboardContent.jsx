@@ -95,11 +95,11 @@ export default function DashboardContent() {
       <div className="md:w-5/7 w-full h-full overflow-y-auto">
         <div className="w-full flex flex-col items-start justify-between gap-[1rem] p-8 border-b-1 border-[#ebebeb]">
           <div className="w-full flex flex-col gap-1 py-1">
-            <h1 className="text-5xl sg-semibold text-neutral-900">Hello, Valerie Attila Al-fath</h1>
+            <h1 className="text-5xl outfit-bold text-neutral-900">Hello, Valerie Attila Al-fath</h1>
             <span className="text-lg text-neutral-500">Set up and manage your library here and don't forget to keep the spirit up!</span>
           </div>
           <div className="w-auto flex justify-start items-start gap-2 py-1">
-            <span className="text-neutral-700 sg-medium text-lg text-nowrap">
+            <span className="text-neutral-700 outfit-medium text-lg text-nowrap">
               {`${day} ${monthName}, ${year}`}
             </span>
             <div className="p-1 rounded-full bg-neutral-100">
@@ -116,9 +116,9 @@ export default function DashboardContent() {
                 <div className="w-full h-full flex flex-col gap-2">
                   <div className="w-full h-1/3 flex items-center justify-between">
                     <div className="w-full">
-                      <h1 className="text-lg sg-semibold text-neutral-800">Book income</h1>
+                      <h1 className="text-lg outfit-semibold text-neutral-800">Book income</h1>
                       <div className="flex gap-1 items-center">
-                        <span className="text-5xl sg-bold">
+                        <span className="text-5xl outfit-bold">
                           <IncomeTotal />
                         </span>
                         <div className="flex items-center">
@@ -127,7 +127,7 @@ export default function DashboardContent() {
                               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
                             </svg>
                           </div>
-                          <span className="text-md sg-medium text-green-400">
+                          <span className="text-md outfit-medium text-green-400">
                             <PercentageValue chartKe={1} />
                           </span>
                         </div>
@@ -151,9 +151,9 @@ export default function DashboardContent() {
                 <div className="w-full h-full flex flex-col gap-2">
                   <div className="w-full h-1/3 flex items-center justify-between">
                     <div className="w-full">
-                      <h1 className="text-lg sg-semibold text-neutral-800">Book Loans</h1>
+                      <h1 className="text-lg outfit-semibold text-neutral-800">Book Loans</h1>
                       <div className="flex gap-1 items-center">
-                        <span className="text-5xl sg-bold">
+                        <span className="text-5xl outfit-bold">
                           <LoanTotal />
                         </span>
                         <div className="flex items-center">
@@ -162,7 +162,7 @@ export default function DashboardContent() {
                               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
                             </svg>
                           </div>
-                          <span className="text-md sg-medium text-green-400">
+                          <span className="text-md outfit-medium text-green-400">
                             <PercentageValue chartKe={2} />
                           </span>
                         </div>
@@ -186,9 +186,9 @@ export default function DashboardContent() {
                 <div className="w-full h-full flex flex-col gap-2">
                   <div className="w-full h-1/3 flex items-center justify-between">
                     <div className="w-full">
-                      <h1 className="text-lg sg-semibold text-neutral-800">Members</h1>
+                      <h1 className="text-lg outfit-semibold text-neutral-800">Members</h1>
                       <div className="flex gap-1 items-center">
-                        <span className="text-5xl sg-bold">
+                        <span className="text-5xl outfit-bold">
                           <MembersTotal />
                         </span>
                         <div className="flex items-center">
@@ -197,7 +197,7 @@ export default function DashboardContent() {
                               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
                             </svg>
                           </div>
-                          <span className="text-md sg-medium text-green-400">
+                          <span className="text-md outfit-medium text-green-400">
                             <PercentageValue chartKe={3} />
                           </span>
                         </div>
@@ -256,7 +256,7 @@ export default function DashboardContent() {
       <div className="hidden md:w-2/7 h-full md:flex flex-col gap-4 p-4 border-l-1 border-[#ebebeb] overflow-y-auto">
         <div className="w-full h-auto p-4 border border-[#ebebeb] rounded-2xl shadow bg-white">
           <div className="w-full flex justify-between items-center">
-            <h1 className="text-lg text-neutral-800 sg-medium">Team members</h1>
+            <h1 className="text-lg text-neutral-800 outfit-medium">Team members</h1>
             <button className="rounded-full flex items-center gap-1 px-2 py-1 border border-[#ebebeb] bg-white hover:bg-green-100/35 hover:border-green-600 hover:text-green-600 transition-all">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="size-5 text-neutral-600">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />

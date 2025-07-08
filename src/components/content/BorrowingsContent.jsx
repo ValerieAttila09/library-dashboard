@@ -87,7 +87,7 @@ export default function BorrowingsContent() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                       </svg>
                     </div>
-                    <span className="text-md text-neutral-900 sg-medium text-nowrap">This month loan</span>
+                    <span className="text-md text-neutral-900 outfit-medium text-nowrap">This month loan</span>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 text-neutral-500">
@@ -97,11 +97,11 @@ export default function BorrowingsContent() {
                 </div>
 
                 <div className="w-full flex items-center justify-start gap-4">
-                  <span className="text-5xl text-neutral-900 sg-semibold">
+                  <span className="text-5xl text-neutral-900 outfit-semibold">
                     257
                   </span>
                   <div className="px-[5px] py-[2px] rounded-md bg-green-100 flex gap-1 items-center">
-                    <span className="text-xs text-green-500 sg-thin">13.65%</span>
+                    <span className="text-xs text-green-500 outfit-thin">13.65%</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="size-3 text-green-500">
                       <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
                     </svg>
@@ -123,7 +123,7 @@ export default function BorrowingsContent() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 0 0 4.5 9.75v7.5a2.25 2.25 0 0 0 2.25 2.25h7.5a2.25 2.25 0 0 0 2.25-2.25v-7.5a2.25 2.25 0 0 0-2.25-2.25h-.75m0-3-3-3m0 0-3 3m3-3v11.25m6-2.25h.75a2.25 2.25 0 0 1 2.25 2.25v7.5a2.25 2.25 0 0 1-2.25 2.25h-7.5a2.25 2.25 0 0 1-2.25-2.25v-.75" />
                       </svg>
                     </div>
-                    <span className="text-md text-neutral-900 sg-medium text-nowrap">Total loans this week</span>
+                    <span className="text-md text-neutral-900 outfit-medium text-nowrap">Total loans this week</span>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 text-neutral-500">
@@ -133,11 +133,11 @@ export default function BorrowingsContent() {
                 </div>
 
                 <div className="w-full flex items-center justify-start gap-4">
-                  <span className="text-5xl text-neutral-900 sg-semibold">
+                  <span className="text-5xl text-neutral-900 outfit-semibold">
                     43
                   </span>
                   <div className="px-[5px] py-[2px] rounded-md bg-green-100 flex gap-1 items-center">
-                    <span className="text-xs text-green-500 sg-thin">26.47%</span>
+                    <span className="text-xs text-green-500 outfit-thin">26.47%</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="size-3 text-green-500">
                       <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
                     </svg>
@@ -159,7 +159,7 @@ export default function BorrowingsContent() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
                       </svg>
                     </div>
-                    <span className="text-md text-neutral-900 sg-medium">Warnings</span>
+                    <span className="text-md text-neutral-900 outfit-medium">Warnings</span>
                   </div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 text-neutral-500">
@@ -169,11 +169,11 @@ export default function BorrowingsContent() {
                 </div>
 
                 <div className="w-full flex items-center justify-start gap-4">
-                  <span className="text-5xl text-neutral-900 sg-semibold">
+                  <span className="text-5xl text-neutral-900 outfit-semibold">
                     7
                   </span>
                   <div className="px-[5px] py-[2px] rounded-md bg-red-100 flex gap-1 items-center">
-                    <span className="text-xs text-red-500 sg-thin">+2</span>
+                    <span className="text-xs text-red-500 outfit-thin">+2</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="size-3 text-red-500">
                       <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
                     </svg>

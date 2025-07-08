@@ -88,7 +88,7 @@ export default function ListContent() {
     <div className='w-full h-full overflow-y-auto' >
       <div className="w-auto pt-2 px-2 border-b-1 border-[#dfdfdf]">
         <div className="w-full flex justify-start items-center px-4 py-2">
-          <h1 className="text-4xl md:text-5xl text-neutral-900 sg-bold">Library</h1>
+          <h1 className="text-4xl md:text-5xl text-neutral-900 outfit-bold">Library</h1>
         </div>
         <div className="w-full overflow-x-auto flex justify-start items-center px-2 pt-1 pb-3 gap-2">
           <button
