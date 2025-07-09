@@ -5,7 +5,6 @@ const monthNames = [
 ];
 
 function CalendarHeader({ bulan, tahun, onPrev, onNext, onYearChange }) {
-  // Dropdown tahun
   const yearOptions = [];
   const thisYear = new Date().getFullYear();
   for (let y = thisYear - 10; y <= thisYear + 10; y++) {
