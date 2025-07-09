@@ -18,7 +18,7 @@ function CalendarHeader({ bulan, tahun, onPrev, onNext, onYearChange }) {
         </svg>
       </button>
       <span className="font-semibold text-lg">{monthNames[bulan]} {tahun}</span>
-      <select value={tahun} onChange={onYearChange} className="border rounded px-2 py-1">
+      <select value={tahun} onChange={onYearChange} className="border border-[#ebebeb] rounded-md px-2 py-1">
         {yearOptions}
       </select>
       <button onClick={onNext} className="p-1 border border-[#ebebeb] rounded-full hover:bg-neutral-100 transition-all">
@@ -43,7 +43,7 @@ function buildCalendar({ bulan, tahun, isLarge, today }) {
   let minggu = [];
   for (let i = jumlahHariKosong; i > 0; i--) {
     minggu.push(
-      <div key={`prev-${i}`} className={`p-1 w-1/7 ${isLarge ? 'h-[148px]' : 'h-auto'} text-neutral-400 flex items-center justify-center`}>
+      <div key={`prev-${i}`} className={`p-1 w-1/7 ${isLarge ? 'h-[148px] bg-[#f7f7f7]' : 'h-auto'} text-neutral-400 flex items-center justify-center`}>
         {hariTerakhirBulanSebelumnya - i + 1}
       </div>
     );
@@ -51,13 +51,13 @@ function buildCalendar({ bulan, tahun, isLarge, today }) {
   for (let i = 1; i <= jumlahHari; i++) {
     const isHariIni = isCurrentMonth && i === hariIni;
     minggu.push(
-      <div key={i} className={`py-2 w-1/7 ${isLarge ? 'h-[148px]' : 'h-auto'} hover:bg-[#f7f7f7] rounded-full transition-all flex items-center justify-center`}>
-        <span className={`${isHariIni ? 'bg-green-100/60 rounded-full' : "bg-transparent"} px-2`}>{i}</span>
+      <div key={i} className={`py-2 w-1/7 ${isLarge ? 'h-[148px]' : 'h-auto rounded-full'} ${isHariIni ? "bg-green-100/55" : ""} hover:bg-[#f7f7f7] transition-all flex items-center justify-center`}>
+        <span className={`${isHariIni && !isLarge ? 'bg-green-100/60 rounded-full' : "bg-transparent"} px-2`}>{i}</span>
       </div>
     );
     if (minggu.length === 7) {
       calendar.push(
-        <div key={`minggu-${i}`} className="w-full flex">{minggu}</div>
+        <div key={`minggu-${i}`} className={`w-full flex ${isLarge ? "divide-x-1 divide-[#ebebeb]" : ""}`}>{minggu}</div>
       );
       minggu = [];
     }
@@ -66,13 +66,13 @@ function buildCalendar({ bulan, tahun, isLarge, today }) {
     let nextDate = 1;
     while (minggu.length < 7) {
       minggu.push(
-        <div key={`next-${nextDate}`} className={`p-1 w-1/7 ${isLarge ? 'h-[148px]' : 'h-auto'} text-neutral-400 flex items-center justify-center`}>
+        <div key={`next-${nextDate}`} className={`p-1 w-1/7 ${isLarge ? 'h-[148px] bg-[#f7f7f7]' : 'h-auto'} text-neutral-400 flex items-center justify-center`}>
           {nextDate++}
         </div>
       );
     }
     calendar.push(
-      <div key="minggu-terakhir" className="w-full flex">{minggu}</div>
+      <div key="minggu-terakhir" className={`w-full flex ${isLarge ? "divide-x-1 divide-[#ebebeb]" : ""}`}>{minggu}</div>
     );
   }
   return calendar;
@@ -99,8 +99,6 @@ function MiniCalendar({ bulan, tahun, onPrev, onNext, onYearChange, today }) {
           {calendar}
         </div>
       </div>
-      <div className="w-full mt-6 h-[1px] rounded-full bg-[#ebebeb]"></div>
-      <div className="w-full p-4"></div>
       <div className="w-full mt-6 h-[1px] rounded-full bg-[#ebebeb]"></div>
       <div className="w-full p-4">
         <h1 className="text-2xl text-neutral-800 outfit-medium">Categories</h1>
@@ -153,7 +151,7 @@ export default function CalendarContent() {
   return (
     <div className="w-full h-full overflow-y-auto">
       <div className="h-full flex divide-x-1 divide-[#ebebeb]">
-        <div className="w-1/4 h-full">
+        <div className="w-1/4 h-full overflow-y-auto">
           <MiniCalendar
             bulan={bulan}
             tahun={tahun}
@@ -175,7 +173,7 @@ export default function CalendarContent() {
                 <div className="flex items-center justify-center w-1/7 h-full text-neutral-800 text-lg outfit-medium">FRI</div>
                 <div className="flex items-center justify-center w-1/7 h-full text-neutral-800 text-lg outfit-medium">SAT</div>
               </div>
-              <div className="w-full flex flex-col divide-y-1 divide-[#ebebeb] bg-[#fafafa]">
+              <div className="w-full flex flex-col divide-y-1 divide-[#ebebeb] bg-white">
                 {calendarLarge}
               </div>
             </div>
