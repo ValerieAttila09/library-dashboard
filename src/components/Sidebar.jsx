@@ -202,36 +202,6 @@ export default function Sidebar({ isOpen, onToggleSidebar }) {
             <div className="mx-auto mb-1 w-full h-[1px] bg-neutral-300"></div>
           </div>
           <MenuSidebar currentPath={paths} svgIcon={svgIcon} />
-          <div className="w-full flex flex-col gap-1 px-[6px]">
-            <div className="hiddenGem flex justify-start items-center px-3">
-              <span className="text-sm text-neutral-600">Info</span>
-            </div>
-            <div className="flex justify-start items-center">
-              <button className="w-full p-2 flex items-center justify-start gap-2 rounded-md group hover:bg-green-100 transition-all">
-                <div className="w-auto">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                    stroke="currentColor" className="size-5 text-neutral-800 transition-all">
-                    <path strokeLinecap="round" strokeLinejoin="round"
-                      d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                  </svg>
-                </div>
-                <span className="hiddenGem text-sm text-left text-neutral-800 sg-medium text-nowrap">About Us</span>
-              </button>
-            </div>
-            <div className="flex justify-start items-center">
-              <button
-                className="w-full p-2 flex items-center justify-start gap-2 rounded-md group hover:bg-green-100 transition-all">
-                <div className="w-auto">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                    stroke="currentColor" className="size-5 text-neutral-800 transition-all">
-                    <path strokeLinecap="round" strokeLinejoin="round"
-                      d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 0 1-1.125-1.125v-3.75ZM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-8.25ZM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-2.25Z" />
-                  </svg>
-                </div>
-                <span className="hiddenGem text-sm text-left text-neutral-800 sg-medium">Blog</span>
-              </button>
-            </div>
-          </div>
         </div>
         <div className="w-full flex flex-col gap-1 px-[6px] pb-2">
           <div className="mx-auto mb-2 w-full h-[1px] bg-neutral-300"></div>

@@ -91,8 +91,8 @@ export default function DashboardContent() {
   const monthName = monthNames[date.getMonth()]
 
   return (
-    <div className="w-full h-full flex bg-[#fafafa] overflow-y-auto">
-      <div className="md:w-5/7 w-full h-full overflow-y-auto">
+    <div className="w-full h-full flex flex-col gap-[10rem] md:gap-0 md:flex-row bg-white overflow-y-auto">
+      <div className="md:w-5/7 w-full h-auto md:overflow-y-auto">
         <div className="w-full flex flex-col items-start justify-between gap-[1rem] p-8 border-b-1 border-[#ebebeb]">
           <div className="w-full flex flex-col gap-1 py-1">
             <h1 className="text-5xl outfit-bold text-neutral-900">Hello, Valerie Attila Al-fath</h1>
@@ -253,7 +253,7 @@ export default function DashboardContent() {
         </div>
       </div>
 
-      <div className="hidden md:w-2/7 h-full md:flex flex-col gap-4 p-4 border-l-1 border-[#ebebeb] overflow-y-auto">
+      <div className="w-full md:w-2/7 h-auto flex flex-col gap-4 p-4 md:border-l-1 border-[#ebebeb] md:overflow-y-auto">
         <div className="w-full h-auto p-4 border border-[#ebebeb] rounded-2xl shadow bg-white">
           <div className="w-full flex justify-between items-center">
             <h1 className="text-lg text-neutral-800 outfit-medium">Team members</h1>
@@ -299,10 +299,10 @@ export default function DashboardContent() {
             </div>
           </div>
         </div>
-        <div className="w-full min-h-[6rem] border border-[#ebebeb] rounded-2xl shadow bg-white"></div>
-        <div className="w-full min-h-[6rem] border border-[#ebebeb] rounded-2xl shadow bg-white"></div>
-        <div className="w-full min-h-[6rem] border border-[#ebebeb] rounded-2xl shadow bg-white"></div>
-        <div className="w-full min-h-[6rem] border border-[#ebebeb] rounded-2xl shadow bg-white"></div>
+        <div className="w-full h-[6rem] border border-[#ebebeb] rounded-2xl shadow bg-white"></div>
+        <div className="w-full h-[6rem] border border-[#ebebeb] rounded-2xl shadow bg-white"></div>
+        <div className="w-full h-[6rem] border border-[#ebebeb] rounded-2xl shadow bg-white"></div>
+        <div className="w-full h-[6rem] border border-[#ebebeb] rounded-2xl shadow bg-white"></div>
       </div>
     </div>
   )
