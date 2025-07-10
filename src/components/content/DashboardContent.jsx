@@ -93,7 +93,7 @@ export default function DashboardContent() {
   return (
     <div className="w-full h-full flex flex-col gap-[10rem] md:gap-0 md:flex-row bg-white overflow-y-auto">
       <div className="md:w-5/7 w-full h-auto md:overflow-y-auto">
-        <div className="w-full flex flex-col items-start justify-between gap-[1rem] p-8 border-b-1 border-[#ebebeb]">
+        <div className="w-full flex flex-col items-start justify-between gap-[1rem] p-8">
           <div className="w-full flex flex-col gap-1 py-1">
             <h1 className="text-5xl outfit-bold text-neutral-900">Hello, Valerie Attila Al-fath</h1>
             <span className="text-lg text-neutral-500">Set up and manage your library here and don't forget to keep the spirit up!</span>
@@ -111,7 +111,7 @@ export default function DashboardContent() {
         </div>
         <div className="w-full h-full grid">
           <div className="w-full p-4 flex items-center border-b-1 border-[#ebebeb]">
-            <div className="w-full rounded-lg grid lg:flex lg:items-center gap-2">
+            <div className="w-full border border-[#ebebeb] bg-[#fcfcfc] px-2 py-4 rounded-lg grid lg:flex lg:items-center gap-2">
               <div className="w-full h-[16rem] lg:h-[18rem] border border-[#ebebeb] p-4 lg:p-4 bg-white/70 shadow rounded-lg hover:bg-green-50/30 hover:shadow-lg transition-all">
                 <div className="w-full h-full flex flex-col gap-2">
                   <div className="w-full h-1/3 flex items-center justify-between">

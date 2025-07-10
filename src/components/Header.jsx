@@ -126,10 +126,12 @@ export default function Header({ onToggleSidebar }) {
               <div className="hidden md:block mx-1 w-[1px] h-5/7 bg-[#ebebeb]"></div>
             </div>
             <div className="hidden md:flex items-center gap-3 px-4">
-              <span className="text-[16px] sg-semibold text-neutral-900 flex gap-2 items-center">
-                <span className="bg-yellow-100 text-yellow-600 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Admin</span>
-                <span className="text-nowrap">Valerie Attila Al-fath</span>
-              </span>
+              <div className="text-neutral-900 flex gap-2 items-center">
+                <div className="px-2 rounded bg-yellow-100">
+                  <span className="text-sm text-yellow-400">Admin</span>
+                </div>
+                <span className="text-nowrap text-neutral-800 outfit-medium">Valerie Attila Al-fath</span>
+              </div>
               <div className="size-8 border border-[#ebebeb] bg-transparent overflow-hidden rounded-full">
                 <img src={UserPic} className="object-cover" alt="User Picture" />
               </div>
