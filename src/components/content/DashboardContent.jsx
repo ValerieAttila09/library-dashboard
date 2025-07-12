@@ -1,12 +1,13 @@
 import React from "react"
 import PercentageValue, { IncomeTotal, LoanTotal, MembersTotal } from "./CountPercentage"
 import { LineChartIncome, LineChartLoan, LineChartMembers } from "./LineChart"
-//import { LineChartIncome, LineChartLoan, LineChartMembers } from "./LineChartExperiment"
+import PersonImage from "../../assets/image/user.jpg"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { Link } from "react-router-dom"
 
-const Role = ({ Role }) => {
-  if (Role == "Admin") {
+const Role = ({ role }) => {
+  if (role === "Admin") {
     return (
       <span className="px-2 text-sm bg-yellow-100 rounded text-yellow-500">Admin</span>
     )
@@ -289,28 +290,42 @@ export default function DashboardContent() {
               <span className="text-sm text-nowrap text-neutral-600">Invite</span>
             </button>
           </div>
-          <div className="h-auto mt-4 w-full grid gap-5">
-            {dataUser.map((data) => {
-              return (
-                <div className="w-full flex items-center gap-3">
-                  <div className="w-10 h-8 rounded-full border border-[#ebebeb] bg-neutral-100">
-                    {/* <img src="" alt="" /> */}
-                  </div>
-                  <div className="w-full flex flex-col gap-1">
-                    <span className="text-sm outfit-regular">{data.firstName + " " + data.lastName}</span>
-                    <div className="text-sm outfit-regular">
-                      <Role Role={data.role}/>
+          <div className="h-auto mt-4 w-full flex gap-2">
+            <div className="w-[2px] min-h-full rounded-full bg-[#ebebeb] mx-1 relative">
+              <div className="size-2 absolute -left-[3px] top-[8%] bg-[#ebebeb] rounded-full"></div>
+              <div className="size-2 absolute -left-[3px] top-[35%] bg-[#ebebeb] rounded-full"></div>
+              <div className="size-2 absolute -left-[3px] top-[62%] bg-[#ebebeb] rounded-full"></div>
+              <div className="size-2 absolute -left-[3px] top-[89%] bg-[#ebebeb] rounded-full"></div>
+              <div className="w-[28px] h-[2px] absolute top-[9.5%] bg-[#ebebeb] rounded-full"></div>
+              <div className="w-[28px] h-[2px] absolute top-[36%] bg-[#ebebeb] rounded-full"></div>
+              <div className="w-[28px] h-[2px] absolute top-[63.5%] bg-[#ebebeb] rounded-full"></div>
+              <div className="w-[28px] h-[2px] absolute top-[90%] bg-[#ebebeb] rounded-full"></div>
+            </div>
+            <div className="w-full grid gap-4">
+              {dataUser.slice(0, 4).map((data) => {
+                return (
+                  <div key={data.id} className="w-full flex items-center gap-3">
+                    <div className="w-12 h-10 relative rounded-full border border-[#ebebeb] bg-[#ebebeb] overflow-hidden">
+                      <img src={PersonImage} className="absolute z-5 object-cover w-full h-auto" alt="" />
+                    </div>
+                    <div className="w-full flex flex-col gap-1">
+                      <span className="text-sm outfit-regular">{`${data.firstName} ${data.lastName}`}</span>
+                      <div className="text-sm outfit-regular">
+                        <Role role={data.role} />
+                      </div>
                     </div>
                   </div>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
 
-            <div className="w-full flex items-center justify-start">
+          </div>
+          <div className="w-full flex items-center justify-start pt-4">
+            <Link to="/members">
               <button className="w-auto px-3 py-1 border-1 border-[#ebebeb] rounded-lg hover:bg-[#f7f7f7] transition-all">
                 Show more
               </button>
-            </div>
+            </Link>
           </div>
         </div>
         <div className="w-full h-[6rem] border border-[#ebebeb] rounded-2xl shadow bg-white"></div>
