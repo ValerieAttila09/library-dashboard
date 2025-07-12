@@ -3,12 +3,36 @@ import PercentageValue, { IncomeTotal, LoanTotal, MembersTotal } from "./CountPe
 import { LineChartIncome, LineChartLoan, LineChartMembers } from "./LineChart"
 //import { LineChartIncome, LineChartLoan, LineChartMembers } from "./LineChartExperiment"
 import { useEffect, useState } from "react"
+import axios from "axios"
+
+const Role = ({ Role }) => {
+  if (Role == "Admin") {
+    return (
+      <span className="px-2 text-sm bg-yellow-100 rounded text-yellow-500">Admin</span>
+    )
+  } else {
+    return (
+      <span className="px-2 text-sm bg-purple-100 rounded text-purple-600">Member</span>
+    )
+  }
+}
+
 export default function DashboardContent() {
 
   // Data spesifik
   const [incomeData, setIncomeData] = useState([])
   const [loanData, setLoanData] = useState([])
   const [membersData, setMembersData] = useState([])
+  const [dataUser, setDataUser] = useState([])
+
+  async function getDataUser() {
+    try {
+      const response = await axios.get('http://localhost:3001/users')
+      setDataUser(response.data)
+    } catch {
+      console.error("Cannot get user data!")
+    }
+  }
 
   useEffect(() => {
     const GetStats = async () => {
@@ -53,6 +77,7 @@ export default function DashboardContent() {
     }
 
     GetStats()
+    getDataUser()
   }, [])
 
   if (!incomeData[0] || !loanData[0] || !membersData[0] && !incomeData[1] || !loanData[1] || !membersData[1]) {
@@ -265,33 +290,22 @@ export default function DashboardContent() {
             </button>
           </div>
           <div className="h-auto mt-4 w-full grid gap-5">
-            <div className="w-full flex items-center gap-3">
-              <div className="w-10 h-8 rounded-full border border-[#ebebeb] bg-neutral-100">
-                {/* <img src="" alt="" /> */}
-              </div>
-              <div className="w-full flex flex-col gap-1">
-                <div className="w-3/5 h-4 bg-neutral-100 rounded-full"></div>
-                <div className="w-full h-3 bg-neutral-100 rounded-full"></div>
-              </div>
-            </div>
-            <div className="w-full flex items-center gap-3">
-              <div className="w-10 h-8 rounded-full border border-[#ebebeb] bg-neutral-100">
-                {/* <img src="" alt="" /> */}
-              </div>
-              <div className="w-full flex flex-col gap-1">
-                <div className="w-3/5 h-4 bg-neutral-100 rounded-full"></div>
-                <div className="w-full h-3 bg-neutral-100 rounded-full"></div>
-              </div>
-            </div>
-            <div className="w-full flex items-center gap-3">
-              <div className="w-10 h-8 rounded-full border border-[#ebebeb] bg-neutral-100">
-                {/* <img src="" alt="" /> */}
-              </div>
-              <div className="w-full flex flex-col gap-1">
-                <div className="w-3/5 h-4 bg-neutral-100 rounded-full"></div>
-                <div className="w-full h-3 bg-neutral-100 rounded-full"></div>
-              </div>
-            </div>
+            {dataUser.map((data) => {
+              return (
+                <div className="w-full flex items-center gap-3">
+                  <div className="w-10 h-8 rounded-full border border-[#ebebeb] bg-neutral-100">
+                    {/* <img src="" alt="" /> */}
+                  </div>
+                  <div className="w-full flex flex-col gap-1">
+                    <span className="text-sm outfit-regular">{data.firstName + " " + data.lastName}</span>
+                    <div className="text-sm outfit-regular">
+                      <Role Role={data.role}/>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+
             <div className="w-full flex items-center justify-start">
               <button className="w-auto px-3 py-1 border-1 border-[#ebebeb] rounded-lg hover:bg-[#f7f7f7] transition-all">
                 Show more
