@@ -25,7 +25,7 @@ export const LineChartIncome = () => {
   
   useEffect(() => {
     const fetchDataIncome = async () => {
-      const response = await fetch('http://localhost:3000/books/stats')
+      const response = await fetch('http://localhost:3111/books/stats')
       const statsData = await response.json()
 
       if (response.ok) {
@@ -69,7 +69,7 @@ export const LineChartLoan = () => {
 
   useEffect(() => {
     const fetchDataIncome = async () => {
-      const response = await fetch('http://localhost:3000/books/stats')
+      const response = await fetch('http://localhost:3111/books/stats')
       const statsData = await response.json()
 
       if (response.ok) {
@@ -113,7 +113,7 @@ export const LineChartMembers = () => {
 
   useEffect(() => {
     const fetchDataIncome = async () => {
-      const response = await fetch('http://localhost:3000/books/stats')
+      const response = await fetch('http://localhost:3111/books/stats')
       const statsData = await response.json()
 
       if (response.ok) {

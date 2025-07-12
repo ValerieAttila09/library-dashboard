@@ -43,7 +43,7 @@ export default function BorrowingsContent() {
   useEffect(() => {
     const getBookLoanData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/books/loans")
+        const response = await fetch("http://localhost:3111/books/loans")
         const dataLoan = await response.json()
 
         if (response.ok) {

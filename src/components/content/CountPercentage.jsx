@@ -15,7 +15,7 @@ export function IncomeTotal() {
   const [totalIncome, setTotalIncome] = useState(0)
   useEffect(() => {
     const fetchDataIncome = async () => {
-      const response = await fetch('http://localhost:3000/books/stats')
+      const response = await fetch('http://localhost:3111/books/stats')
       const statsData = await response.json()
 
       if (response.ok) {
@@ -39,7 +39,7 @@ export function LoanTotal() {
   const [totalLoan, setTotalLoan] = useState(0)
   useEffect(() => {
     const fetchDataLoan = async () => {
-      const response = await fetch('http://localhost:3000/books/stats')
+      const response = await fetch('http://localhost:3111/books/stats')
       const statsData = await response.json()
 
       if (response.ok) {
@@ -63,7 +63,7 @@ export function MembersTotal() {
   const [totalMembers, setTotalMembers] = useState(0)
   useEffect(() => {
     const fetchDataMembers = async () => {
-      const response = await fetch('http://localhost:3000/books/stats')
+      const response = await fetch('http://localhost:3111/books/stats')
       const statsData = await response.json()
 
       if (response.ok) {
@@ -90,7 +90,7 @@ export default function PercentageValue({ chartKe }) {
 
   useEffect(() => {
     const fetchDataIncome = async () => {
-      const response = await fetch('http://localhost:3000/books/stats')
+      const response = await fetch('http://localhost:3111/books/stats')
       const statsData = await response.json()
 
       if (response.ok) {
@@ -113,7 +113,7 @@ export default function PercentageValue({ chartKe }) {
 
 
     const fetchDataLoan = async () => {
-      const response = await fetch('http://localhost:3000/books/stats')
+      const response = await fetch('http://localhost:3111/books/stats')
       const statsData = await response.json()
 
       if (response.ok) {
@@ -136,7 +136,7 @@ export default function PercentageValue({ chartKe }) {
 
 
     const fetchDataMembers = async () => {
-      const response = await fetch('http://localhost:3000/books/stats')
+      const response = await fetch('http://localhost:3111/books/stats')
       const statsData = await response.json()
 
       if (response.ok) {

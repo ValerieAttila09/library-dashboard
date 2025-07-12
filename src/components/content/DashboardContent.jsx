@@ -12,7 +12,7 @@ export default function DashboardContent() {
 
   useEffect(() => {
     const GetStats = async () => {
-      const response = await fetch('http://localhost:3000/books/stats')
+      const response = await fetch('http://localhost:3111/books/stats')
       const statsData = await response.json()
 
       if (response.ok) {
