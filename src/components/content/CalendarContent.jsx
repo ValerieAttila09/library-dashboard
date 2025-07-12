@@ -51,7 +51,7 @@ function buildCalendar({ bulan, tahun, isLarge, today }) {
   for (let i = 1; i <= jumlahHari; i++) {
     const isHariIni = isCurrentMonth && i === hariIni;
     minggu.push(
-      <div key={i} className={`w-1/7 ${isHariIni && !isLarge ? "bg-green-400" : ""} ${isHariIni && isLarge ? "bg-green-100/80" : ""} ${isLarge ? 'h-[168px] hover:bg-[#f7f7f7] flex flex-col gap-1' : 'h-auto mx-[2px] my-1 overflow-hidden flex flex-col items-center justify-start gap-1 rounded-md group hover:bg-[#ebebeb]'} transition-all`}>
+      <div key={i} className={`w-1/7 ${isHariIni && !isLarge ? "bg-blue-400 text-white outfit-medium" : ""} ${isHariIni && isLarge ? "bg-blue-100/80" : ""} ${isLarge ? 'h-[168px] hover:bg-[#f7f7f7] flex flex-col gap-1' : 'h-auto mx-[2px] my-1 overflow-hidden flex flex-col items-center justify-start gap-1 rounded-md group hover:bg-[#ebebeb] hover:text-blue-500'} transition-all`}>
         <span className={`${isLarge ? "text-start rounded-br-xl p-2" : "text-center rounded-full"}`}>{i}</span>
         <div className={`${!isLarge ? "mx-auto w-3/5 flex items-center justify-center my-1 md:my-0 pb-[2px]" : "w-full flex flex-col gap-1 p-2"}`}>
           <div className={`flex items-center ${!isLarge ? "justify-center" : "bg-white justify-start ps-1 pe-2 py-1 gap-2 rounded-md shadow"}`}>

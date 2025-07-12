@@ -112,7 +112,7 @@ export default function DashboardContent() {
         <div className="w-full h-full grid">
           <div className="w-full p-4 flex items-center border-b-1 border-[#ebebeb]">
             <div className="w-full border border-[#ebebeb] bg-[#fcfcfc] px-2 py-4 rounded-lg grid lg:flex lg:items-center gap-2">
-              <div className="w-full h-[16rem] lg:h-[18rem] border border-[#ebebeb] p-4 lg:p-4 bg-white/70 shadow rounded-lg hover:bg-green-50/30 hover:shadow-lg transition-all">
+              <div className="w-full h-[16rem] lg:h-[18rem] border border-[#ebebeb] p-4 lg:p-4 bg-white/70 shadow rounded-lg hover:bg-purple-50/30 hover:shadow-lg transition-all">
                 <div className="w-full h-full flex flex-col gap-2">
                   <div className="w-full h-1/3 flex items-center justify-between">
                     <div className="w-full">
@@ -147,7 +147,7 @@ export default function DashboardContent() {
                   </div>
                 </div>
               </div>
-              <div className="w-full h-[16rem] lg:h-[18rem] border border-[#ebebeb] p-4 lg:p-4 bg-white/70 shadow rounded-lg hover:bg-green-50/30 hover:shadow-lg transition-all">
+              <div className="w-full h-[16rem] lg:h-[18rem] border border-[#ebebeb] p-4 lg:p-4 bg-white/70 shadow rounded-lg hover:bg-purple-50/30 hover:shadow-lg transition-all">
                 <div className="w-full h-full flex flex-col gap-2">
                   <div className="w-full h-1/3 flex items-center justify-between">
                     <div className="w-full">
@@ -182,7 +182,7 @@ export default function DashboardContent() {
                   </div>
                 </div>
               </div>
-              <div className="w-full h-[16rem] lg:h-[18rem] border border-[#ebebeb] p-4 lg:p-4 bg-white/70 shadow rounded-lg hover:bg-green-50/30 hover:shadow-lg transition-all">
+              <div className="w-full h-[16rem] lg:h-[18rem] border border-[#ebebeb] p-4 lg:p-4 bg-white/70 shadow rounded-lg hover:bg-purple-50/30 hover:shadow-lg transition-all">
                 <div className="w-full h-full flex flex-col gap-2">
                   <div className="w-full h-1/3 flex items-center justify-between">
                     <div className="w-full">
@@ -257,7 +257,7 @@ export default function DashboardContent() {
         <div className="w-full h-auto p-4 border border-[#ebebeb] rounded-2xl shadow bg-white">
           <div className="w-full flex justify-between items-center">
             <h1 className="text-lg text-neutral-800 outfit-medium">Team members</h1>
-            <button className="rounded-full flex items-center gap-1 px-2 py-1 border border-[#ebebeb] bg-white hover:bg-green-100/35 hover:border-green-600 hover:text-green-600 transition-all">
+            <button className="rounded-lg flex items-center gap-1 px-2 py-1 border border-[#ebebeb] bg-white hover:bg-[#f7f7f7] transition-all">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="size-5 text-neutral-600">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
@@ -293,7 +293,7 @@ export default function DashboardContent() {
               </div>
             </div>
             <div className="w-full flex items-center justify-start">
-              <button className="w-auto px-3 py-1 border-1 border-[#ebebeb] rounded-full hover:bg-green-100/35 hover:border-green-600 hover:text-green-600 transition-all">
+              <button className="w-auto px-3 py-1 border-1 border-[#ebebeb] rounded-lg hover:bg-[#f7f7f7] transition-all">
                 Show more
               </button>
             </div>

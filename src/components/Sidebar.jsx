@@ -77,7 +77,7 @@ function MenuButton({ pathName, page, icon }) {
 
   return (
     <div className="flex justify-start items-center">
-      <Link to={pathName} className={`w-full ${buttonColor} p-2 rounded-md group hover:bg-green-100 transition-all`}>
+      <Link to={pathName} className={`w-full ${buttonColor} p-2 rounded-md group hover:bg-[#f7f7f7] transition-all`}>
         <button
           className="w-full flex items-center justify-start gap-2 ">
           <div className="w-auto">
@@ -176,11 +176,11 @@ export default function Sidebar({ isOpen, onToggleSidebar }) {
       <div className="w-full h-full flex flex-col justify-between gap-4 overflow-x-hidden overflow-y-auto">
         <div className="w-full flex flex-col py-1 gap-4">
           <div className="w-full flex flex-col gap-1">
-            <button
+            <div
               className="w-full px-[11px] overflow-hidden flex justify-start items-center gap-2 rounded-md">
               <div className="py-[9px] w-auto rounded-full bg-white p-[2px] group hover:bg-white transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                  className="size-6 text-green-400 group-hover:text-green-700 transition-all">
+                  className="size-6 text-blue-400 group-hover:text-blue-700 transition-all">
                   <path
                     d="M12.378 1.602a.75.75 0 0 0-.756 0L3 6.632l9 5.25 9-5.25-8.622-5.03ZM21.75 7.93l-9 5.25v9l8.628-5.032a.75.75 0 0 0 .372-.648V7.93ZM11.25 22.18v-9l-9-5.25v8.57a.75.75 0 0 0 .372.648l8.628 5.033Z" />
                 </svg>
@@ -198,7 +198,7 @@ export default function Sidebar({ isOpen, onToggleSidebar }) {
                   </svg>
                 </button>
               </div>
-            </button>
+            </div>
             <div className="mx-auto mb-1 w-full h-[1px] bg-neutral-300"></div>
           </div>
           <MenuSidebar currentPath={paths} svgIcon={svgIcon} />
