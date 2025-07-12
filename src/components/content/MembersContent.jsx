@@ -472,6 +472,7 @@ export default function MembersContent() {
                               <option value="Indonesia">Indonesia</option>
                               <option value="England">England</option>
                               <option value="German">German</option>
+                              <option value="Vietnam">Vietnam</option>
                               <option value="France">France</option>
                               <option value="Malaysia">Malaysia</option>
                               <option value="Japan">Japan</option>
