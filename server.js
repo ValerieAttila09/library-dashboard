@@ -72,6 +72,8 @@ app.delete('/users/:id', (req, res) => {
   })
 })
 
+app.get('/books')
+
 app.listen(PORT, () => {
   console.log(`Server berjalan di http://localhost:${PORT}`);
 });

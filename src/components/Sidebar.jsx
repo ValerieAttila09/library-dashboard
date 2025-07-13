@@ -210,7 +210,7 @@ export default function Sidebar({ isOpen, onToggleSidebar }) {
           </div>
           <div className="flex justify-start items-center">
             <button
-              className="w-full p-2 flex items-center justify-start gap-2 rounded-md group hover:bg-green-100 transition-all ">
+              className="w-full p-2 flex items-center justify-start gap-2 rounded-md group hover:bg-[#ebebeb] transition-all ">
               <div className="w-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                   stroke="currentColor" className="size-5 text-neutral-800 transition-all">

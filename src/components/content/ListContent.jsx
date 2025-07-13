@@ -92,7 +92,7 @@ export default function ListContent() {
         </div>
         <div className="w-full overflow-x-auto flex justify-start items-center px-2 pt-1 pb-3 gap-2">
           <button
-            className="flex items-center gap-1 border border-[#dbdbdb] rounded-full  bg-white/60 px-2 py-1 hover:bg-white transition-all">
+            className="flex items-center gap-1 border border-[#dbdbdb] rounded-md  bg-white/60 px-2 py-1 hover:bg-[#f7f7f7] transition-all">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
               stroke="currentColor" className="size-4 text-neutral-700">
               <path strokeLinecap="round" strokeLinejoin="round"
@@ -101,7 +101,7 @@ export default function ListContent() {
             <span>Books</span>
           </button>
           <button
-            className="flex items-center gap-1 border border-[#dbdbdb] rounded-full  bg-white/60 px-2 py-1 hover:bg-white transition-all">
+            className="flex items-center gap-1 border border-[#dbdbdb] rounded-md  bg-white/60 px-2 py-1 hover:bg-[#f7f7f7] transition-all">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
               stroke="currentColor" className="size-4">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -109,7 +109,7 @@ export default function ListContent() {
             <span className="text-nowrap">Add Books</span>
           </button>
           <button
-            className="flex items-center gap-1 border border-[#dbdbdb] rounded-full  bg-white/60 px-2 py-1 hover:bg-white transition-all">
+            className="flex items-center gap-1 border border-[#dbdbdb] rounded-md  bg-white/60 px-2 py-1 hover:bg-[#f7f7f7] transition-all">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
               stroke="currentColor" className="size-4">
               <path strokeLinecap="round" strokeLinejoin="round"
@@ -131,7 +131,7 @@ export default function ListContent() {
         </label>
         <div className="flex gap-2">
           <button id="menuWrapped"
-            className="flex gap-1 border border-[#dbdbdb] rounded-full p-1 hover:bg-[#f6f6f6] transition-all">
+            className="flex gap-1 border border-[#dbdbdb] rounded-md p-1 hover:bg-[#f6f6f6] transition-all">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
               stroke="currentColor" className="size-5 text-neutral-500">
               <path strokeLinecap="round" strokeLinejoin="round"
@@ -139,7 +139,7 @@ export default function ListContent() {
             </svg>
           </button>
           <button id="menuWrapped"
-            className="flex items-center gap-1 border border-[#dbdbdb] rounded-full p-1 hover:bg-[#f6f6f6] transition-all">
+            className="flex items-center gap-1 border border-[#dbdbdb] rounded-md p-1 hover:bg-[#f6f6f6] transition-all">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
               stroke="currentColor" className="size-4 text-neutral-500">
               <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
@@ -148,7 +148,7 @@ export default function ListContent() {
               Rows
             </span>
           </button>
-          <button id="menuWrapped" className="border border-[#dbdbdb] rounded-full p-1 hover:bg-[#f6f6f6] transition-all">
+          <button id="menuWrapped" className="border border-[#dbdbdb] rounded-md p-1 hover:bg-[#f6f6f6] transition-all">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
               stroke="currentColor" className="size-5 text-neutral-500">
               <path strokeLinecap="round" strokeLinejoin="round"
