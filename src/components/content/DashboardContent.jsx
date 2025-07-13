@@ -112,15 +112,15 @@ export default function DashboardContent() {
             </button>
           </div>
           <div className="h-auto mt-4 w-full flex gap-2">
-            <div className="w-[2px] min-h-full rounded-full bg-[#ebebeb] mx-1 relative">
-              <div className="size-2 absolute -left-[3px] top-[8%] bg-[#ebebeb] rounded-full"></div>
-              <div className="size-2 absolute -left-[3px] top-[35%] bg-[#ebebeb] rounded-full"></div>
-              <div className="size-2 absolute -left-[3px] top-[62%] bg-[#ebebeb] rounded-full"></div>
-              <div className="size-2 absolute -left-[3px] top-[89%] bg-[#ebebeb] rounded-full"></div>
-              <div className="w-[28px] h-[2px] absolute top-[9.5%] bg-[#ebebeb] rounded-full"></div>
-              <div className="w-[28px] h-[2px] absolute top-[36%] bg-[#ebebeb] rounded-full"></div>
-              <div className="w-[28px] h-[2px] absolute top-[63.5%] bg-[#ebebeb] rounded-full"></div>
-              <div className="w-[28px] h-[2px] absolute top-[90%] bg-[#ebebeb] rounded-full"></div>
+            <div className="w-[1px] min-h-full rounded-full bg-[#ebebeb] mx-1 relative">
+              <div className="size-2 absolute -left-[3px] top-[8%] bg-[#ebebeb] border border-[#cecece] rounded-full"></div>
+              <div className="size-2 absolute -left-[3px] top-[35%] bg-[#ebebeb] border border-[#cecece] rounded-full"></div>
+              <div className="size-2 absolute -left-[3px] top-[62%] bg-[#ebebeb] border border-[#cecece] rounded-full"></div>
+              <div className="size-2 absolute -left-[3px] top-[89%] bg-[#ebebeb] border border-[#cecece] rounded-full"></div>
+              <div className="w-[28px] h-[1px] absolute top-[9.5%] bg-[#ebebeb] rounded-full"></div>
+              <div className="w-[28px] h-[1px] absolute top-[36%] bg-[#ebebeb] rounded-full"></div>
+              <div className="w-[28px] h-[1px] absolute top-[63.5%] bg-[#ebebeb] rounded-full"></div>
+              <div className="w-[28px] h-[1px] absolute top-[90%] bg-[#ebebeb] rounded-full"></div>
             </div>
             <div className="w-full grid gap-4">
               {dataUser.slice(0, 4).map((data) => {

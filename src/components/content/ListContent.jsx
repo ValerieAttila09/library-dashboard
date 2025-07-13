@@ -19,21 +19,24 @@ const Badge = ({ Status }) => {
   }
 }
 
-function RowData({ id, onDelete, onUpdate, bookId, bookTitle, bookPrice, bookStatus, bookAuthorFirstName, bookAuthorLastName, bookAuthorEmail }) {
+function RowData({ book, toggleAction, onDelete, onUpdate, bookId, bookTitle, bookPrice, bookStatus, bookAuthorFirstName, bookAuthorLastName, bookAuthorEmail }) {
   return (
-    <tr className="hover:bg-white/60 transition-all">
+    <tr className="hover:bg-[#fafafa] transition-all">
       <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{bookId}</td>
       <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{bookTitle}</td>
-      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{bookPrice}</td>
+      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{`$${bookPrice} USD`}</td>
       <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">
         <Badge Status={bookStatus} />
       </td>
       <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{`${bookAuthorFirstName} ${bookAuthorLastName}`}</td>
       <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{bookAuthorEmail}</td>
       <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 flex justify-start items-center gap-2">
-        <button onClick={() => onUpdate(id)} className="p-1 rounded-full bg-transparent text-neutral-900 group hover:bg-yellow-400 transition-all">
-          <svg className="size-5 text-yellow-500 group-hover:text-white transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+        <button onClick={() => {
+          onUpdate(book)
+          toggleAction()
+        }} className="p-1 rounded-full bg-transparent text-neutral-900 group hover:bg-yellow-400 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 text-yellow-500 group-hover:text-white transition-all">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
           </svg>
         </button>
         <button onClick={() => onDelete(id)} className="p-1 rounded-full bg-transparent text-neutral-900 group hover:bg-red-400 transition-all">
@@ -55,6 +58,7 @@ export default function ListContent() {
   const [search, setSearch] = useState("")
   const addBook = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
+  const idRandom = useRef(null)
 
   const fetchBook = async () => {
     try {
@@ -118,11 +122,17 @@ export default function ListContent() {
     setIsEditing(false)
   }
 
-  // const filteredBook = books.filter(book =>
-  //   book.title.toLowerCase().includes(search.toLowerCase()) ||
-  //   book.author.toLowerCase().includes(search.toLowerCase()) ||
-  //   book.id.toLowerCase().includes(search.toLowerCase())
-  // )
+  const generateNumber = () => {
+    const randomValue = Math.floor(10000000 + Math.random() * 90000000);
+    setForm(prev => ({ ...prev, book_id: randomValue.toString() }));
+  };
+
+  const filteredBook = books.filter(book =>
+    book.book_id.toLowerCase().includes(search.toLowerCase()) ||
+    book.title.toLowerCase().includes(search.toLowerCase()) ||
+    book.author_firstname.toLowerCase().includes(search.toLowerCase()) ||
+    book.author_lastname.toLowerCase().includes(search.toLowerCase())
+  )
 
   useGSAP(() => {
     gsap.set(addBook.current, {
@@ -151,7 +161,7 @@ export default function ListContent() {
 
   return (
     <div className='relative w-full h-full overflow-y-auto' >
-      <div className="w-auto pt-2 px-2 border-b-1 border-[#dfdfdf]">
+      <div className="w-auto pt-2 px-2">
         <div className="w-full flex justify-start items-center px-4 py-2">
           <h1 className="text-4xl md:text-5xl text-neutral-900 outfit-bold">Library</h1>
         </div>
@@ -186,78 +196,84 @@ export default function ListContent() {
           </button>
         </div>
       </div>
-      <div className="flex justify-between items-center w-auto p-2">
-        <label htmlFor="search" className="w-1/2 relative rounded-full border border-[#ebebeb] flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-            stroke="currentColor" className="size-4 text-neutral-500 absolute left-2">
-            <path strokeLinecap="round" strokeLinejoin="round"
-              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-          </svg>
-          <input value={search} onChange={e => setSearch(e.target.value)} type="text" placeholder="search..." name="search" id="search" className="w-full ps-8 py-1 outline-none" />
-        </label>
-        <div className="flex gap-2">
-          <button id="menuWrapped"
-            className="flex gap-1 border border-[#dbdbdb] rounded-md p-1 hover:bg-[#f6f6f6] transition-all">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-              stroke="currentColor" className="size-5 text-neutral-500">
-              <path strokeLinecap="round" strokeLinejoin="round"
-                d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25" />
-            </svg>
-          </button>
-          <button id="menuWrapped"
-            className="flex items-center gap-1 border border-[#dbdbdb] rounded-md p-1 hover:bg-[#f6f6f6] transition-all">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-              stroke="currentColor" className="size-4 text-neutral-500">
-              <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-            </svg>
-            <span className="text-sm">
-              Rows
-            </span>
-          </button>
-          <button id="menuWrapped" className="border border-[#dbdbdb] rounded-md p-1 hover:bg-[#f6f6f6] transition-all">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-              stroke="currentColor" className="size-5 text-neutral-500">
-              <path strokeLinecap="round" strokeLinejoin="round"
-                d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-            </svg>
-          </button>
+      <div className="w-full rounded-lg py-4 px-3">
+        <div className="shadow-md overflow-hidden rounded-b-lg border-b-1 border-[#ebebeb]">
+          <div className="bg-[#fafafa] border-x-1 border-t-1 border-[#ebebeb] rounded-t-lg flex justify-between items-center w-auto p-2">
+            <label htmlFor="search" className="bg-white w-1/2 relative rounded-full border border-[#ebebeb] flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                stroke="currentColor" className="size-4 text-neutral-500 absolute left-2">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+              </svg>
+              <input value={search} onChange={e => setSearch(e.target.value)} type="text" placeholder="search..." name="search" id="search" className="w-full ps-8 py-1 outline-none" />
+            </label>
+            <div className="flex gap-2">
+              <button id="menuWrapped"
+                className="bg-white flex gap-1 border border-[#dbdbdb] rounded-md p-1 hover:bg-[#f6f6f6] transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                  stroke="currentColor" className="size-5 text-neutral-500">
+                  <path strokeLinecap="round" strokeLinejoin="round"
+                    d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25" />
+                </svg>
+              </button>
+              <button id="menuWrapped"
+                className="bg-white flex items-center gap-1 border border-[#dbdbdb] rounded-md p-1 hover:bg-[#f6f6f6] transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                  stroke="currentColor" className="size-4 text-neutral-500">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                </svg>
+                <span className="text-sm">
+                  Rows
+                </span>
+              </button>
+              <button id="menuWrapped" className="bg-white border border-[#dbdbdb] rounded-md p-1 hover:bg-[#f6f6f6] transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                  stroke="currentColor" className="size-5 text-neutral-500">
+                  <path strokeLinecap="round" strokeLinejoin="round"
+                    d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div className="w-full overflow-x-scroll border-e-1 border-[#ebebeb]">
+            <table className="w-full table-auto">
+              <thead>
+                <tr className="bg-[#fcfcfc]">
+                  <th className="border-s border-[#ebebeb] ps-2 py-1 text-start text-neutral-700">Book ID</th>
+                  <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Title</th>
+                  <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Price</th>
+                  <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Status</th>
+                  <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Author</th>
+                  <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Auhtor Email</th>
+                  <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Action</th>
+                </tr>
+              </thead>
+              <tbody id="bookTable">
+                {filteredBook.map((book) => {
+                  return (
+                    <RowData
+                      key={book.id}
+                      book={book}
+                      toggleAction={toggleAction}
+                      onUpdate={handleUpdate}
+                      onDelete={handleDelete}
+                      bookId={book.book_id}
+                      bookTitle={book.title}
+                      bookPrice={book.price}
+                      bookStatus={book.status}
+                      bookAuthorFirstName={book.author_firstname}
+                      bookAuthorLastName={book.author_lastname}
+                      bookAuthorEmail={book.author_email}
+                    />
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-      <div className="w-full overflow-x-scroll">
-        <table className="w-full table-auto">
-          <thead>
-            <tr className="bg-white/60">
-              <th className="border-s border-[#ebebeb] px-2 py-1 text-center text-neutral-700">Book ID</th>
-              <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Title</th>
-              <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Price</th>
-              <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Status</th>
-              <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Author</th>
-              <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Auhtor Email</th>
-              <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Action</th>
-            </tr>
-          </thead>
-          <tbody id="bookTable">
-            {books.map((book) => {
-              return (
-                <RowData
-                  key={book.id}
-                  id={book.id}
-                  onUpdate={handleUpdate}
-                  onDelete={handleDelete}
-                  bookId={book.book_id}
-                  bookTitle={book.title}
-                  bookPrice={book.price}
-                  bookStatus={book.status}
-                  bookAuthorFirstName={book.author_firstname}
-                  bookAuthorLastName={book.author_lastname}
-                  bookAuthorEmail={book.author_email}
-                />
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
-      <div ref={addBook} className="fixed z-4 bg-white left-[51px] right-0 bottom-0 top-[51px] p-4">
+
+      <div ref={addBook} className="fixed z-4 bg-white left-[51px] right-0 bottom-0 top-[51px] overflow-y-auto p-4">
         <div className="w-full h-auto">
           <div className="w-full h-full p-2">
             <div className="w-full flex items-center justify-between">
@@ -281,20 +297,19 @@ export default function ListContent() {
 
                     <div className="w-full md:w-2/3 md:pe-[5rem] grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                       <div className="sm:col-span-4">
-                        <label htmlFor="username" className="block text-md/6 font-medium text-gray-900">
+                        <label htmlFor="title" className="block text-md/6 font-medium text-gray-900">
                           Book Name
                         </label>
                         <div className="mt-2">
                           <div className="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                            <div className="shrink-0 text-base text-gray-500 select-none sm:text-md/6">workcation.com/</div>
                             <input
-                              id="username"
-                              name="username"
+                              id="title"
+                              name="title"
                               value={form.title}
                               onChange={handleChange}
                               type="text"
                               required
-                              placeholder="janesmith"
+                              placeholder="The Smartest Scientist"
                               className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-md/6"
                             />
                           </div>
@@ -388,18 +403,17 @@ export default function ListContent() {
                         </div>
                       </div>
 
-                      <div className="sm:col-span-3">
-                        <label htmlFor="book_id" className="block text-md/6 font-medium text-gray-900">
-                          book_id
-                        </label>
+                      <div className="sm:col-span-4">
                         <div className="mt-2 grid grid-cols-1">
                           <label htmlFor="book_id" className="block text-md/6 font-medium text-gray-900">
                             Book Id
                           </label>
-                          <div className="mt-2">
+                          <div className="flex items-center justify-start gap-2 mt-2">
+                            <button type="button" onClick={generateNumber} className="rounded-md bg-white px-3 py-[6px] border border-[#ebebeb] hover:bg-[#f7f7f7]">Generate</button>
                             <input
                               id="book_id"
                               name="book_id"
+                              ref={idRandom}
                               value={form.book_id}
                               onChange={handleChange}
                               type="text"
@@ -409,32 +423,28 @@ export default function ListContent() {
                             />
                           </div>
                         </div>
-
-
                       </div>
-                      <div className="sm:col-span-3">
-                        <label htmlFor="price" className="block text-md/6 font-medium text-gray-900">
-                          Price
-                        </label>
+                      <div className="sm:col-span-2">
                         <div className="mt-2 grid grid-cols-1">
                           <label htmlFor="price" className="block text-md/6 font-medium text-gray-900">
                             Price
                           </label>
                           <div className="mt-2">
-                            <input
-                              id="price"
-                              name="price"
-                              value={form.price}
-                              onChange={handleChange}
-                              type="text"
-                              required
-                              autoComplete="price"
-                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
-                            />
+                            <div className="relative rounded-md flex items-center">
+                              <span className="absolute translate-x-2 text-neutral-400">$</span>
+                              <input
+                                id="price"
+                                name="price"
+                                value={form.price}
+                                onChange={handleChange}
+                                type="text"
+                                required
+                                autoComplete="price"
+                                className="ps-5 block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                              />
+                            </div>
                           </div>
                         </div>
-
-
                       </div>
                     </div>
                   </div>

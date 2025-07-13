@@ -118,6 +118,52 @@ app.delete('/books/:id', (req, res) => {
   })
 })
 
+app.get('/borrower', (req, res) => {
+  db.query("SELECT * FROM borrower", (err, result) => {
+    if(err){
+      return res.json(err)
+    }
+    res.json(result)
+  })
+})
+
+app.post('/borrower', (req, res) => {
+  const { borrower, borrower_email, book_title, book_author, count, total_price, deadline } = req.body;
+  db.query("INSERT INTO borrower (borrower, borrower_email, book_title, book_author, count, total_price, deadline, status) VALUES (?, ?, ?, ?, ?, ?, ?, 1)", [borrower, borrower_email, book_title, book_author, count, total_price, deadline], (err, result) => {
+    if(err) {
+      return res.json(err);
+    } 
+    res.json({
+      message: "Peminjaman berhasil di tambahkan"
+    });
+  })
+})
+
+app.put('/borrower/:id', (req, res) => {
+  const { borrower, borrower_email, book_title, book_author, count, total_price, deadline } = req.body;
+  const { id } = req.params;
+  db.query('UPDATE borrower SET borrower = ?, borrower_email = ?, book_title = ?, book_author = ?, count = ?, total_price = ?, deadline = ? WHERE id = ?', [borrower, borrower_email, book_title, book_author, count, total_price, deadline, id], (err, result) => {
+    if(err) {
+      return res.json(err)
+    }
+    res.json({
+      message: "Peminjaman berhasil di update"
+    })
+  })
+})
+
+app.delete('/borrower/:id', (req, res) => {
+  const { id } = req.params;
+  db.query("DELETE FROM borrower WHERE id = ?", [id], (err, result) => {
+    if(err){
+      return res.json(err)
+    }
+    res.json({
+      message: "Peminjaman berhasil di delete"
+    })
+  })
+})
+
 app.listen(PORT, () => {
   console.log(`Server berjalan di http://localhost:${PORT}`);
 });

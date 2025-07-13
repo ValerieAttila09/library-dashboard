@@ -186,7 +186,7 @@ export default function MembersContent() {
               </button>
             </div>
             <div className="w-full flex flex-col sm:flex-row sm:flex-wrap items-center gap-2">
-              <div className="w-full md:w-[24%] lg:w-[24.5%] h-full bg-white shadow-sm hover:shadow-lg hover:-translate-y-[2px] border border-[#ebebeb] rounded-lg p-4 transition-all">
+              <div className="w-full md:w-[24%] lg:w-[24.3%] h-full bg-white shadow-sm hover:shadow-lg hover:-translate-y-[2px] border border-[#ebebeb] rounded-lg p-4 transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
                 </svg>
@@ -197,7 +197,7 @@ export default function MembersContent() {
                   <span className="text-sm text-nowrap text-neutral-500">3 teams</span>
                 </div>
               </div>
-              <div className="w-full md:w-[24%] lg:w-[24.5%] h-full bg-white shadow-sm hover:shadow-lg hover:-translate-y-[2px] border border-[#ebebeb] rounded-lg p-4 transition-all">
+              <div className="w-full md:w-[24%] lg:w-[24.3%] h-full bg-white shadow-sm hover:shadow-lg hover:-translate-y-[2px] border border-[#ebebeb] rounded-lg p-4 transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
                 </svg>
@@ -208,7 +208,7 @@ export default function MembersContent() {
                   <span className="text-sm text-nowrap text-neutral-500">12 users</span>
                 </div>
               </div>
-              <div className="w-full md:w-[24%] lg:w-[24.5%] h-full bg-white shadow-sm hover:shadow-lg hover:-translate-y-[2px] border border-[#ebebeb] rounded-lg p-4 transition-all">
+              <div className="w-full md:w-[24%] lg:w-[24.3%] h-full bg-white shadow-sm hover:shadow-lg hover:-translate-y-[2px] border border-[#ebebeb] rounded-lg p-4 transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 0 0-1.883 2.542l.857 6a2.25 2.25 0 0 0 2.227 1.932H19.05a2.25 2.25 0 0 0 2.227-1.932l.857-6a2.25 2.25 0 0 0-1.883-2.542m-16.5 0V6A2.25 2.25 0 0 1 6 3.75h3.879a1.5 1.5 0 0 1 1.06.44l2.122 2.12a1.5 1.5 0 0 0 1.06.44H18A2.25 2.25 0 0 1 20.25 9v.776" />
                 </svg>
@@ -219,7 +219,7 @@ export default function MembersContent() {
                   <span className="text-sm text-nowrap text-neutral-500">17 items</span>
                 </div>
               </div>
-              <div className="w-full md:w-[24%] lg:w-[24.5%] h-full bg-white shadow-sm hover:shadow-lg hover:-translate-y-[2px] border border-[#ebebeb] rounded-lg p-4 transition-all">
+              <div className="w-full md:w-[24%] lg:w-[24.3%] h-full bg-white shadow-sm hover:shadow-lg hover:-translate-y-[2px] border border-[#ebebeb] rounded-lg p-4 transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
                 </svg>
