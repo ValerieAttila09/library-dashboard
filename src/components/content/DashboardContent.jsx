@@ -19,11 +19,6 @@ const Role = ({ role }) => {
 }
 
 export default function DashboardContent() {
-
-  // Data spesifik
-  const [incomeData, setIncomeData] = useState([])
-  const [loanData, setLoanData] = useState([])
-  const [membersData, setMembersData] = useState([])
   const [dataUser, setDataUser] = useState([])
 
   async function getDataUser() {
@@ -38,78 +33,6 @@ export default function DashboardContent() {
   useEffect(() => {
     getDataUser()
   }, [])
-
-  // useEffect(() => {
-  //   const GetStats = async () => {
-  //     const response = await fetch('http://localhost:3111/books/stats')
-  //     const statsData = await response.json()
-
-  //     if (response.ok) {
-  //       const income = statsData.income.weekly
-  //       const loan = statsData.loan.weekly
-  //       const members = statsData.members.weekly
-
-  //       function getIncomeDataValue() {
-  //         const dataResults = income.map(result => result.value)
-  //         const dayResults = income.map(result => result.day)
-  //         const wrapResult = [dataResults, dayResults]
-
-  //         setIncomeData(wrapResult)
-  //       }
-  //       getIncomeDataValue()
-
-  //       function getLoanDataValue() {
-  //         const dataResults = loan.map(result => result.value)
-  //         const dayResults = loan.map(result => result.day)
-  //         const wrapResult = [dataResults, dayResults]
-
-  //         setLoanData(wrapResult)
-  //       }
-  //       getLoanDataValue()
-
-  //       function getMembersDataValue() {
-  //         const dataResults = members.map(result => result.value)
-  //         const dayResults = members.map(result => result.day)
-  //         const wrapResult = [dataResults, dayResults]
-
-  //         setMembersData(wrapResult)
-  //       }
-  //       getMembersDataValue()
-
-  //     } else {
-  //       console.warn("Cannot fetch data from the server!")
-  //     }
-  //   }
-
-  //   GetStats()
-  //   getDataUser()
-  // }, [])
-
-  // if (!incomeData[0] || !loanData[0] || !membersData[0] && !incomeData[1] || !loanData[1] || !membersData[1]) {
-  //   return console.warn("Getting Data...")
-  // } else {
-  //   const incomeDataValue = incomeData[0]
-  //   const incomeDataDay = incomeData[1]
-  //   const loanDataValue = loanData[0]
-  //   const loanDataDay = loanData[1]
-  //   const membersDataValue = membersData[0]
-  //   const membersDataDay = membersData[1]
-
-  //   console.warn("Getting Data Successed!")
-  //   console.log(`
-  //     Data Income : 
-  //     \tDay : ${incomeDataDay}
-  //     \tValue : ${incomeDataValue}\n
-
-  //     Data Loan : 
-  //     \tDay : ${loanDataValue}
-  //     \tValue : ${loanDataDay}\n
-      
-  //     Data Member : 
-  //     \tDay : ${membersDataValue}
-  //     \tValue : ${membersDataDay}
-  //   `)
-  // }
 
   const date = new Date()
   const day = date.getDate()
@@ -141,113 +64,7 @@ export default function DashboardContent() {
         </div>
         <div className="w-full h-full grid">
           <div className="w-full p-4 flex items-center border-b-1 border-[#ebebeb]">
-            {/* <div className="w-full border border-[#ebebeb] bg-[#fcfcfc] px-2 py-4 rounded-lg grid lg:flex lg:items-center gap-2">
-              <div className="w-full h-[16rem] lg:h-[18rem] border border-[#ebebeb] p-4 lg:p-4 bg-white/70 shadow rounded-lg hover:bg-purple-50/30 hover:shadow-lg transition-all">
-                <div className="w-full h-full flex flex-col gap-2">
-                  <div className="w-full h-1/3 flex items-center justify-between">
-                    <div className="w-full">
-                      <h1 className="text-lg outfit-semibold text-neutral-800">Book income</h1>
-                      <div className="flex gap-1 items-center">
-                        <span className="text-5xl outfit-bold">
-                          <IncomeTotal />
-                        </span>
-                        <div className="flex items-center">
-                          <div className="rounded-full bg-green-200 flex justify-center items-center p-2 scale-[0.6]">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3.5} stroke="currentColor" className="size-5 text-green-600">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
-                            </svg>
-                          </div>
-                          <span className="text-md outfit-medium text-green-400">
-                            <PercentageValue chartKe={1} />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-full h-2/3">
-                    <div className="relative w-full h-full flex flex-col overflow-hidden border border-[#ebebeb] rounded-lg">
-                      <div className="w-full h-1/5 border-dashed border-b-1 border-[#efefef]"></div>
-                      <div className="w-full h-1/5 border-dashed border-b-1 border-[#efefef]"></div>
-                      <div className="w-full h-1/5 border-dashed border-b-1 border-[#efefef]"></div>
-                      <div className="w-full h-1/5 border-dashed border-b-1 border-[#efefef]"></div>
-                      <div className="absolute z-5 inset-0 flex justify-end items-end">
-                        <LineChartIncome />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="w-full h-[16rem] lg:h-[18rem] border border-[#ebebeb] p-4 lg:p-4 bg-white/70 shadow rounded-lg hover:bg-purple-50/30 hover:shadow-lg transition-all">
-                <div className="w-full h-full flex flex-col gap-2">
-                  <div className="w-full h-1/3 flex items-center justify-between">
-                    <div className="w-full">
-                      <h1 className="text-lg outfit-semibold text-neutral-800">Book Loans</h1>
-                      <div className="flex gap-1 items-center">
-                        <span className="text-5xl outfit-bold">
-                          <LoanTotal />
-                        </span>
-                        <div className="flex items-center">
-                          <div className="rounded-full bg-green-200 flex justify-center items-center p-2 scale-[0.6]">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3.5} stroke="currentColor" className="size-5 text-green-600">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
-                            </svg>
-                          </div>
-                          <span className="text-md outfit-medium text-green-400">
-                            <PercentageValue chartKe={2} />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-full h-2/3">
-                    <div className="relative w-full h-full flex flex-col overflow-hidden border border-[#ebebeb] rounded-lg">
-                      <div className="w-full h-1/5 border-dashed border-b-1 border-[#efefef]"></div>
-                      <div className="w-full h-1/5 border-dashed border-b-1 border-[#efefef]"></div>
-                      <div className="w-full h-1/5 border-dashed border-b-1 border-[#efefef]"></div>
-                      <div className="w-full h-1/5 border-dashed border-b-1 border-[#efefef]"></div>
-                      <div className="absolute z-5 inset-0 flex justify-end items-end">
-                        <LineChartLoan />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="w-full h-[16rem] lg:h-[18rem] border border-[#ebebeb] p-4 lg:p-4 bg-white/70 shadow rounded-lg hover:bg-purple-50/30 hover:shadow-lg transition-all">
-                <div className="w-full h-full flex flex-col gap-2">
-                  <div className="w-full h-1/3 flex items-center justify-between">
-                    <div className="w-full">
-                      <h1 className="text-lg outfit-semibold text-neutral-800">Members</h1>
-                      <div className="flex gap-1 items-center">
-                        <span className="text-5xl outfit-bold">
-                          <MembersTotal />
-                        </span>
-                        <div className="flex items-center">
-                          <div className="rounded-full bg-green-200 flex justify-center items-center p-2 scale-[0.6]">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3.5} stroke="currentColor" className="size-5 text-green-600">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
-                            </svg>
-                          </div>
-                          <span className="text-md outfit-medium text-green-400">
-                            <PercentageValue chartKe={3} />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-full h-2/3">
-                    <div className="relative w-full h-full flex flex-col overflow-hidden border border-[#ebebeb] rounded-lg">
-                      <div className="w-full h-1/5 border-dashed border-b-1 border-[#efefef]"></div>
-                      <div className="w-full h-1/5 border-dashed border-b-1 border-[#efefef]"></div>
-                      <div className="w-full h-1/5 border-dashed border-b-1 border-[#efefef]"></div>
-                      <div className="w-full h-1/5 border-dashed border-b-1 border-[#efefef]"></div>
-                      <div className="absolute z-5 inset-0 flex justify-end items-end">
-                        <LineChartMembers />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
+            
           </div>
           <div className="w-full p-4">
             <div className="w-full h-auto grid bg-[#fbfbfb] p-2 border border-[#ebebeb] shadow rounded-2xl">

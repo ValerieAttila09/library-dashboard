@@ -164,6 +164,7 @@ export default function ListContent() {
               <th className="px-2 py-1 text-center text-neutral-700">No</th>
               <th className="border-s border-[#ebebeb] px-2 py-1 text-center text-neutral-700">Book ID</th>
               <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Title</th>
+              <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Price</th>
               <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Status</th>
               <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Author</th>
               <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Auhtor Email</th>

@@ -72,7 +72,53 @@ app.delete('/users/:id', (req, res) => {
   })
 })
 
-app.get('/books')
+app.get('/books', (req, res) => {
+  db.query("SELECT * FROM books", (err, result) => {
+    if(err){
+      return res.json(err)
+    }
+    res.json({
+      message: "Buku telah berhasil di fetch!"
+    })
+  })
+})
+
+app.post('/books', (req, res) => {
+  const { book_id, title,	price, author, author_email } = req.body;
+  db.query("INSERT INTO books (book_id, title, price, author, author_email, status) VALUES (?, ?, ?, ?, ?, 1)", [book_id, title,	price, author, author_email], (err, result) => {
+    if(err) {
+      return res.json(err);
+    } 
+    res.json({
+      message: "Buku berhasil di tambahkan"
+    });
+  })
+})
+
+app.put('/books/:id', (req, res) => {
+  const { book_id, title,	price, author, author_email } = req.body;
+  const { id } = req.params;
+  db.query('UPDATE books SET book_id = ?, title = ?, price = ?, author = ?, author = ? WHERE id = ?', [book_id, title,	price, author, author_email, id], (err, result) => {
+    if(err) {
+      return res.json(err)
+    }
+    res.json({
+      message: "Buku berhasil di update"
+    })
+  })
+})
+
+app.delete('/books/:id', (req, res) => {
+  const { id } = req.params;
+  db.query("DELETE FROM books WHERE id = ?", [id], (err, result) => {
+    if(err){
+      return res.json(err)
+    }
+    res.json({
+      message: "Buku berhasil di delete"
+    })
+  })
+})
 
 app.listen(PORT, () => {
   console.log(`Server berjalan di http://localhost:${PORT}`);
