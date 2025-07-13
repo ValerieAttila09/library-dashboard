@@ -77,15 +77,13 @@ app.get('/books', (req, res) => {
     if(err){
       return res.json(err)
     }
-    res.json({
-      message: "Buku telah berhasil di fetch!"
-    })
+    res.json(result)
   })
 })
 
 app.post('/books', (req, res) => {
-  const { book_id, title,	price, author, author_email } = req.body;
-  db.query("INSERT INTO books (book_id, title, price, author, author_email, status) VALUES (?, ?, ?, ?, ?, 1)", [book_id, title,	price, author, author_email], (err, result) => {
+  const { book_id, title,	price, author_firstname, author_lastname, author_email } = req.body;
+  db.query("INSERT INTO books (book_id, title, price, author_firstname, author_lastname, author_email, status) VALUES (?, ?, ?, ?, ?, ?, 1)", [book_id, title,	price, author_firstname, author_lastname, author_email], (err, result) => {
     if(err) {
       return res.json(err);
     } 
@@ -96,9 +94,9 @@ app.post('/books', (req, res) => {
 })
 
 app.put('/books/:id', (req, res) => {
-  const { book_id, title,	price, author, author_email } = req.body;
+  const { book_id, title,	price, author_firstname, author_lastname, author_email } = req.body;
   const { id } = req.params;
-  db.query('UPDATE books SET book_id = ?, title = ?, price = ?, author = ?, author = ? WHERE id = ?', [book_id, title,	price, author, author_email, id], (err, result) => {
+  db.query('UPDATE books SET book_id = ?, title = ?, price = ?, author_firstname = ?, author_lastname = ?, author_email = ? WHERE id = ?', [book_id, title, price, author_firstname, author_lastname, author_email, id], (err, result) => {
     if(err) {
       return res.json(err)
     }

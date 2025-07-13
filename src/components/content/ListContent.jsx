@@ -1,31 +1,42 @@
-import { useState, useEffect } from "react"
+import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
+import { ChevronDownIcon } from '@heroicons/react/16/solid'
+import { useState, useEffect, useRef } from "react"
+import axios from 'axios'
+import { gsap } from 'gsap'
+import { useGSAP } from '@gsap/react'
 
-function RowData({ data, onDelete }) {
-  const color = () => {
-    if (data.bookElement) {
-      return (
-        <span className={`rounded-full px-1 text-[12px] bg-green-500/10 text-green-600`}>{data.bookStatus}</span>
-      )
-    } else {
-      return (
-        <span className={`rounded-full px-1 text-[12px] bg-red-500/10 text-red-600`}>{data.bookStatus}</span>
-      )
-    }
+gsap.registerPlugin(useGSAP)
+
+const Badge = ({ Status }) => {
+  if (Status == 1) {
+    return (
+      <span className="px-2 text-sm bg-green-50 rounded text-green-400">active</span>
+    )
+  } else {
+    return (
+      <span className="px-2 text-sm bg-red-50 rounded text-red-400">non-active</span>
+    )
   }
+}
 
+function RowData({ id, onDelete, onUpdate, bookId, bookTitle, bookPrice, bookStatus, bookAuthorFirstName, bookAuthorLastName, bookAuthorEmail }) {
   return (
     <tr className="hover:bg-white/60 transition-all">
-      <td className="text-[14px] text-nowrap text-center px-2 py-3">{data.number}</td>
-      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{data.bookId}</td>
-      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{data.bookTitle}</td>
+      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{bookId}</td>
+      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{bookTitle}</td>
+      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{bookPrice}</td>
       <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">
-        {color()}
+        <Badge Status={bookStatus} />
       </td>
-      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{data.bookAuthor}</td>
-      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{data.authorEmail}</td>
-      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{data.authorCity}</td>
-      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 flex justify-center items-center">
-        <button onClick={() => onDelete(data.bookId)} className="p-1 rounded-full bg-transparent text-neutral-900 group hover:bg-red-400 transition-all">
+      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{`${bookAuthorFirstName} ${bookAuthorLastName}`}</td>
+      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{bookAuthorEmail}</td>
+      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 flex justify-start items-center gap-2">
+        <button onClick={() => onUpdate(id)} className="p-1 rounded-full bg-transparent text-neutral-900 group hover:bg-yellow-400 transition-all">
+          <svg className="size-5 text-yellow-500 group-hover:text-white transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+          </svg>
+        </button>
+        <button onClick={() => onDelete(id)} className="p-1 rounded-full bg-transparent text-neutral-900 group hover:bg-red-400 transition-all">
           <svg className="size-5 text-red-500 group-hover:text-white transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
           </svg>
@@ -36,56 +47,110 @@ function RowData({ data, onDelete }) {
 }
 
 export default function ListContent() {
-  const [books, setBooks] = useState([]);
-  const [search, setSearch] = useState("");
+  const [books, setBooks] = useState([])
+  const [form, setForm] = useState({
+    book_id: '', title: '', price: '', author_firstname: '', author_lastname: '', author_email: '', status: null
+  })
+  const [isEditing, setIsEditing] = useState(false)
+  const [search, setSearch] = useState("")
+  const addBook = useRef(null)
+  const [isOpen, setIsOpen] = useState(false)
 
-  useEffect(() => {
-    const fetchBook = async () => {
-      try {
-        const response = await fetch('http://localhost:3111/books')
-        const booksData = await response.json()
-
-        const bookWithWeather = await Promise.all(
-          booksData.map(async (book) => {
-            const weatherResponse = await fetch(`http://localhost:3111/weather/${book.city}`)
-            const weatherData = await weatherResponse.json()
-            return {
-              ...book,
-              weather: weatherResponse.ok ? weatherData : null,
-            }
-          })
-        )
-
-        setBooks(bookWithWeather)
-      } catch (error) {
-        console.log("gagal fetch data: ", error)
-      }
-    }
-
-    fetchBook();
-  }, []);
-
-  const deleteBook = async (id) => {
+  const fetchBook = async () => {
     try {
-      const response = await fetch(`http://localhost:3111/books/${id}`, {
-        method: "DELETE"
-      })
-      if (response.ok) {
-        setBooks(books.filter(book => book.id !== id))
-      }
+      const response = await axios.get('http://localhost:3001/books')
+      setBooks(response.data)
     } catch (error) {
-      console.log('gagal menghapus data buku : ', error)
+      console.log("gagal fetch data: ", error)
     }
   }
 
-  const filteredBook = books.filter(book => 
-    book.title.toLowerCase().includes(search.toLowerCase()) ||
-    book.author.toLowerCase().includes(search.toLowerCase()) ||
-    book.id.toLowerCase().includes(search.toLowerCase())
-  )
+  useEffect(() => {
+    fetchBook()
+  }, []);
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (isEditing) {
+      axios.put(`http://localhost:3001/books/${form.id}`, form)
+        .then(() => {
+          setForm({
+            book_id: '', title: '', price: '', author_firstname: '', author_lastname: '', author_email: '', status: null
+          })
+          setIsEditing(false)
+          fetchBook()
+        })
+    } else {
+      axios.post(`http://localhost:3001/books`, form)
+        .then(() => {
+          setForm({
+            book_id: '', title: '', price: '', author: '', author_email: '', status: null
+          })
+          fetchBook()
+        })
+    }
+  }
+
+  const handleUpdate = (user) => {
+    setForm(user)
+    setIsEditing(true)
+  }
+
+  const handleDelete = (id) => {
+    axios.delete(`http://localhost:3001/books/${id}`)
+      .then(() => {
+        fetchBook()
+      })
+  }
+
+  const handleCancel = () => {
+    setForm({
+      book_id: '', title: '', price: '', author_firstname: '', author_lastname: '', author_email: '', status: null
+    })
+    fetchBook()
+    setIsEditing(false)
+  }
+
+  // const filteredBook = books.filter(book =>
+  //   book.title.toLowerCase().includes(search.toLowerCase()) ||
+  //   book.author.toLowerCase().includes(search.toLowerCase()) ||
+  //   book.id.toLowerCase().includes(search.toLowerCase())
+  // )
+
+  useGSAP(() => {
+    gsap.set(addBook.current, {
+      xPercent: 100
+    })
+  })
+
+  function toggleAction() {
+    if (!isOpen) {
+      gsap.to(addBook.current, {
+        xPercent: 0,
+        duration: 0.3,
+        ease: "power2.out"
+      })
+      setIsOpen(!isOpen)
+    } else {
+      gsap.to(addBook.current, {
+        xPercent: 100,
+        duration: 0.3,
+        ease: "power2.out"
+      })
+      setIsOpen(!isOpen)
+    }
+  }
+
 
   return (
-    <div className='w-full h-full overflow-y-auto' >
+    <div className='relative w-full h-full overflow-y-auto' >
       <div className="w-auto pt-2 px-2 border-b-1 border-[#dfdfdf]">
         <div className="w-full flex justify-start items-center px-4 py-2">
           <h1 className="text-4xl md:text-5xl text-neutral-900 outfit-bold">Library</h1>
@@ -101,6 +166,7 @@ export default function ListContent() {
             <span>Books</span>
           </button>
           <button
+            onClick={() => toggleAction()}
             className="flex items-center gap-1 border border-[#dbdbdb] rounded-md  bg-white/60 px-2 py-1 hover:bg-[#f7f7f7] transition-all">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
               stroke="currentColor" className="size-4">
@@ -161,44 +227,238 @@ export default function ListContent() {
         <table className="w-full table-auto">
           <thead>
             <tr className="bg-white/60">
-              <th className="px-2 py-1 text-center text-neutral-700">No</th>
               <th className="border-s border-[#ebebeb] px-2 py-1 text-center text-neutral-700">Book ID</th>
               <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Title</th>
               <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Price</th>
               <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Status</th>
               <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Author</th>
               <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Auhtor Email</th>
-              <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">City</th>
               <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Action</th>
             </tr>
           </thead>
           <tbody id="bookTable">
-            {filteredBook.map((book) => {
-              const status = book.status ? "available" : "unavailable"
-              const statusColor = book.status ? "green" : "red"
-              const statusBook = book.status
-
+            {books.map((book) => {
               return (
                 <RowData
                   key={book.id}
-                  data={{
-                    number: books.indexOf(book) + 1,
-                    bookId: book.id,
-                    bookTitle: book.title,
-                    bookAuthor: book.author,
-                    bookStatus: status,
-                    bookElement: statusBook,
-                    statusColor: statusColor,
-                    authorEmail: book.email,
-                    authorCity: book.weather?.name || "N/A",
-                  }}
-                  onDelete={deleteBook}
+                  id={book.id}
+                  onUpdate={handleUpdate}
+                  onDelete={handleDelete}
+                  bookId={book.book_id}
+                  bookTitle={book.title}
+                  bookPrice={book.price}
+                  bookStatus={book.status}
+                  bookAuthorFirstName={book.author_firstname}
+                  bookAuthorLastName={book.author_lastname}
+                  bookAuthorEmail={book.author_email}
                 />
               )
             })}
           </tbody>
         </table>
       </div>
-    </ div>
+      <div ref={addBook} className="fixed z-4 bg-white left-[51px] right-0 bottom-0 top-[51px] p-4">
+        <div className="w-full h-auto">
+          <div className="w-full h-full p-2">
+            <div className="w-full flex items-center justify-between">
+              <div className="">
+                <h1 className="text-2xl outfit-medium text-neutral-900">Form action</h1>
+                <p className="text-md text-neutral-600">You can control and manage your members here.</p>
+              </div>
+              <button onClick={() => toggleAction()} className="my-3 rounded-lg bg-white px-3 py-[6px] border border-[#ebebeb] hover:bg-[#f7f7f7]">Return</button>
+            </div>
+            <br />
+            <div className="w-full">
+              <form onSubmit={handleSubmit} className='w-full rounded-xl border border-[#ebebeb] p-4'>
+                <div className="space-y-12">
+                  <div className="mt-4 md:mt-10 flex flex-col md:flex-row gap-[3rem] border-b border-gray-900/10 pb-12">
+                    <div className="w-full md:w-1/3">
+                      <h2 className="text-base/7 font-semibold text-gray-900">Add New Book</h2>
+                      <p className="mt-1 text-md/6 text-gray-600">
+                        The information about this book will displayed in book table list.
+                      </p>
+                    </div>
+
+                    <div className="w-full md:w-2/3 md:pe-[5rem] grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                      <div className="sm:col-span-4">
+                        <label htmlFor="username" className="block text-md/6 font-medium text-gray-900">
+                          Book Name
+                        </label>
+                        <div className="mt-2">
+                          <div className="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                            <div className="shrink-0 text-base text-gray-500 select-none sm:text-md/6">workcation.com/</div>
+                            <input
+                              id="username"
+                              name="username"
+                              value={form.title}
+                              onChange={handleChange}
+                              type="text"
+                              required
+                              placeholder="janesmith"
+                              className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-md/6"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                      <div className="col-span-full">
+                        <label htmlFor="cover-photo" className="block text-md/6 font-medium text-gray-900">
+                          Cover photo
+                        </label>
+                        <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                          <div className="text-center">
+                            <PhotoIcon aria-hidden="true" className="mx-auto size-12 text-gray-300" />
+                            <div className="mt-4 flex text-md/6 text-gray-600">
+                              <label
+                                htmlFor="file-upload"
+                                className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-indigo-500"
+                              >
+                                <span>Upload a file</span>
+                                <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                              </label>
+                              <p className="pl-1">or drag and drop</p>
+                            </div>
+                            <p className="text-xs/5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-10 flex flex-col md:flex-row gap-[3rem] border-b border-gray-900/10 pb-12">
+                    <div className="w-full md:w-1/3">
+                      <h2 className="text-base/7 font-semibold text-gray-900">Book Information</h2>
+                      <p className="mt-1 text-md/6 text-gray-600">Use a permanent email address where you can receive mail.</p>
+                    </div>
+
+                    <div className="w-full md:w-2/3 md:pe-[5rem] grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                      <div className="sm:col-span-3">
+                        <label htmlFor="author_firstname" className="block text-md/6 font-medium text-gray-900">
+                          First name
+                        </label>
+                        <div className="mt-2">
+                          <input
+                            id="author_firstname"
+                            name="author_firstname"
+                            value={form.author_firstname}
+                            onChange={handleChange}
+                            required
+                            type="text"
+                            autoComplete="given-name"
+                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="sm:col-span-3">
+                        <label htmlFor="author_lastname" className="block text-md/6 font-medium text-gray-900">
+                          Last name
+                        </label>
+                        <div className="mt-2">
+                          <input
+                            id="author_lastname"
+                            name="author_lastname"
+                            value={form.author_lastname}
+                            onChange={handleChange}
+                            type="text"
+                            required
+                            autoComplete="family-name"
+                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="sm:col-span-4">
+                        <label htmlFor="author_email" className="block text-md/6 font-medium text-gray-900">
+                          Email address
+                        </label>
+                        <div className="mt-2">
+                          <input
+                            id="author_email"
+                            name="author_email"
+                            type="author_email"
+                            value={form.author_email}
+                            onChange={handleChange}
+                            required
+                            autoComplete="email"
+                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="sm:col-span-3">
+                        <label htmlFor="book_id" className="block text-md/6 font-medium text-gray-900">
+                          book_id
+                        </label>
+                        <div className="mt-2 grid grid-cols-1">
+                          <label htmlFor="book_id" className="block text-md/6 font-medium text-gray-900">
+                            Book Id
+                          </label>
+                          <div className="mt-2">
+                            <input
+                              id="book_id"
+                              name="book_id"
+                              value={form.book_id}
+                              onChange={handleChange}
+                              type="text"
+                              required
+                              autoComplete="book_id"
+                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                            />
+                          </div>
+                        </div>
+
+
+                      </div>
+                      <div className="sm:col-span-3">
+                        <label htmlFor="price" className="block text-md/6 font-medium text-gray-900">
+                          Price
+                        </label>
+                        <div className="mt-2 grid grid-cols-1">
+                          <label htmlFor="price" className="block text-md/6 font-medium text-gray-900">
+                            Price
+                          </label>
+                          <div className="mt-2">
+                            <input
+                              id="price"
+                              name="price"
+                              value={form.price}
+                              onChange={handleChange}
+                              type="text"
+                              required
+                              autoComplete="price"
+                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                            />
+                          </div>
+                        </div>
+
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 flex items-center justify-end gap-x-6">
+                    <button onClick={() => {
+                      handleCancel()
+                      toggleAction()
+                    }} type="button" className="text-md/6 font-semibold text-gray-900">
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
