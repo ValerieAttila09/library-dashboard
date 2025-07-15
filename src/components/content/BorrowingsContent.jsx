@@ -12,11 +12,11 @@ function isBookInCart(cart, bookId) {
 const Badge = ({ Status }) => {
   if (Status == 1) {
     return (
-      <span className="px-2 text-sm bg-green-50 rounded text-green-400">active</span>
+      <span className="px-2 text-sm bg-green-50 rounded text-green-400">available</span>
     )
   } else {
     return (
-      <span className="px-2 text-sm bg-red-50 rounded text-red-400">non-active</span>
+      <span className="px-2 text-sm bg-red-50 rounded text-red-400">unavailable</span>
     )
   }
 }
@@ -166,7 +166,7 @@ export default function BorrowingsContent() {
 
   useGSAP(() => {
     gsap.set(addLoan.current, {
-      xPercent: 100
+      xPercent: 0
     })
   })
 
@@ -366,7 +366,7 @@ export default function BorrowingsContent() {
             <button onClick={() => toggleAction()} className="rounded-md border border-[#ebebeb] px-3 py-2 hover:bg-[#fafafa]">Close</button>
           </div>
           <div className="w-full flex gap-3 py-4">
-            <div className="w-3/5 py-2 rounded-md overflow-hidden border border-[#ebebeb] shadow">
+            <div className="w-9/12 py-2 rounded-md overflow-hidden border border-[#ebebeb] shadow">
               <div className="flex w-full h-full overflow-y-auto overflow-x-auto">
                 <table className="w-full">
                   <thead>
@@ -402,7 +402,7 @@ export default function BorrowingsContent() {
                 </table>
               </div>
             </div>
-            <div className="w-2/5 rounded-md border border-[#ebebeb] shadow p-4">
+            <div className="w-3/12 rounded-md border border-[#ebebeb] shadow p-4">
               <h2 className="text-lg font-semibold mb-2">Cart</h2>
               {cart.length === 0 ? (
                 <div className="text-gray-400">Cart is empty.</div>
@@ -410,31 +410,34 @@ export default function BorrowingsContent() {
                 <table className="w-full text-sm">
                   <thead>
                     <tr>
-                      <th className="text-start">Book</th>
-                      <th className="text-start">Price</th>
-                      <th className="text-start">Qty</th>
-                      <th className="text-start">Total</th>
+                      <th className="p-2 text-start">Book</th>
+                      {/* <th className="p-2 text-start">Price</th> */}
+                      {/* <th className="p-2 text-start">Quantity</th> */}
+                      {/* <th className="p-2 text-start">Total</th> */}
                       <th></th>
                     </tr>
                   </thead>
                   <tbody>
                     {cart.map(item => (
                       <tr key={item.book_id}>
-                        <td>{item.title}</td>
-                        <td>${item.price}</td>
-                        <td>{item.quantity}</td>
-                        <td>${(item.price * item.quantity).toFixed(2)}</td>
-                        <td>
-                          <button onClick={() => handleRemoveFromCart(item.book_id)} className="text-red-500 hover:underline">Remove</button>
+                        <td className="p-2">{item.title}</td>
+                        {/* <td className="p-2">${item.price}</td> */}
+                        {/* <td className="p-2">{item.quantity}</td> */}
+                        {/* <td className="p-2">${(item.price * item.quantity).toFixed(2)}</td> */}
+                        <td className="p-2">
+                          <button onClick={() => handleRemoveFromCart(item.book_id)} className="flex items-center gap-2 text-red-500 hover:bg-red-400 hover:text-white rounded-md transition-all px-2 py-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+                            </svg>
+                          </button>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                   <tfoot>
                     <tr>
-                      <td colSpan="3" className="text-end font-semibold">Total:</td>
-                      <td colSpan="2" className="font-semibold">$
-                        {cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}
+                      <td colSpan="2" className="p-2 text-end">
+                        <button className="px-3 py-1 outfit-regular bg-blue-400 text-white rounded-md border border-transparent hover:bg-white hover:border-[#d7d7d7] hover:text-blue-500 transition-all">Next</button>
                       </td>
                     </tr>
                   </tfoot>
