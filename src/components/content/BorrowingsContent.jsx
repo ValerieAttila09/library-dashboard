@@ -5,6 +5,10 @@ import { useGSAP } from '@gsap/react'
 
 gsap.registerPlugin(useGSAP)
 
+function isBookInCart(cart, bookId) {
+  return cart.some(item => item.book_id === bookId);
+}
+
 const Badge = ({ Status }) => {
   if (Status == 1) {
     return (
@@ -22,7 +26,7 @@ function RowData({ book, id, toggleAction, onDelete, onUpdate, bookId, bookTitle
     <tr className="hover:bg-[#fafafa] transition-all">
       <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{bookId}</td>
       <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{bookTitle}</td>
-      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{`$${bookPrice} USD`}</td>
+      <td className="text-[14px] text-nowrap outfit-regular tableValue border-s border-[#ebebeb] px-2 py-3">{`$${bookPrice} USD`}</td>
       <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">
         <Badge Status={bookStatus} />
       </td>
@@ -46,21 +50,47 @@ function RowData({ book, id, toggleAction, onDelete, onUpdate, bookId, bookTitle
     </tr>
   )
 }
+function RowDataMenu({ book, bookId, bookTitle, bookPrice, bookStatus, bookAuthorFirstName, bookAuthorLastName, onAddToCart, isInCart }) {
+  return (
+    <tr className="hover:bg-[#fafafa] transition-all">
+      <td className="text-[14px] text-nowrap tableValue px-2 py-3">{bookId}</td>
+      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{bookTitle}</td>
+      <td className="text-[14px] text-nowrap outfit-regular tableValue border-s border-[#ebebeb] px-2 py-3">{`$${bookPrice} USD`}</td>
+      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">
+        <Badge Status={bookStatus} />
+      </td>
+      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{`${bookAuthorFirstName} ${bookAuthorLastName}`}</td>
+      <td className="text-[14px] border-s border-[#ebebeb] text-nowrap px-2 py-3 flex justify-start items-center gap-2">
+        <button
+          className={`px-2 py-1 flex items-center gap-2 rounded-md ${isInCart ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-400 text-neutral-900'} group border-1 border-transparent hover:border-[#ebebeb] hover:bg-white transition-all`}
+          onClick={() => !isInCart && onAddToCart(book)}
+          disabled={isInCart}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`size-5 ${isInCart ? 'text-gray-400' : 'text-white group-hover:text-blue-400'}`}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+          </svg>
+          <span className={isInCart ? 'text-gray-400' : 'text-white group-hover:text-blue-400'}>{isInCart ? 'In Cart' : 'Add to Cart'}</span>
+        </button>
+      </td>
+    </tr>
+  )
+}
 
 
 export default function BorrowingsContent() {
-  const [loanData, setLoanData] = useState([])
+  const [books, setbooks] = useState([])
   const [search, setSearch] = useState("")
   const [form, setForm] = useState({
     borrower: '', borrower_email: '', book_title: '', book_author: '', count: null, total_price: null, deadline: '', status: null
   })
+  const [cart, setCart] = useState([])
   const addLoan = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
 
   const fetchBook = async () => {
     try {
       const response = await axios.get('http://localhost:3001/books')
-      setLoanData(response.data)
+      setbooks(response.data)
     } catch (error) {
       console.log("gagal fetch data: ", error)
     }
@@ -71,11 +101,22 @@ export default function BorrowingsContent() {
   }, []);
 
   const handleChange = (e) => {
-    setLoanData({
+    setbooks({
       ...form,
       [e.target.name]: e.target.value
     })
   }
+
+  const handleAddToCart = (book) => {
+    setCart(prev => {
+      if (isBookInCart(prev, book.book_id)) return prev;
+      return [...prev, { ...book, quantity: 1 }];
+    });
+  };
+
+  const handleRemoveFromCart = (bookId) => {
+    setCart(prev => prev.filter(item => item.book_id !== bookId));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -116,7 +157,7 @@ export default function BorrowingsContent() {
     fetchBook()
   }
 
-  const filteredBook = loanData.filter(get =>
+  const filteredBook = books.filter(get =>
     get.book_id.toLowerCase().includes(search.toLowerCase()) ||
     get.title.toLowerCase().includes(search.toLowerCase()) ||
     get.author_firstname.toLowerCase().includes(search.toLowerCase()) ||
@@ -151,7 +192,7 @@ export default function BorrowingsContent() {
     <div className="relative w-full h-full overflow-y-auto bg-transparent">
       <div className="w-full h-auto flex flex-col gap-4">
         <div className="w-full grid md:flex items-center flex-wrap gap-4 px-4 py-2">
-          <div className="w-full md:w-[32%] h-[8rem] rounded-lg border border-[#ebebeb] shadow px-6 py-4 hover:bg-green-50/30 hover:shadow-lg transition-all">
+          <div className="w-full md:w-[32%] h-[8rem] rounded-lg border border-[#ebebeb] shadow px-6 py-4 hover:bg-[#fafafa] hover:shadow-lg transition-all">
             <div className="w-full h-full flex flex-col justify-start">
               <div className="w-full flex flex-col justify-between gap-4">
                 <div className="w-full flex items-center justify-between gap-[3rem]">
@@ -183,7 +224,7 @@ export default function BorrowingsContent() {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-[32%] h-[8rem] rounded-lg border border-[#ebebeb] shadow px-6 py-4 hover:bg-green-50/30 hover:shadow-lg transition-all">
+          <div className="w-full md:w-[32%] h-[8rem] rounded-lg border border-[#ebebeb] shadow px-6 py-4 hover:bg-[#fafafa] hover:shadow-lg transition-all">
             <div className="w-full h-full flex flex-col justify-start">
               <div className="w-full flex flex-col justify-between gap-4">
                 <div className="w-full flex items-center justify-between gap-[3rem]">
@@ -215,7 +256,7 @@ export default function BorrowingsContent() {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-[32%] h-[8rem] rounded-lg border border-[#ebebeb] shadow px-6 py-4 hover:bg-green-50/30 hover:shadow-lg transition-all">
+          <div className="w-full md:w-[32%] h-[8rem] rounded-lg border border-[#ebebeb] shadow px-6 py-4 hover:bg-[#fafafa] hover:shadow-lg transition-all">
             <div className="w-full h-full flex flex-col justify-start">
               <div className="w-full flex flex-col justify-between gap-4">
                 <div className="w-full flex items-center justify-between gap-[3rem]">
@@ -248,30 +289,48 @@ export default function BorrowingsContent() {
             </div>
           </div>
         </div>
-        <div className="w-full h-auto md:h-[26rem]  flex flex-col md:flex-row">
-          <div className="w-full border-r-1 overflow-hidden border-b-1 border-t-1 border-[#ebebeb]">
-            <div className="w-full p-1">
-              <label htmlFor="search" className="w-1/2 relative rounded-full border border-[#ebebeb] flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                  stroke="currentColor" className="size-4 text-neutral-500 absolute left-2">
-                  <path strokeLinecap="round" strokeLinejoin="round"
-                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                </svg>
-                <input value={search} onChange={e => setSearch(e.target.value)} type="text" placeholder="search..." name="search" id="search" className="w-full ps-8 py-1 outline-none" />
-              </label>
+        <div className="w-full h-auto md:h-[26rem] p-5">
+          <div className="shadow-md overflow-hidden rounded-b-lg border-b-1 border-[#ebebeb]">
+            <div className="w-full flex justify-between bg-[#fafafa] rounded-t-lg p-2 border-1 border-b-0 border-[#ebebeb]">
+              <div className="w-full">
+                <label htmlFor="search" className="bg-white w-1/2 relative rounded-full border border-[#ebebeb] flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                    stroke="currentColor" className="size-4 text-neutral-500 absolute left-2">
+                    <path strokeLinecap="round" strokeLinejoin="round"
+                      d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                  </svg>
+                  <input value={search} onChange={e => setSearch(e.target.value)} type="text" placeholder="search..." name="search" id="search" className="w-full ps-8 py-1 outline-none" />
+                </label>
+              </div>
+              <div className="w-auto flex justify-end gap-1">
+                <button onClick={() => toggleAction()} className="rounded-md bg-white border border-[#dbdbdb] px-2 py-1 hover:bg-[#f6f6f6] transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 text-neutral-700">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                  </svg>
+                </button>
+                <button id="menuWrapped" className="bg-white border border-[#dbdbdb] rounded-md px-2 py-1 hover:bg-[#f6f6f6] transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                    stroke="currentColor" className="size-5 text-neutral-500">
+                    <path strokeLinecap="round" strokeLinejoin="round"
+                      d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                  </svg>
+                </button>
+              </div>
             </div>
-            <div className="w-full h-full overflow-y-scroll overflow-x-scroll">
+            <div className="w-full h-full overflow-y-auto overflow-x-auto border-r-1 border-[#ebebeb]">
               <table className="w-full">
                 <thead>
-                  <tr className="bg-white/60">
-                    <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Book ID</th>
-                    <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Title</th>
-                    <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Status</th>
-                    <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Author</th>
-                    <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Borrower</th>
-                    <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Date</th>
-                    <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Deadline</th>
-                    <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Action</th>
+                  <tr className="bg-[#fcfcfc]">
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Book ID</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Title</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Amount</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Total Price</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Status</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Author</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Borrower</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Date</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Deadline</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Action</th>
                   </tr>
                 </thead>
                 <tbody id="bookTable">
@@ -300,8 +359,90 @@ export default function BorrowingsContent() {
           </div>
         </div>
       </div>
-      <div ref={addLoan} className="fixed z-4 bg-white left-[51px] right-0 bottom-0 top-[51px] overflow-y-auto p-4">
-        
+      <div ref={addLoan} className="fixed z-4 bg-white left-[51px] right-0 bottom-0 top-[51px] overflow-y-auto">
+        <div className="w-full h-full p-4">
+          <div className="w-full flex justify-between items-center">
+            <h1 className="text-xl outfit-medium text-neutral-900">Shopping Experiment</h1>
+            <button onClick={() => toggleAction()} className="rounded-md border border-[#ebebeb] px-3 py-2 hover:bg-[#fafafa]">Close</button>
+          </div>
+          <div className="w-full flex gap-3 py-4">
+            <div className="w-3/5 py-2 rounded-md overflow-hidden border border-[#ebebeb] shadow">
+              <div className="flex w-full h-full overflow-y-auto overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-[#fcfcfc]">
+                      <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Book ID</th>
+                      <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Title</th>
+                      <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Price</th>
+                      <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Status</th>
+                      <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Author</th>
+                      <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bookTable">
+                    {books.map((book) => {
+                      return (
+                        <RowDataMenu
+                          key={book.id}
+                          book={book}
+                          id={book.id}
+                          bookId={book.book_id}
+                          bookTitle={book.title}
+                          bookPrice={book.price}
+                          bookStatus={book.status}
+                          bookAuthorFirstName={book.author_firstname}
+                          bookAuthorLastName={book.author_lastname}
+                          bookAuthorEmail={book.author_email}
+                          onAddToCart={handleAddToCart}
+                          isInCart={isBookInCart(cart, book.book_id)}
+                        />
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="w-2/5 rounded-md border border-[#ebebeb] shadow p-4">
+              <h2 className="text-lg font-semibold mb-2">Cart</h2>
+              {cart.length === 0 ? (
+                <div className="text-gray-400">Cart is empty.</div>
+              ) : (
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr>
+                      <th className="text-start">Book</th>
+                      <th className="text-start">Price</th>
+                      <th className="text-start">Qty</th>
+                      <th className="text-start">Total</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {cart.map(item => (
+                      <tr key={item.book_id}>
+                        <td>{item.title}</td>
+                        <td>${item.price}</td>
+                        <td>{item.quantity}</td>
+                        <td>${(item.price * item.quantity).toFixed(2)}</td>
+                        <td>
+                          <button onClick={() => handleRemoveFromCart(item.book_id)} className="text-red-500 hover:underline">Remove</button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colSpan="3" className="text-end font-semibold">Total:</td>
+                      <td colSpan="2" className="font-semibold">$
+                        {cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

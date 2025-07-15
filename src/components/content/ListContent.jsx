@@ -19,7 +19,7 @@ const Badge = ({ Status }) => {
   }
 }
 
-function RowData({ book, toggleAction, onDelete, onUpdate, bookId, bookTitle, bookPrice, bookStatus, bookAuthorFirstName, bookAuthorLastName, bookAuthorEmail }) {
+function RowData({ book, id, toggleAction, onDelete, onUpdate, bookId, bookTitle, bookPrice, bookStatus, bookAuthorFirstName, bookAuthorLastName, bookAuthorEmail }) {
   return (
     <tr className="hover:bg-[#fafafa] transition-all">
       <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{bookId}</td>
@@ -198,7 +198,7 @@ export default function ListContent() {
       </div>
       <div className="w-full rounded-lg py-4 px-3">
         <div className="shadow-md overflow-hidden rounded-b-lg border-b-1 border-[#ebebeb]">
-          <div className="bg-[#fafafa] border-x-1 border-t-1 border-[#ebebeb] rounded-t-lg flex justify-between items-center w-auto p-2">
+          <div className="bg-[#fafafa] border-x-1 border-t-1 border-[#ebebeb] rounded-t-lg flex justify-between w-auto p-2">
             <label htmlFor="search" className="bg-white w-1/2 relative rounded-full border border-[#ebebeb] flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                 stroke="currentColor" className="size-4 text-neutral-500 absolute left-2">
@@ -209,7 +209,7 @@ export default function ListContent() {
             </label>
             <div className="flex gap-2">
               <button id="menuWrapped"
-                className="bg-white flex gap-1 border border-[#dbdbdb] rounded-md p-1 hover:bg-[#f6f6f6] transition-all">
+                className="bg-white flex items-center justify-center gap-1 border border-[#dbdbdb] rounded-md px-2 py-1 hover:bg-[#f6f6f6] transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                   stroke="currentColor" className="size-5 text-neutral-500">
                   <path strokeLinecap="round" strokeLinejoin="round"
@@ -217,7 +217,7 @@ export default function ListContent() {
                 </svg>
               </button>
               <button id="menuWrapped"
-                className="bg-white flex items-center gap-1 border border-[#dbdbdb] rounded-md p-1 hover:bg-[#f6f6f6] transition-all">
+                className="bg-white flex items-center gap-1 border border-[#dbdbdb] rounded-md px-2 py-1 hover:bg-[#f6f6f6] transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                   stroke="currentColor" className="size-4 text-neutral-500">
                   <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
@@ -226,7 +226,7 @@ export default function ListContent() {
                   Rows
                 </span>
               </button>
-              <button id="menuWrapped" className="bg-white border border-[#dbdbdb] rounded-md p-1 hover:bg-[#f6f6f6] transition-all">
+              <button id="menuWrapped" className="bg-white border border-[#dbdbdb] rounded-md px-2 py-1 hover:bg-[#f6f6f6] transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                   stroke="currentColor" className="size-5 text-neutral-500">
                   <path strokeLinecap="round" strokeLinejoin="round"
@@ -239,13 +239,13 @@ export default function ListContent() {
             <table className="w-full table-auto">
               <thead>
                 <tr className="bg-[#fcfcfc]">
-                  <th className="border-s border-[#ebebeb] ps-2 py-1 text-start text-neutral-700">Book ID</th>
-                  <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Title</th>
-                  <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Price</th>
-                  <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Status</th>
-                  <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Author</th>
-                  <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Auhtor Email</th>
-                  <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Action</th>
+                  <th className="outfit-medium border-s border-[#ebebeb] ps-2 py-1 text-start text-neutral-700">Book ID</th>
+                  <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Title</th>
+                  <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Price</th>
+                  <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Status</th>
+                  <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Author</th>
+                  <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Auhtor Email</th>
+                  <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Action</th>
                 </tr>
               </thead>
               <tbody id="bookTable">
@@ -254,6 +254,7 @@ export default function ListContent() {
                     <RowData
                       key={book.id}
                       book={book}
+                      id={book.id}
                       toggleAction={toggleAction}
                       onUpdate={handleUpdate}
                       onDelete={handleDelete}
