@@ -79,13 +79,16 @@ function RowDataMenu({ book, bookId, bookTitle, bookPrice, bookStatus, bookAutho
 
 export default function BorrowingsContent() {
   const [books, setbooks] = useState([])
+  const [borrowings, setBorrowings] = useState([])
   const [search, setSearch] = useState("")
   const [form, setForm] = useState({
     borrower: '', borrower_email: '', book_title: '', book_author: '', count: null, total_price: null, deadline: '', status: null
   })
   const [cart, setCart] = useState([])
   const addLoan = useRef(null)
+  const loanProcess = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenTwo, setIsOpenTwo] = useState(false)
 
   const fetchBook = async () => {
     try {
@@ -96,8 +99,18 @@ export default function BorrowingsContent() {
     }
   }
 
+  const fetchBorrower = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/borrower')
+      setBorrowings(response.data)
+    } catch (error) {
+      console.log("gagal fetch data: ", error)
+    }
+  }
+
   useEffect(() => {
     fetchBook()
+    fetchBorrower()
   }, []);
 
   const handleChange = (e) => {
@@ -166,7 +179,10 @@ export default function BorrowingsContent() {
 
   useGSAP(() => {
     gsap.set(addLoan.current, {
-      xPercent: 0
+      xPercent: 100
+    })
+    gsap.set(loanProcess.current, {
+      xPercent: 100
     })
   })
 
@@ -185,6 +201,24 @@ export default function BorrowingsContent() {
         ease: "power2.out"
       })
       setIsOpen(!isOpen)
+    }
+  
+  }
+  function toggleActionTwo() {
+    if (!isOpenTwo) {
+      gsap.to(loanProcess.current, {
+        xPercent: 0,
+        duration: 0.3,
+        ease: "power2.out"
+      })
+      setIsOpenTwo(!isOpenTwo)
+    } else {
+      gsap.to(loanProcess.current, {
+        xPercent: 100,
+        duration: 0.3,
+        ease: "power2.out"
+      })
+      setIsOpenTwo(!isOpenTwo)
     }
   }
 
@@ -360,12 +394,12 @@ export default function BorrowingsContent() {
         </div>
       </div>
       <div ref={addLoan} className="fixed z-4 bg-white left-[51px] right-0 bottom-0 top-[51px] overflow-y-auto">
-        <div className="w-full h-full p-4">
-          <div className="w-full flex justify-between items-center">
+        <div className="relative w-full h-full">
+          <div className="w-full p-4 flex justify-between items-center">
             <h1 className="text-xl outfit-medium text-neutral-900">Shopping Experiment</h1>
             <button onClick={() => toggleAction()} className="rounded-md border border-[#ebebeb] px-3 py-2 hover:bg-[#fafafa]">Close</button>
           </div>
-          <div className="w-full flex gap-3 py-4">
+          <div className="w-full flex gap-3 p-4">
             <div className="w-9/12 py-2 rounded-md overflow-hidden border border-[#ebebeb] shadow">
               <div className="flex w-full h-full overflow-y-auto overflow-x-auto">
                 <table className="w-full">
@@ -434,15 +468,204 @@ export default function BorrowingsContent() {
                       </tr>
                     ))}
                   </tbody>
+                  {/* <tfoot>
+                    <tr>
+                      <td colSpan="3" className="p-2 text-end font-semibold">Total:</td>
+                      <td colSpan="2" className="p-2 font-semibold">$
+                        {cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}
+                      </td>
+                    </tr>
+                  </tfoot> */}
                   <tfoot>
                     <tr>
                       <td colSpan="2" className="p-2 text-end">
-                        <button className="px-3 py-1 outfit-regular bg-blue-400 text-white rounded-md border border-transparent hover:bg-white hover:border-[#d7d7d7] hover:text-blue-500 transition-all">Next</button>
+                        <button onClick={() => toggleActionTwo()} className="px-3 py-1 outfit-regular bg-blue-400 text-white rounded-md border border-transparent hover:bg-white hover:border-[#d7d7d7] hover:text-blue-500 transition-all">Next</button>
                       </td>
                     </tr>
                   </tfoot>
                 </table>
               )}
+            </div>
+          </div>
+          <div ref={loanProcess} className="fixed z-8 bg-white inset-0 overflow-y-auto">
+            <div className="w-full h-full p-4">
+              <div className="w-full flex justify-between items-center">
+            <h1 className="text-xl outfit-medium text-neutral-900">Shopping Form</h1>
+            <button onClick={() => toggleActionTwo()} className="rounded-md border border-[#ebebeb] px-3 py-2 hover:bg-[#fafafa]">Close</button>
+          </div>
+              <br />
+              <form id="formBorrow" className="rounded-lg bg-[#fafafa] border border-[#d7d7d7] px-6 py-[3rem]">
+                <div className="w-full h-full flex">
+                  <div className="w-full md:w-1/2 space-y-12 pe-5">
+                    <div className="w-full flex flex-col gap-5 border-b-1 border-[#ebebeb] pb-12">
+                      <div className="">
+                        <h1 className="text-xl outfit-regular text-neutral-900">Contact information</h1>
+                      </div>
+                      <div className="">
+                        <label htmlFor="email" className="block text-md/6 outfit-regular text-gray-600">
+                          Email Address
+                        </label>
+                        <div className="mt-2">
+                          <div className="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                            <input
+                              id="email"
+                              name="email"
+                              type="text"
+                              required
+                              placeholder="example123@gmail.com"
+                              className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-md/6"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="w-full flex flex-col gap-5 border-b-1 border-[#ebebeb] pb-12">
+                      <div className="">
+                        <h1 className="text-xl outfit-regular text-neutral-900">Shipping information</h1>
+                      </div>
+                      <div className="w-full grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-6">
+                        <div className="sm:col-span-3">
+                          <label htmlFor="firstname" className="block text-md/6 outfit-regular text-gray-600">
+                            First name
+                          </label>
+                          <div className="mt-2">
+                            <input
+                              id="firstname"
+                              name="firstname"
+                              required
+                              type="text"
+                              autoComplete="given-name"
+                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                            />
+                          </div>
+                        </div>
+                        <div className="sm:col-span-3">
+                          <label htmlFor="lastname" className="block text-md/6 outfit-regular text-gray-600">
+                            Last name
+                          </label>
+                          <div className="mt-2">
+                            <input
+                              id="lastname"
+                              name="lastname"
+                              type="text"
+                              required
+                              autoComplete="family-name"
+                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                            />
+                          </div>
+                        </div>
+                        <div className="sm:col-span-6">
+                          <label htmlFor="company" className="block text-md/6 outfit-regular text-gray-600">
+                            Company
+                          </label>
+                          <div className="mt-2">
+                            <input
+                              id="company"
+                              name="company"
+                              type="text"
+                              required
+                              autoComplete="company"
+                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                            />
+                          </div>
+                        </div>
+                        <div className="sm:col-span-6">
+                          <label htmlFor="address" className="block text-md/6 outfit-regular text-gray-600">
+                            Address
+                          </label>
+                          <div className="mt-2">
+                            <input
+                              id="address"
+                              name="address"
+                              type="text"
+                              required
+                              autoComplete="address"
+                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                            />
+                          </div>
+                        </div>
+                        <div className="sm:col-span-6">
+                          <label htmlFor="country" className="block text-md/6 outfit-regular text-gray-600">
+                            Country
+                          </label>
+                          <div className="mt-2">
+                            <input
+                              id="country"
+                              name="country"
+                              type="text"
+                              required
+                              autoComplete="country"
+                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                            />
+                          </div>
+                        </div>
+                        <div className="sm:col-span-3">
+                          <label htmlFor="city" className="block text-md/6 outfit-regular text-gray-600">
+                            City
+                          </label>
+                          <div className="mt-2">
+                            <input
+                              id="city"
+                              name="city"
+                              type="text"
+                              required
+                              autoComplete="city"
+                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                            />
+                          </div>
+                        </div>
+                        <div className="sm:col-span-3">
+                          <label htmlFor="postal" className="block text-md/6 outfit-regular text-gray-600">
+                            Postal
+                          </label>
+                          <div className="mt-2">
+                            <input
+                              id="postal"
+                              name="postal"
+                              type="text"
+                              required
+                              autoComplete="postal"
+                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="w-full flex flex-col gap-5 border-b-1 border-[#ebebeb] pb-12">
+                      <div className="">
+                        <h1 className="text-xl outfit-regular text-neutral-900">Delivery Method</h1>
+                      </div>
+                      <div className="w-full grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-6">
+                        <label htmlFor="standard" className="relative col-span-3 rounded-md border border-[#d7d7d7] p-4 bg-white hover:bg-[#fafafa] focus:border-indigo-500 transition-all">
+                          <h1 className="text-md text-neutral-800 outfit-regular">Standard</h1>
+                          <p className="text-sm text-neutral-600 outfit-thin mb-4">6-10 Business day</p>
+                          <p className="text-md text-neutral-800 outfit-regular">$4.00</p>
+                        </label>
+                        <label htmlFor="standard" className="relative col-span-3 rounded-md border border-[#d7d7d7] p-4 bg-white hover:bg-[#fafafa] focus:border-indigo-500 transition-all">
+                          <h1 className="text-md text-neutral-800 outfit-regular">Express</h1>
+                          <p className="text-sm text-neutral-600 outfit-thin mb-4">3-5 Business day</p>
+                          <p className="text-md text-neutral-800 outfit-regular">$15.00</p>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-full md:w-1/2">
+                    <h1 className="text-xl outfit-regular text-neutral-900">Order summary</h1>
+                    <br />
+                    <div className="w-full h-[28rem] bg-white rounded-md border border-[#d7d7d7]">
+                      <div className="w-full grid">
+                        {cart.map((book) => {
+                          return (
+                            <div className="w-full p-4 border-b-1 border-[#d7d7d7]">
+                              <h1 className="text-lg outfit-medium">{book.title}</h1>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
