@@ -202,7 +202,7 @@ export default function BorrowingsContent() {
       })
       setIsOpen(!isOpen)
     }
-  
+
   }
   function toggleActionTwo() {
     if (!isOpenTwo) {
@@ -490,9 +490,9 @@ export default function BorrowingsContent() {
           <div ref={loanProcess} className="fixed z-8 bg-white inset-0 overflow-y-auto">
             <div className="w-full h-full p-4">
               <div className="w-full flex justify-between items-center">
-            <h1 className="text-xl outfit-medium text-neutral-900">Shopping Form</h1>
-            <button onClick={() => toggleActionTwo()} className="rounded-md border border-[#ebebeb] px-3 py-2 hover:bg-[#fafafa]">Close</button>
-          </div>
+                <h1 className="text-xl outfit-medium text-neutral-900">Shopping Form</h1>
+                <button onClick={() => toggleActionTwo()} className="rounded-md border border-[#ebebeb] px-3 py-2 hover:bg-[#fafafa]">Close</button>
+              </div>
               <br />
               <form id="formBorrow" className="rounded-lg bg-[#fafafa] border border-[#d7d7d7] px-6 py-[3rem]">
                 <div className="w-full h-full flex">
@@ -636,28 +636,143 @@ export default function BorrowingsContent() {
                         <h1 className="text-xl outfit-regular text-neutral-900">Delivery Method</h1>
                       </div>
                       <div className="w-full grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-6">
-                        <label htmlFor="standard" className="relative col-span-3 rounded-md border border-[#d7d7d7] p-4 bg-white hover:bg-[#fafafa] focus:border-indigo-500 transition-all">
-                          <h1 className="text-md text-neutral-800 outfit-regular">Standard</h1>
-                          <p className="text-sm text-neutral-600 outfit-thin mb-4">6-10 Business day</p>
-                          <p className="text-md text-neutral-800 outfit-regular">$4.00</p>
-                        </label>
-                        <label htmlFor="standard" className="relative col-span-3 rounded-md border border-[#d7d7d7] p-4 bg-white hover:bg-[#fafafa] focus:border-indigo-500 transition-all">
-                          <h1 className="text-md text-neutral-800 outfit-regular">Express</h1>
-                          <p className="text-sm text-neutral-600 outfit-thin mb-4">3-5 Business day</p>
-                          <p className="text-md text-neutral-800 outfit-regular">$15.00</p>
-                        </label>
+                        <button type="button" className="relative flex justify-between col-span-3 rounded-md border border-[#d7d7d7] p-4 bg-white group hover:bg-[#fafafa] focus:border-indigo-500 focus:bg-[#fafafa] transition-all">
+                          <div className="">
+                            <h1 className="text-md text-start text-neutral-800 outfit-regular">Standard</h1>
+                            <p className="text-sm text-start text-neutral-600 outfit-thin mb-4">6-10 Business day</p>
+                            <p className="text-md text-start text-neutral-800 outfit-regular">$4.00</p>
+                          </div>
+                          <div className="">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-transparent group-focus:text-indigo-500 transition-all">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                          </div>
+                        </button>
+                        <button type="button" className="relative flex justify-between col-span-3 rounded-md border border-[#d7d7d7] p-4 bg-white group hover:bg-[#fafafa] focus:border-indigo-500 focus:bg-[#fafafa] transition-all">
+                          <div className="">
+                            <h1 className="text-md text-start text-neutral-800 outfit-regular">Express</h1>
+                            <p className="text-sm text-start text-neutral-600 outfit-thin mb-4">3-5 Business day</p>
+                            <p className="text-md text-start text-neutral-800 outfit-regular">$15.00</p>
+                          </div>
+                          <div className="">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-transparent group-focus:text-indigo-500 transition-all">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                    <div className="w-full flex flex-col gap-5 border-b-1 border-[#ebebeb] pb-12">
+                      <div className="">
+                        <h1 className="text-xl outfit-regular text-neutral-900">Payment</h1>
+                      </div>
+                      <div className="w-full grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-6">
+                        <div className="sm:col-span-6 flex items-center gap-[1.8rem]">
+                          <div className="mt-2 flex items-center gap-2">
+                            <input type="radio" name="payment" id="paypal" class="appearance-none rounded-full border-5 border-white outline-1 outline-[#d7d7d7] p-[2px] checked:border-indigo-500" value="paypal"/>
+                            <label htmlFor="paypal" className="block text-md/6 outfit-regular text-gray-600">
+                              PayPal
+                            </label>
+                          </div>
+                          <div className="mt-2 flex items-center gap-2">
+                            <input type="radio" name="payment" id="credit" class="appearance-none rounded-full border-5 border-white outline-1 outline-[#d7d7d7] p-[2px] checked:border-indigo-500" value="credit"/>
+                            <label htmlFor="credit" className="block text-md/6 outfit-regular text-gray-600">
+                              Credit Card
+                            </label>
+                          </div>
+                          <div className="mt-2 flex items-center gap-2">
+                            <input type="radio" name="payment" id="eTransfer" class="appearance-none rounded-full border-5 border-white outline-1 outline-[#d7d7d7] p-[2px] checked:border-indigo-500" value="etransfer"/>
+                            <label htmlFor="eTransfer" className="block text-md/6 outfit-regular text-gray-600">
+                              E-Transfer
+                            </label>
+                          </div>
+                        </div>
+                        <div className="sm:col-span-6">
+                          <label htmlFor="address" className="block text-md/6 outfit-regular text-gray-600">
+                            Address
+                          </label>
+                          <div className="mt-2">
+                            <input
+                              id="address"
+                              name="address"
+                              type="text"
+                              required
+                              autoComplete="address"
+                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                            />
+                          </div>
+                        </div>
+                        <div className="sm:col-span-6">
+                          <label htmlFor="country" className="block text-md/6 outfit-regular text-gray-600">
+                            Country
+                          </label>
+                          <div className="mt-2">
+                            <input
+                              id="country"
+                              name="country"
+                              type="text"
+                              required
+                              autoComplete="country"
+                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                            />
+                          </div>
+                        </div>
+                        <div className="sm:col-span-4">
+                          <label htmlFor="city" className="block text-md/6 outfit-regular text-gray-600">
+                            City
+                          </label>
+                          <div className="mt-2">
+                            <input
+                              id="city"
+                              name="city"
+                              type="text"
+                              required
+                              autoComplete="city"
+                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                            />
+                          </div>
+                        </div>
+                        <div className="sm:col-span-2">
+                          <label htmlFor="postal" className="block text-md/6 outfit-regular text-gray-600">
+                            Postal
+                          </label>
+                          <div className="mt-2">
+                            <input
+                              id="postal"
+                              name="postal"
+                              type="text"
+                              required
+                              autoComplete="postal"
+                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
+
                   <div className="w-full md:w-1/2">
                     <h1 className="text-xl outfit-regular text-neutral-900">Order summary</h1>
                     <br />
-                    <div className="w-full h-[28rem] bg-white rounded-md border border-[#d7d7d7]">
+                    <div className="w-full h-auto bg-white rounded-md border border-[#d7d7d7]">
                       <div className="w-full grid">
                         {cart.map((book) => {
                           return (
-                            <div className="w-full p-4 border-b-1 border-[#d7d7d7]">
-                              <h1 className="text-lg outfit-medium">{book.title}</h1>
+                            <div className="w-full px-4 py-6 border-b-1 border-[#d7d7d7]">
+                              <div className="w-full flex">
+                                <div className="w-full">
+                                  <h1 className="text-2xl outfit-regular">{book.title}</h1>
+                                  <h3 className="text-md outfit-regular text-neutral-600 mb-8">{`${book.author_firstname} ${book.author_lastname}`}</h3>
+                                  <span className="text-neutral-800 outfit-regular text-lg">{`$${book.price}`}</span>
+                                </div>
+                                <div className="w-auto px-2">
+                                  <button type="button" onClick={() => handleRemoveFromCart(book.book_id)} className="p-1 group">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-neutral-500 size-6 group-hover:text-red-500 transition-all">
+                                      <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                    </svg>
+                                  </button>
+                                </div>
+                              </div>
                             </div>
                           )
                         })}
