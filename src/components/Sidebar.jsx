@@ -178,16 +178,12 @@ export default function Sidebar({ isOpen, onToggleSidebar }) {
           <div className="w-full flex flex-col gap-1">
             <div
               className="w-full px-[11px] overflow-hidden flex justify-start items-center gap-2 rounded-md">
-              <div className="py-[9px] w-auto rounded-full bg-white p-[2px] group hover:bg-white transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                  className="size-6 text-blue-400 group-hover:text-blue-700 transition-all">
-                  <path
-                    d="M12.378 1.602a.75.75 0 0 0-.756 0L3 6.632l9 5.25 9-5.25-8.622-5.03ZM21.75 7.93l-9 5.25v9l8.628-5.032a.75.75 0 0 0 .372-.648V7.93ZM11.25 22.18v-9l-9-5.25v8.57a.75.75 0 0 0 .372.648l8.628 5.033Z" />
-                </svg>
+              <div className="py-[10px] w-auto rounded-full bg-white p-[2px] group hover:bg-white transition-all">
+                <div className="-translate-x-[1px] w-0 h-0 border-l-[12px] border-r-[12px] border-b-[22px] border-l-transparent border-r-transparent border-b-neutral-900"></div>
               </div>
               <div className="hiddenGem w-full flex items-center justify-between">
                 <div className="w-full flex items-center gap-2">
-                  <h1 className="text-lg sg-semibold text-neutral-800">XLIB.co</h1>
+                  <h1 className="text-lg outfit-medium text-neutral-800">XLIB.co</h1>
                   <span className="text-[10px] text-neutral-600 text-nowrap">Library Company</span>
                 </div>
                 <button onClick={onToggleSidebar} className="md:hidden p-[8px] border border-transparent hover:border-[#ebebeb] active:bg-[#ebebeb] transition-all rounded-md">
