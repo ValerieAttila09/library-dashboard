@@ -62,14 +62,14 @@ function RowDataMenu({ book, bookId, bookTitle, bookPrice, bookStatus, bookAutho
       <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{`${bookAuthorFirstName} ${bookAuthorLastName}`}</td>
       <td className="text-[14px] border-s border-[#ebebeb] text-nowrap px-2 py-3 flex justify-start items-center gap-2">
         <button
-          className={`px-2 py-1 flex items-center gap-2 rounded-md ${isInCart ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-400 text-neutral-900'} group border-1 border-transparent hover:border-[#ebebeb] hover:bg-white transition-all`}
+          className={`px-2 py-1 flex items-center gap-2 rounded-md ${isInCart ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-indigo-500 text-neutral-900'} group border-1 border-transparent hover:border-[#ebebeb] hover:bg-white transition-all`}
           onClick={() => !isInCart && onAddToCart(book)}
           disabled={isInCart}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`size-5 ${isInCart ? 'text-gray-400' : 'text-white group-hover:text-blue-400'}`}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`size-5 ${isInCart ? 'text-gray-400' : 'text-white group-hover:text-indigo-500'}`}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
           </svg>
-          <span className={isInCart ? 'text-gray-400' : 'text-white group-hover:text-blue-400'}>{isInCart ? 'In Cart' : 'Add to Cart'}</span>
+          <span className={isInCart ? 'text-gray-400' : 'text-white group-hover:text-indigo-500'}>{isInCart ? 'In Cart' : 'Add to Cart'}</span>
         </button>
       </td>
     </tr>
@@ -507,7 +507,7 @@ export default function BorrowingsContent() {
                   <tfoot>
                     <tr>
                       <td colSpan="2" className="p-2 text-end">
-                        <button onClick={() => toggleActionTwo()} className="px-3 py-1 outfit-regular bg-blue-400 text-white rounded-md border border-transparent hover:bg-white hover:border-[#d7d7d7] hover:text-blue-500 transition-all">Next</button>
+                        <button onClick={() => toggleActionTwo()} className="px-3 py-1 outfit-regular bg-indigo-500 text-white rounded-md border border-transparent hover:bg-white hover:border-[#d7d7d7] hover:text-indigo-500 transition-all">Next</button>
                       </td>
                     </tr>
                   </tfoot>
@@ -779,11 +779,16 @@ export default function BorrowingsContent() {
                             <span className="text-lg text-neutral-900 outfit-medium">$5.89</span>
                           </div>
                         </div>
-                        <div className="w-full border-b-1 border-[#ebebeb] px-4 py-6">
+                        <div className="w-full border-b-1 border-[#d7d7d7] px-4 py-6">
                           <div className="w-full flex items-center justify-between">
                             <h3 className="text-lg text-neutral-800 outfit-medium">Total</h3>
                             <span className="text-lg text-neutral-900 outfit-medium">${priceTotal()}</span>
                           </div>
+                        </div>
+                      </div>
+                      <div className="w-full grid">
+                        <div className="w-full flex items-center justify-start px-4 py-6">
+                          <button type="submit" className="w-full rounded-md border border-transparent text-center text-white py-2 px-5 bg-indigo-500 hover:bg-white hover:text-indigo-500 hover:border-indigo-500 transition-all">Confirm Order</button>
                         </div>
                       </div>
                     </div>
