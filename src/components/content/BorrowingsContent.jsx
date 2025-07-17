@@ -78,17 +78,25 @@ function RowDataMenu({ book, bookId, bookTitle, bookPrice, bookStatus, bookAutho
 
 
 export default function BorrowingsContent() {
+  const [form, setForm] = useState({
+    borrower: '',
+    borrower_email: '',
+    book_title: '',
+    book_author: '',
+    count: null,
+    total_price: null,
+    deadline: '',
+    status: null
+  })
   const [books, setbooks] = useState([])
   const [borrowings, setBorrowings] = useState([])
   const [search, setSearch] = useState("")
-  const [form, setForm] = useState({
-    borrower: '', borrower_email: '', book_title: '', book_author: '', count: null, total_price: null, deadline: '', status: null
-  })
   const [cart, setCart] = useState([])
   const addLoan = useRef(null)
   const loanProcess = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenTwo, setIsOpenTwo] = useState(false)
+  const [method, setMethod] = useState(0)
 
   const fetchBook = async () => {
     try {
@@ -219,6 +227,14 @@ export default function BorrowingsContent() {
         ease: "power2.out"
       })
       setIsOpenTwo(!isOpenTwo)
+    }
+  }
+
+  function setDelivery(){
+    if(method == 0){
+      return <span>4</span>
+    } else {
+      return <span>15</span>
     }
   }
 
@@ -636,7 +652,9 @@ export default function BorrowingsContent() {
                         <h1 className="text-xl outfit-regular text-neutral-900">Delivery Method</h1>
                       </div>
                       <div className="w-full grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-6">
-                        <button type="button" className="relative flex justify-between col-span-3 rounded-md border border-[#d7d7d7] p-4 bg-white group hover:bg-[#fafafa] focus:border-indigo-500 focus:bg-[#fafafa] transition-all">
+                        <button type="button" onClick={() => {
+                          setMethod(0)
+                        }} className="relative flex justify-between col-span-3 rounded-md border border-[#d7d7d7] p-4 bg-white group hover:bg-[#fafafa] focus:border-indigo-500 focus:bg-[#fafafa] transition-all">
                           <div className="">
                             <h1 className="text-md text-start text-neutral-800 outfit-regular">Standard</h1>
                             <p className="text-sm text-start text-neutral-600 outfit-thin mb-4">6-10 Business day</p>
@@ -648,7 +666,9 @@ export default function BorrowingsContent() {
                             </svg>
                           </div>
                         </button>
-                        <button type="button" className="relative flex justify-between col-span-3 rounded-md border border-[#d7d7d7] p-4 bg-white group hover:bg-[#fafafa] focus:border-indigo-500 focus:bg-[#fafafa] transition-all">
+                        <button type="button" onClick={() => {
+                          setMethod(1)
+                        }} className="relative flex justify-between col-span-3 rounded-md border border-[#d7d7d7] p-4 bg-white group hover:bg-[#fafafa] focus:border-indigo-500 focus:bg-[#fafafa] transition-all">
                           <div className="">
                             <h1 className="text-md text-start text-neutral-800 outfit-regular">Express</h1>
                             <p className="text-sm text-start text-neutral-600 outfit-thin mb-4">3-5 Business day</p>
@@ -662,87 +682,42 @@ export default function BorrowingsContent() {
                         </button>
                       </div>
                     </div>
-                    <div className="w-full flex flex-col gap-5 border-b-1 border-[#ebebeb] pb-12">
+                    <div className="w-full flex flex-col gap-5 pb-12">
                       <div className="">
                         <h1 className="text-xl outfit-regular text-neutral-900">Payment</h1>
                       </div>
                       <div className="w-full grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-6">
                         <div className="sm:col-span-6 flex items-center gap-[1.8rem]">
                           <div className="mt-2 flex items-center gap-2">
-                            <input type="radio" name="payment" id="paypal" class="appearance-none rounded-full border-5 border-white outline-1 outline-[#d7d7d7] p-[2px] checked:border-indigo-500" value="paypal"/>
+                            <input type="radio" name="payment" id="paypal" class="appearance-none rounded-full border-5 border-white outline-1 outline-[#d7d7d7] p-[2px] checked:border-indigo-500" value="paypal" />
                             <label htmlFor="paypal" className="block text-md/6 outfit-regular text-gray-600">
                               PayPal
                             </label>
                           </div>
                           <div className="mt-2 flex items-center gap-2">
-                            <input type="radio" name="payment" id="credit" class="appearance-none rounded-full border-5 border-white outline-1 outline-[#d7d7d7] p-[2px] checked:border-indigo-500" value="credit"/>
+                            <input type="radio" name="payment" id="credit" class="appearance-none rounded-full border-5 border-white outline-1 outline-[#d7d7d7] p-[2px] checked:border-indigo-500" value="credit" />
                             <label htmlFor="credit" className="block text-md/6 outfit-regular text-gray-600">
                               Credit Card
                             </label>
                           </div>
                           <div className="mt-2 flex items-center gap-2">
-                            <input type="radio" name="payment" id="eTransfer" class="appearance-none rounded-full border-5 border-white outline-1 outline-[#d7d7d7] p-[2px] checked:border-indigo-500" value="etransfer"/>
+                            <input type="radio" name="payment" id="eTransfer" class="appearance-none rounded-full border-5 border-white outline-1 outline-[#d7d7d7] p-[2px] checked:border-indigo-500" value="etransfer" />
                             <label htmlFor="eTransfer" className="block text-md/6 outfit-regular text-gray-600">
                               E-Transfer
                             </label>
                           </div>
                         </div>
                         <div className="sm:col-span-6">
-                          <label htmlFor="address" className="block text-md/6 outfit-regular text-gray-600">
-                            Address
+                          <label htmlFor="card-number" className="block text-md/6 outfit-regular text-gray-600">
+                            Card Number
                           </label>
                           <div className="mt-2">
                             <input
-                              id="address"
-                              name="address"
-                              type="text"
+                              id="card-number"
+                              name="card-number"
+                              type="number"
                               required
-                              autoComplete="address"
-                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
-                            />
-                          </div>
-                        </div>
-                        <div className="sm:col-span-6">
-                          <label htmlFor="country" className="block text-md/6 outfit-regular text-gray-600">
-                            Country
-                          </label>
-                          <div className="mt-2">
-                            <input
-                              id="country"
-                              name="country"
-                              type="text"
-                              required
-                              autoComplete="country"
-                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
-                            />
-                          </div>
-                        </div>
-                        <div className="sm:col-span-4">
-                          <label htmlFor="city" className="block text-md/6 outfit-regular text-gray-600">
-                            City
-                          </label>
-                          <div className="mt-2">
-                            <input
-                              id="city"
-                              name="city"
-                              type="text"
-                              required
-                              autoComplete="city"
-                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
-                            />
-                          </div>
-                        </div>
-                        <div className="sm:col-span-2">
-                          <label htmlFor="postal" className="block text-md/6 outfit-regular text-gray-600">
-                            Postal
-                          </label>
-                          <div className="mt-2">
-                            <input
-                              id="postal"
-                              name="postal"
-                              type="text"
-                              required
-                              autoComplete="postal"
+                              autoComplete="card-number"
                               className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-md/6"
                             />
                           </div>
@@ -776,6 +751,20 @@ export default function BorrowingsContent() {
                             </div>
                           )
                         })}
+                      </div>
+                      <div className="w-full grid">
+                        <div className="w-full border-b-1 border-[#ebebeb] px-4 py-6">
+                          <div className="w-full flex items-center justify-between">
+                            <h3 className="text-lg text-neutral-800 outfit-regular">Subtotal</h3>
+                            <span className="text-lg text-neutral-900 outfit-medium">${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}</span>
+                          </div>
+                        </div>
+                        <div className="w-full border-b-1 border-[#ebebeb] px-4 py-6">
+                          <div className="w-full flex items-center justify-between">
+                            <h3 className="text-lg text-neutral-800 outfit-regular">Shipping</h3>
+                            <span className="text-lg text-neutral-900 outfit-medium">${setDelivery()}</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
