@@ -97,6 +97,7 @@ export default function BorrowingsContent() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenTwo, setIsOpenTwo] = useState(false)
   const [method, setMethod] = useState(0)
+  const [totalPrice, setTotalPrice] = useState(0)
 
   const fetchBook = async () => {
     try {
@@ -238,16 +239,15 @@ export default function BorrowingsContent() {
     }
   }
 
-  function countPrice(){
-    let ogPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)
+  function countPrice() {
+    let ogPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
     return ogPrice
   }
 
-  function totalPrice(){
-    let ogPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)
+  function priceTotal() {
     let countAdditional = method == 0 ? 4 + 5.89 : 15 + 5.89
-    let totalPrice = parseInt(ogPrice) + parseInt(countAdditional)
-    return totalPrice
+    let ogPrice = (cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + countAdditional).toFixed(2)
+    return ogPrice
   }
 
   return (
@@ -782,7 +782,7 @@ export default function BorrowingsContent() {
                         <div className="w-full border-b-1 border-[#ebebeb] px-4 py-6">
                           <div className="w-full flex items-center justify-between">
                             <h3 className="text-lg text-neutral-800 outfit-medium">Total</h3>
-                            <span className="text-lg text-neutral-900 outfit-medium">${totalPrice()}</span>
+                            <span className="text-lg text-neutral-900 outfit-medium">${priceTotal()}</span>
                           </div>
                         </div>
                       </div>
