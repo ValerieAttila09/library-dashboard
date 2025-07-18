@@ -162,7 +162,8 @@ export default function BorrowingsContent() {
         })
       }
       setCart([])
-      setIsOpenTwo(false)
+      toggleActionTwo()
+      toggleAction()
       alert('Order berhasil dikirim!')
       fetchBorrower()
     } catch (err) {
