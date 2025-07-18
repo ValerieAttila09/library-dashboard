@@ -6,7 +6,7 @@ import { useGSAP } from '@gsap/react'
 gsap.registerPlugin(useGSAP)
 
 function isBookInCart(cart, bookId) {
-  return cart.some(item => item.book_id === bookId);
+  return cart.some(item => item.book_id === bookId)
 }
 
 const Badge = ({ Status }) => {
@@ -102,7 +102,7 @@ export default function BorrowingsContent() {
   const fetchBorrower = async () => {
     try {
       const response = await axios.get('http://localhost:3001/borrower')
-      setBorrowings(Array.isArray(response.data) ? response.data : []);
+      setBorrowings(Array.isArray(response.data) ? response.data : [])
     } catch (error) {
       console.log("gagal fetch data: ", error)
     }
@@ -111,18 +111,18 @@ export default function BorrowingsContent() {
   useEffect(() => {
     fetchBook()
     fetchBorrower()
-  }, []);
+  }, [])
 
   const handleAddToCart = (book) => {
     setCart(prev => {
-      if (isBookInCart(prev, book.book_id)) return prev;
-      return [...prev, { ...book, quantity: 1 }];
-    });
-  };
+      if (isBookInCart(prev, book.book_id)) return prev
+      return [...prev, { ...book, quantity: 1 }]
+    })
+  }
 
   const handleRemoveFromCart = (bookId) => {
-    setCart(prev => prev.filter(item => item.book_id !== bookId));
-  };
+    setCart(prev => prev.filter(item => item.book_id !== bookId))
+  }
 
   const filteredBookBorrower = borrowings.filter(get =>
     get.borrower.toLowerCase().includes(search.toLowerCase()) ||
@@ -130,6 +130,45 @@ export default function BorrowingsContent() {
     get.book_title.toLowerCase().includes(search.toLowerCase()) ||
     get.book_author.toLowerCase().includes(search.toLowerCase())
   )
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const form = e.target
+    const email = form.email.value
+    const firstname = form.firstname.value
+    const lastname = form.lastname.value
+    const company = form.company.value
+    const address = form.address.value
+    const city = form.city.value
+    const country = form.country.value
+    const postal = form.postal.value
+    const deadline = new Date().toISOString().slice(0, 10)
+
+    try {
+      for (const item of cart) {
+        await axios.post('http://localhost:3001/borrower', {
+          borrower: `${firstname} ${lastname}`,
+          borrower_email: email,
+          book_title: item.title,
+          book_author: `${item.author_firstname} ${item.author_lastname}`,
+          count: item.quantity,
+          total_price: item.price * item.quantity,
+          company,
+          address,
+          city,
+          country,
+          postal,
+          deadline
+        })
+      }
+      setCart([])
+      setIsOpenTwo(false)
+      alert('Order berhasil dikirim!')
+      fetchBorrower()
+    } catch (err) {
+      alert('Gagal mengirim order!')
+    }
+  }
 
   useGSAP(() => {
     gsap.set(addLoan.current, {
@@ -455,7 +494,7 @@ export default function BorrowingsContent() {
                 <button onClick={() => toggleActionTwo()} className="rounded-md border border-[#ebebeb] px-3 py-2 hover:bg-[#fafafa]">Close</button>
               </div>
               <br />
-              <form id="formBorrow" className="rounded-lg bg-[#fafafa] border border-[#d7d7d7] px-6 py-[3rem]">
+              <form id="formBorrow" className="rounded-lg bg-[#fafafa] border border-[#d7d7d7] px-6 py-[3rem]" onSubmit={handleSubmit}>
                 <div className="w-full h-full flex">
                   <div className="w-full md:w-1/2 space-y-12 pe-5">
                     <div className="w-full flex flex-col gap-5 border-b-1 border-[#ebebeb] pb-12">

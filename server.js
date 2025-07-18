@@ -129,7 +129,7 @@ app.get('/borrower', (req, res) => {
 
 app.post('/borrower', (req, res) => {
   const { borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline } = req.body;
-  db.query("INSERT INTO borrower (borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)", [borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline], (err, result) => {
+  db.query("INSERT INTO borrower (borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)", [borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline], (err, result) => {
     if (err) {
       return res.json(err);
     }
