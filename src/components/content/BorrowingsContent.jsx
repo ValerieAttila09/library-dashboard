@@ -37,18 +37,18 @@ function RowData({
 }) {
   return (
     <tr className="hover:bg-[#fafafa] transition-all">
-      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3">{borrower}</td>
-      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3">{borrowerEmail}</td>
-      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3">{bookTitle}</td>
-      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3">{bookAuthor}</td>
-      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3">{count}</td>
-      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 outfit-regular ">{`$${totalPrice} USD`}</td>
-      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">{company}</td>
-      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">{address}</td>
-      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">{city}</td>
-      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">{country}</td>
-      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">{postal}</td>
-      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">{deadline}</td>
+      <td className="text-[14px] text-nowrap px-2 py-3">{borrower}</td>
+      <td className="text-[14px] text-nowrap px-2 py-3">{borrowerEmail}</td>
+      <td className="text-[14px] text-nowrap px-2 py-3">{bookTitle}</td>
+      <td className="text-[14px] text-nowrap px-2 py-3">{bookAuthor}</td>
+      <td className="text-[14px] text-nowrap px-2 py-3">{count}</td>
+      <td className="text-[14px] text-nowrap px-2 py-3 outfit-regular">{`$${totalPrice} USD`}</td>
+      <td className="text-[14px] text-nowrap px-2 py-3">{company}</td>
+      <td className="text-[14px] text-nowrap px-2 py-3">{address}</td>
+      <td className="text-[14px] text-nowrap px-2 py-3">{city}</td>
+      <td className="text-[14px] text-nowrap px-2 py-3">{country}</td>
+      <td className="text-[14px] text-nowrap px-2 py-3">{postal}</td>
+      <td className="text-[14px] text-nowrap px-2 py-3">{deadline}</td>
     </tr>
   )
 }
@@ -56,13 +56,13 @@ function RowDataMenu({ book, bookId, bookTitle, bookPrice, bookStatus, bookAutho
   return (
     <tr className="hover:bg-[#fafafa] transition-all">
       <td className="text-[14px] text-nowrap tableValue px-2 py-3">{bookId}</td>
-      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{bookTitle}</td>
-      <td className="text-[14px] text-nowrap outfit-regular tableValue border-s border-[#ebebeb] px-2 py-3">{`$${bookPrice} USD`}</td>
-      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">
+      <td className="text-[14px] text-nowrap tableValue px-2 py-3">{bookTitle}</td>
+      <td className="text-[14px] text-nowrap outfit-regular tableValue px-2 py-3">{`$${bookPrice} USD`}</td>
+      <td className="text-[14px] text-nowrap px-2 py-3 text-center">
         <Badge Status={bookStatus} />
       </td>
-      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{`${bookAuthorFirstName} ${bookAuthorLastName}`}</td>
-      <td className="text-[14px] border-s border-[#ebebeb] text-nowrap px-2 py-3 flex justify-start items-center gap-2">
+      <td className="text-[14px] text-nowrap tableValue px-2 py-3">{`${bookAuthorFirstName} ${bookAuthorLastName}`}</td>
+      <td className="text-[14px] text-nowrap px-2 py-3 flex justify-start items-center gap-2">
         <button
           className={`px-2 py-1 flex items-center gap-2 rounded-md ${isInCart ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-indigo-500 text-neutral-900'} group border-1 border-transparent hover:border-[#ebebeb] hover:bg-white transition-all`}
           onClick={() => !isInCart && onAddToCart(book)}
@@ -168,8 +168,17 @@ export default function BorrowingsContent() {
       fetchBorrower()
     } catch (err) {
       alert('Gagal mengirim order!')
+      console.log(err)
     }
   }
+
+  const handleQuantityChange = (bookId, newQuantity) => {
+    setCart(prev =>
+      prev.map(item =>
+        item.book_id === bookId ? { ...item, quantity: Number(newQuantity) } : item
+      )
+    );
+  };
 
   useGSAP(() => {
     gsap.set(addLoan.current, {
@@ -226,7 +235,7 @@ export default function BorrowingsContent() {
 
   function countPrice() {
     let ogPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-    return ogPrice
+    return ogPrice.toFixed(2)
   }
 
   function priceTotal() {
@@ -337,8 +346,8 @@ export default function BorrowingsContent() {
           </div>
         </div>
         <div className="w-full h-auto md:h-[26rem] p-5">
-          <div className="shadow-md overflow-hidden rounded-b-lg border-b-1 border-[#ebebeb]">
-            <div className="w-full flex justify-between bg-[#fafafa] rounded-t-lg p-2 border-1 border-b-0 border-[#ebebeb]">
+          <div className="shadow-md overflow-hidden rounded-lg border border-[#ebebeb]">
+            <div className="w-full flex justify-between bg-[#fafafa] p-2">
               <div className="w-full">
                 <label htmlFor="search" className="bg-white w-1/2 relative rounded-full border border-[#ebebeb] flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
@@ -364,22 +373,22 @@ export default function BorrowingsContent() {
                 </button>
               </div>
             </div>
-            <div className="w-full h-full overflow-y-auto overflow-x-auto border-r-1 border-[#ebebeb]">
+            <div className="w-full h-full overflow-y-auto overflow-x-auto pb-4">
               <table className="w-full">
                 <thead>
                   <tr className="bg-[#fcfcfc]">
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Borrower</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Borrower Email</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Book Title</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Book Author</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Quantity</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Total Price</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Company</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Address</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">City</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Country</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Postal</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Deadline</th>
+                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Borrower</th>
+                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Borrower Email</th>
+                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Book Title</th>
+                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Book Author</th>
+                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Quantity</th>
+                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Total Price</th>
+                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Company</th>
+                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Address</th>
+                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">City</th>
+                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Country</th>
+                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Postal</th>
+                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Deadline</th>
                   </tr>
                 </thead>
                 <tbody id="bookTable">
@@ -421,11 +430,11 @@ export default function BorrowingsContent() {
                   <thead>
                     <tr className="bg-[#fcfcfc]">
                       <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Book ID</th>
-                      <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Title</th>
-                      <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Price</th>
-                      <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Status</th>
-                      <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Author</th>
-                      <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Action</th>
+                      <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Title</th>
+                      <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Price</th>
+                      <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Status</th>
+                      <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Author</th>
+                      <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Action</th>
                     </tr>
                   </thead>
                   <tbody id="bookTable">
@@ -507,14 +516,14 @@ export default function BorrowingsContent() {
                           Email Address
                         </label>
                         <div className="mt-2">
-                          <div className="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                          <div className="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
                             <input
                               id="email"
                               name="email"
                               type="text"
                               required
                               placeholder="example123@gmail.com"
-                              className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-md/6"
+                              className="block min-w-0 grow py-1.5 pr-3 pl-[6px] text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-md/6"
                             />
                           </div>
                         </div>
@@ -718,19 +727,31 @@ export default function BorrowingsContent() {
                       <div className="w-full grid">
                         {cart.map((book) => {
                           return (
-                            <div className="w-full px-4 py-6 border-b-1 border-[#d7d7d7]">
+                            <div key={book.id} className="w-full px-4 py-6 border-b-1 border-[#d7d7d7]">
                               <div className="w-full flex">
                                 <div className="w-full">
                                   <h1 className="text-2xl outfit-regular">{book.title}</h1>
                                   <h3 className="text-md outfit-regular text-neutral-600 mb-8">{`${book.author_firstname} ${book.author_lastname}`}</h3>
                                   <span className="text-neutral-800 outfit-regular text-lg">{`$${book.price}`}</span>
                                 </div>
-                                <div className="w-auto px-2">
+                                <div className="w-auto flex flex-col items-end px-2">
                                   <button type="button" onClick={() => handleRemoveFromCart(book.book_id)} className="p-1 group">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-neutral-500 size-6 group-hover:text-red-500 transition-all">
                                       <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                     </svg>
                                   </button>
+                                  <select
+                                    className="rounded-md border border-[#ebebeb] p-1 appearance-none"
+                                    required
+                                    name="quantity"
+                                    id={`quantity-${book.book_id}`}
+                                    value={book.quantity}
+                                    onChange={e => handleQuantityChange(book.book_id, e.target.value)}
+                                  >
+                                    {[...Array(10)].map((_, i) => (
+                                      <option key={i + 1} value={i + 1}>{i + 1}</option>
+                                    ))}
+                                  </select>
                                 </div>
                               </div>
                             </div>

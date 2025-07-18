@@ -119,7 +119,7 @@ app.delete('/books/:id', (req, res) => {
 })
 
 app.get('/borrower', (req, res) => {
-  db.query("SELECT * FROM borrower", (err, result) => {
+  db.query("SELECT * FROM borrowings", (err, result) => {
     if (err) {
       return res.json(err)
     }
@@ -129,20 +129,24 @@ app.get('/borrower', (req, res) => {
 
 app.post('/borrower', (req, res) => {
   const { borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline } = req.body;
-  db.query("INSERT INTO borrower (borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)", [borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline], (err, result) => {
-    if (err) {
-      return res.json(err);
+  db.query(
+    "INSERT INTO borrowings (borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline, 1],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json(err);
+      }
+      res.json({
+        message: "Peminjaman berhasil di tambahkan"
+      });
     }
-    res.json({
-      message: "Peminjaman berhasil di tambahkan"
-    });
-  })
-})
+  );
+});
 
 app.put('/borrower/:id', (req, res) => {
   const { borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline } = req.body;
   const { id } = req.params;
-  db.query('UPDATE borrower SET borrower = ?, borrower_email = ?, book_title = ?, book_author = ?, count = ?, total_price = ? company = ?, address = ?, city = ?, country = ?, postal = ?, deadline = ? WHERE id = ?', [borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline, id], (err, result) => {
+  db.query('UPDATE borrowings SET borrower = ?, borrower_email = ?, book_title = ?, book_author = ?, count = ?, total_price = ? company = ?, address = ?, city = ?, country = ?, postal = ?, deadline = ? WHERE id = ?', [borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline, id], (err, result) => {
     if (err) {
       return res.json(err)
     }
@@ -154,7 +158,7 @@ app.put('/borrower/:id', (req, res) => {
 
 app.delete('/borrower/:id', (req, res) => {
   const { id } = req.params;
-  db.query("DELETE FROM borrower WHERE id = ?", [id], (err, result) => {
+  db.query("DELETE FROM borrowings WHERE id = ?", [id], (err, result) => {
     if (err) {
       return res.json(err)
     }
