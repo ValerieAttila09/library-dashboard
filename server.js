@@ -38,9 +38,9 @@ app.get('/users', (req, res) => {
 app.post('/users', (req, res) => {
   const { firstName, lastName, username, email, role, country, street, city, state, postal } = req.body;
   db.query("INSERT INTO users (firstName, lastName, username, email, role, country, street, city, state, postal, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? ,?, 1)", [firstName, lastName, username, email, role, country, street, city, state, postal], (err, result) => {
-    if(err) {
+    if (err) {
       return res.json(err);
-    } 
+    }
     res.json({
       message: "User berhasil di tambahkan"
     });
@@ -51,7 +51,7 @@ app.put('/users/:id', (req, res) => {
   const { firstName, lastName, username, email, role, country, street, city, state, postal } = req.body;
   const { id } = req.params;
   db.query('UPDATE users SET firstName = ?, lastName = ?, username = ?, email = ?, role = ?, country = ?, street = ?, city = ?, state = ?, postal = ? WHERE id = ?', [firstName, lastName, username, email, role, country, street, city, state, postal, id], (err, result) => {
-    if(err) {
+    if (err) {
       return res.json(err)
     }
     res.json({
@@ -63,7 +63,7 @@ app.put('/users/:id', (req, res) => {
 app.delete('/users/:id', (req, res) => {
   const { id } = req.params;
   db.query("DELETE FROM users WHERE id = ?", [id], (err, result) => {
-    if(err){
+    if (err) {
       return res.json(err)
     }
     res.json({
@@ -74,7 +74,7 @@ app.delete('/users/:id', (req, res) => {
 
 app.get('/books', (req, res) => {
   db.query("SELECT * FROM books", (err, result) => {
-    if(err){
+    if (err) {
       return res.json(err)
     }
     res.json(result)
@@ -82,11 +82,11 @@ app.get('/books', (req, res) => {
 })
 
 app.post('/books', (req, res) => {
-  const { book_id, title,	price, author_firstname, author_lastname, author_email } = req.body;
-  db.query("INSERT INTO books (book_id, title, price, author_firstname, author_lastname, author_email, status) VALUES (?, ?, ?, ?, ?, ?, 1)", [book_id, title,	price, author_firstname, author_lastname, author_email], (err, result) => {
-    if(err) {
+  const { book_id, title, price, author_firstname, author_lastname, author_email } = req.body;
+  db.query("INSERT INTO books (book_id, title, price, author_firstname, author_lastname, author_email, status) VALUES (?, ?, ?, ?, ?, ?, 1)", [book_id, title, price, author_firstname, author_lastname, author_email], (err, result) => {
+    if (err) {
       return res.json(err);
-    } 
+    }
     res.json({
       message: "Buku berhasil di tambahkan"
     });
@@ -94,10 +94,10 @@ app.post('/books', (req, res) => {
 })
 
 app.put('/books/:id', (req, res) => {
-  const { book_id, title,	price, author_firstname, author_lastname, author_email } = req.body;
+  const { book_id, title, price, author_firstname, author_lastname, author_email } = req.body;
   const { id } = req.params;
   db.query('UPDATE books SET book_id = ?, title = ?, price = ?, author_firstname = ?, author_lastname = ?, author_email = ? WHERE id = ?', [book_id, title, price, author_firstname, author_lastname, author_email, id], (err, result) => {
-    if(err) {
+    if (err) {
       return res.json(err)
     }
     res.json({
@@ -109,7 +109,7 @@ app.put('/books/:id', (req, res) => {
 app.delete('/books/:id', (req, res) => {
   const { id } = req.params;
   db.query("DELETE FROM books WHERE id = ?", [id], (err, result) => {
-    if(err){
+    if (err) {
       return res.json(err)
     }
     res.json({
@@ -120,7 +120,7 @@ app.delete('/books/:id', (req, res) => {
 
 app.get('/borrower', (req, res) => {
   db.query("SELECT * FROM borrower", (err, result) => {
-    if(err){
+    if (err) {
       return res.json(err)
     }
     res.json(result)
@@ -128,11 +128,11 @@ app.get('/borrower', (req, res) => {
 })
 
 app.post('/borrower', (req, res) => {
-  const { borrower, borrower_email, book_title, book_author, count, total_price, deadline } = req.body;
-  db.query("INSERT INTO borrower (borrower, borrower_email, book_title, book_author, count, total_price, deadline, status) VALUES (?, ?, ?, ?, ?, ?, ?, 1)", [borrower, borrower_email, book_title, book_author, count, total_price, deadline], (err, result) => {
-    if(err) {
+  const { borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline } = req.body;
+  db.query("INSERT INTO borrower (borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)", [borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline], (err, result) => {
+    if (err) {
       return res.json(err);
-    } 
+    }
     res.json({
       message: "Peminjaman berhasil di tambahkan"
     });
@@ -140,10 +140,10 @@ app.post('/borrower', (req, res) => {
 })
 
 app.put('/borrower/:id', (req, res) => {
-  const { borrower, borrower_email, book_title, book_author, count, total_price, deadline } = req.body;
+  const { borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline } = req.body;
   const { id } = req.params;
-  db.query('UPDATE borrower SET borrower = ?, borrower_email = ?, book_title = ?, book_author = ?, count = ?, total_price = ?, deadline = ? WHERE id = ?', [borrower, borrower_email, book_title, book_author, count, total_price, deadline, id], (err, result) => {
-    if(err) {
+  db.query('UPDATE borrower SET borrower = ?, borrower_email = ?, book_title = ?, book_author = ?, count = ?, total_price = ? company = ?, address = ?, city = ?, country = ?, postal = ?, deadline = ? WHERE id = ?', [borrower, borrower_email, book_title, book_author, count, total_price, company, address, city, country, postal, deadline, id], (err, result) => {
+    if (err) {
       return res.json(err)
     }
     res.json({
@@ -155,7 +155,7 @@ app.put('/borrower/:id', (req, res) => {
 app.delete('/borrower/:id', (req, res) => {
   const { id } = req.params;
   db.query("DELETE FROM borrower WHERE id = ?", [id], (err, result) => {
-    if(err){
+    if (err) {
       return res.json(err)
     }
     res.json({

@@ -21,32 +21,34 @@ const Badge = ({ Status }) => {
   }
 }
 
-function RowData({ book, id, toggleAction, onDelete, onUpdate, bookId, bookTitle, bookPrice, bookStatus, bookAuthorFirstName, bookAuthorLastName, bookAuthorEmail }) {
+function RowData({
+  borrower,
+  borrowerEmail,
+  bookTitle,
+  bookAuthor,
+  count,
+  totalPrice,
+  company,
+  address,
+  city,
+  country,
+  postal,
+  deadline
+}) {
   return (
     <tr className="hover:bg-[#fafafa] transition-all">
-      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{bookId}</td>
-      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{bookTitle}</td>
-      <td className="text-[14px] text-nowrap outfit-regular tableValue border-s border-[#ebebeb] px-2 py-3">{`$${bookPrice} USD`}</td>
-      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">
-        <Badge Status={bookStatus} />
-      </td>
-      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{`${bookAuthorFirstName} ${bookAuthorLastName}`}</td>
-      <td className="text-[14px] text-nowrap tableValue border-s border-[#ebebeb] px-2 py-3">{bookAuthorEmail}</td>
-      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 flex justify-start items-center gap-2">
-        <button onClick={() => {
-          onUpdate(book)
-          toggleAction()
-        }} className="p-1 rounded-full bg-transparent text-neutral-900 group hover:bg-yellow-400 transition-all">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 text-yellow-500 group-hover:text-white transition-all">
-            <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-          </svg>
-        </button>
-        <button onClick={() => onDelete(id)} className="p-1 rounded-full bg-transparent text-neutral-900 group hover:bg-red-400 transition-all">
-          <svg className="size-5 text-red-500 group-hover:text-white transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-          </svg>
-        </button>
-      </td>
+      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3">{borrower}</td>
+      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3">{borrowerEmail}</td>
+      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3">{bookTitle}</td>
+      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3">{bookAuthor}</td>
+      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3">{count}</td>
+      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 outfit-regular ">{`$${totalPrice} USD`}</td>
+      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">{company}</td>
+      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">{address}</td>
+      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">{city}</td>
+      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">{country}</td>
+      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">{postal}</td>
+      <td className="text-[14px] text-nowrap border-s border-[#ebebeb] px-2 py-3 text-center">{deadline}</td>
     </tr>
   )
 }
@@ -78,16 +80,6 @@ function RowDataMenu({ book, bookId, bookTitle, bookPrice, bookStatus, bookAutho
 
 
 export default function BorrowingsContent() {
-  const [form, setForm] = useState({
-    borrower: '',
-    borrower_email: '',
-    book_title: '',
-    book_author: '',
-    count: null,
-    total_price: null,
-    deadline: '',
-    status: null
-  })
   const [books, setbooks] = useState([])
   const [borrowings, setBorrowings] = useState([])
   const [search, setSearch] = useState("")
@@ -97,7 +89,6 @@ export default function BorrowingsContent() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenTwo, setIsOpenTwo] = useState(false)
   const [method, setMethod] = useState(0)
-  const [totalPrice, setTotalPrice] = useState(0)
 
   const fetchBook = async () => {
     try {
@@ -122,13 +113,6 @@ export default function BorrowingsContent() {
     fetchBorrower()
   }, []);
 
-  const handleChange = (e) => {
-    setbooks({
-      ...form,
-      [e.target.name]: e.target.value
-    })
-  }
-
   const handleAddToCart = (book) => {
     setCart(prev => {
       if (isBookInCart(prev, book.book_id)) return prev;
@@ -140,50 +124,11 @@ export default function BorrowingsContent() {
     setCart(prev => prev.filter(item => item.book_id !== bookId));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (isEditing) {
-      axios.put(`http://localhost:3001/books/${form.id}`, form)
-        .then(() => {
-          setForm({
-            borrower: '', borrower_email: '', book_title: '', book_author: '', count: null, total_price: null, deadline: '', status: null
-          })
-          fetchBook()
-        })
-    } else {
-      axios.post(`http://localhost:3001/books`, form)
-        .then(() => {
-          setForm({
-            borrower: '', borrower_email: '', book_title: '', book_author: '', count: null, total_price: null, deadline: '', status: null
-          })
-          fetchBook()
-        })
-    }
-  }
-
-  const handleUpdate = (user) => {
-    setForm(user)
-  }
-
-  const handleDelete = (id) => {
-    axios.delete(`http://localhost:3001/books/${id}`)
-      .then(() => {
-        fetchBook()
-      })
-  }
-
-  const handleCancel = () => {
-    setForm({
-      borrower: '', borrower_email: '', book_title: '', book_author: '', count: null, total_price: null, deadline: '', status: null
-    })
-    fetchBook()
-  }
-
-  const filteredBook = books.filter(get =>
-    get.book_id.toLowerCase().includes(search.toLowerCase()) ||
-    get.title.toLowerCase().includes(search.toLowerCase()) ||
-    get.author_firstname.toLowerCase().includes(search.toLowerCase()) ||
-    get.author_lastname.toLowerCase().includes(search.toLowerCase())
+  const filteredBookBorrower = borrowings.filter(get =>
+    get.borrower.toLowerCase().includes(search.toLowerCase()) ||
+    get.borrower_email.toLowerCase().includes(search.toLowerCase()) ||
+    get.book_title.toLowerCase().includes(search.toLowerCase()) ||
+    get.book_author.toLowerCase().includes(search.toLowerCase())
   )
 
   useGSAP(() => {
@@ -383,35 +328,37 @@ export default function BorrowingsContent() {
               <table className="w-full">
                 <thead>
                   <tr className="bg-[#fcfcfc]">
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Book ID</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Title</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Amount</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Total Price</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Status</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Author</th>
                     <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Borrower</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Date</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Borrower Email</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Book Title</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Book Author</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Quantity</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Total Price</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Company</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Address</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">City</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Country</th>
+                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Postal</th>
                     <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Deadline</th>
-                    <th className="outfit-medium border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Action</th>
                   </tr>
                 </thead>
                 <tbody id="bookTable">
-                  {filteredBook.map((book) => {
+                  {filteredBookBorrower.map((book) => {
                     return (
                       <RowData
                         key={book.id}
-                        book={book}
-                        id={book.id}
-                        toggleAction={toggleAction}
-                        onUpdate={handleUpdate}
-                        onDelete={handleDelete}
-                        bookId={book.book_id}
-                        bookTitle={book.title}
-                        bookPrice={book.price}
-                        bookStatus={book.status}
-                        bookAuthorFirstName={book.author_firstname}
-                        bookAuthorLastName={book.author_lastname}
-                        bookAuthorEmail={book.author_email}
+                        borrower={book.borrower}
+                        borrowerEmail={book.borrower_email}
+                        bookTitle={book.book_title}
+                        bookAuthor={book.book_author}
+                        count={book.count}
+                        totalPrice={book.total_price}
+                        company={book.company}
+                        address={book.address}
+                        city={book.city}
+                        country={book.country}
+                        postal={book.postal}
+                        deadline={book.deadline}
                       />
                     )
                   })}
@@ -701,19 +648,19 @@ export default function BorrowingsContent() {
                       <div className="w-full grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-6">
                         <div className="sm:col-span-6 flex items-center gap-[1.8rem]">
                           <div className="mt-2 flex items-center gap-2">
-                            <input type="radio" name="payment" id="paypal" class="appearance-none rounded-full border-5 border-white outline-1 outline-[#d7d7d7] p-[2px] checked:border-indigo-500" value="paypal" />
+                            <input type="radio" name="payment" id="paypal" className="appearance-none rounded-full border-5 border-white outline-1 outline-[#d7d7d7] p-[2px] checked:border-indigo-500" value="paypal" />
                             <label htmlFor="paypal" className="block text-md/6 outfit-regular text-gray-600">
                               PayPal
                             </label>
                           </div>
                           <div className="mt-2 flex items-center gap-2">
-                            <input type="radio" name="payment" id="credit" class="appearance-none rounded-full border-5 border-white outline-1 outline-[#d7d7d7] p-[2px] checked:border-indigo-500" value="credit" />
+                            <input type="radio" name="payment" id="credit" className="appearance-none rounded-full border-5 border-white outline-1 outline-[#d7d7d7] p-[2px] checked:border-indigo-500" value="credit" />
                             <label htmlFor="credit" className="block text-md/6 outfit-regular text-gray-600">
                               Credit Card
                             </label>
                           </div>
                           <div className="mt-2 flex items-center gap-2">
-                            <input type="radio" name="payment" id="eTransfer" class="appearance-none rounded-full border-5 border-white outline-1 outline-[#d7d7d7] p-[2px] checked:border-indigo-500" value="etransfer" />
+                            <input type="radio" name="payment" id="eTransfer" className="appearance-none rounded-full border-5 border-white outline-1 outline-[#d7d7d7] p-[2px] checked:border-indigo-500" value="etransfer" />
                             <label htmlFor="eTransfer" className="block text-md/6 outfit-regular text-gray-600">
                               E-Transfer
                             </label>
