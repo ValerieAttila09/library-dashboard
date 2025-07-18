@@ -33,7 +33,10 @@ Dashboard Library adalah aplikasi dashboard yang dirancang untuk memudahkan admi
    ```
 4. **Jalankan aplikasi:**
    ```bash
-   npm start
+   npm run dev
+   ```
+   ```bash
+   node server.js
    ```
    (Pastikan environment yang dibutuhkan sudah siap, seperti Node.js terinstall pada perangkat Anda.)
 
