@@ -102,7 +102,7 @@ export default function BorrowingsContent() {
   const fetchBorrower = async () => {
     try {
       const response = await axios.get('http://localhost:3001/borrower')
-      setBorrowings(response.data)
+      setBorrowings(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.log("gagal fetch data: ", error)
     }
@@ -420,9 +420,6 @@ export default function BorrowingsContent() {
                   <thead>
                     <tr>
                       <th className="p-2 text-start">Book</th>
-                      {/* <th className="p-2 text-start">Price</th> */}
-                      {/* <th className="p-2 text-start">Quantity</th> */}
-                      {/* <th className="p-2 text-start">Total</th> */}
                       <th></th>
                     </tr>
                   </thead>
@@ -430,9 +427,6 @@ export default function BorrowingsContent() {
                     {cart.map(item => (
                       <tr key={item.book_id}>
                         <td className="p-2">{item.title}</td>
-                        {/* <td className="p-2">${item.price}</td> */}
-                        {/* <td className="p-2">{item.quantity}</td> */}
-                        {/* <td className="p-2">${(item.price * item.quantity).toFixed(2)}</td> */}
                         <td className="p-2">
                           <button onClick={() => handleRemoveFromCart(item.book_id)} className="flex items-center gap-2 text-red-500 hover:bg-red-400 hover:text-white rounded-md transition-all px-2 py-1">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
@@ -443,14 +437,6 @@ export default function BorrowingsContent() {
                       </tr>
                     ))}
                   </tbody>
-                  {/* <tfoot>
-                    <tr>
-                      <td colSpan="3" className="p-2 text-end font-semibold">Total:</td>
-                      <td colSpan="2" className="p-2 font-semibold">$
-                        {cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}
-                      </td>
-                    </tr>
-                  </tfoot> */}
                   <tfoot>
                     <tr>
                       <td colSpan="2" className="p-2 text-end">
