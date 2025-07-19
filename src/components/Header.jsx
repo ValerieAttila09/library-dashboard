@@ -1,6 +1,7 @@
 import ListContent from "./content/ListContent"
 import DashboardContent from "./content/DashboardContent"
 import BorrowingsContent from "./content/BorrowingsContent"
+import SecondBorrowingsContent from "./content/SecondBorrowingsContent"
 import MembersContent from "./content/MembersContent"
 import CalendarContent from "./content/CalendarContent"
 import UserPic from "../assets/image/user.jpg"
@@ -19,7 +20,7 @@ function SetContent() {
   } else if (pathName == linkList) {
     return <ListContent />
   } else if (pathName == linkBorrowings) {
-    return <BorrowingsContent />
+    return <SecondBorrowingsContent />
   } else if (pathName == linkMembers) {
     return <MembersContent />
   } else if (pathName == linkCalendar) {
