@@ -37,18 +37,18 @@ function RowData({
 }) {
   return (
     <tr className="hover:bg-[#fafafa] transition-all">
-      <td className="text-[14px] text-nowrap px-2 py-3">{borrower}</td>
-      <td className="text-[14px] text-nowrap px-2 py-3">{borrowerEmail}</td>
-      <td className="text-[14px] text-nowrap px-2 py-3">{bookTitle}</td>
-      <td className="text-[14px] text-nowrap px-2 py-3">{bookAuthor}</td>
-      <td className="text-[14px] text-nowrap px-2 py-3">{count}</td>
-      <td className="text-[14px] text-nowrap px-2 py-3 outfit-regular">{`$${totalPrice} USD`}</td>
-      <td className="text-[14px] text-nowrap px-2 py-3">{company}</td>
-      <td className="text-[14px] text-nowrap px-2 py-3">{address}</td>
-      <td className="text-[14px] text-nowrap px-2 py-3">{city}</td>
-      <td className="text-[14px] text-nowrap px-2 py-3">{country}</td>
-      <td className="text-[14px] text-nowrap px-2 py-3">{postal}</td>
-      <td className="text-[14px] text-nowrap px-2 py-3">{deadline}</td>
+      <td className="text-[14px] text-nowrap ps-2 pe-5 py-4">{borrower}</td>
+      <td className="text-[14px] text-nowrap ps-2 pe-5 py-4">{borrowerEmail}</td>
+      <td className="text-[14px] text-nowrap ps-2 pe-5 py-4">{bookTitle}</td>
+      <td className="text-[14px] text-nowrap ps-2 pe-5 py-4">{bookAuthor}</td>
+      <td className="text-[14px] text-nowrap ps-2 pe-5 py-4">{count}</td>
+      <td className="text-[14px] text-nowrap ps-2 pe-5 py-4 outfit-regular">{`$${totalPrice} USD`}</td>
+      <td className="text-[14px] text-nowrap ps-2 pe-5 py-4">{company}</td>
+      <td className="text-[14px] text-nowrap ps-2 pe-5 py-4">{address}</td>
+      <td className="text-[14px] text-nowrap ps-2 pe-5 py-4">{city}</td>
+      <td className="text-[14px] text-nowrap ps-2 pe-5 py-4">{country}</td>
+      <td className="text-[14px] text-nowrap ps-2 pe-5 py-4">{postal}</td>
+      <td className="text-[14px] text-nowrap ps-2 pe-5 py-4">{deadline}</td>
     </tr>
   )
 }
@@ -89,6 +89,8 @@ export default function BorrowingsContent() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenTwo, setIsOpenTwo] = useState(false)
   const [method, setMethod] = useState(0)
+  const [totalLoan, setTotalLoan] = useState([])
+  const [worth, setWorth] = useState(0)
 
   const fetchBook = async () => {
     try {
@@ -244,6 +246,11 @@ export default function BorrowingsContent() {
     return ogPrice
   }
 
+  useEffect(() => {
+    const total = borrowings.reduce((sum, borrower) => sum + Number(borrower.total_price || 0), 0);
+    setTotalLoan(total)
+  }, [borrowings])
+
   return (
     <div className="relative w-full h-full overflow-y-auto bg-transparent">
       <div className="w-full h-auto flex flex-col gap-4">
@@ -267,8 +274,8 @@ export default function BorrowingsContent() {
                   </div>
                 </div>
                 <div className="w-full flex items-center justify-start gap-4">
-                  <span className="text-5xl text-neutral-900 outfit-semibold">
-                    257
+                  <span className="text-5xl text-transparent bg-clip-text bg-gradient-to-br from-green-500 via-indigo-400 to-red-400 outfit-medium">
+                    {`$${totalLoan}`}
                   </span>
                   <div className="px-[5px] py-[2px] rounded-md bg-green-100 flex gap-1 items-center">
                     <span className="text-xs text-green-500 outfit-thin">13.65%</span>
@@ -299,7 +306,7 @@ export default function BorrowingsContent() {
                   </div>
                 </div>
                 <div className="w-full flex items-center justify-start gap-4">
-                  <span className="text-5xl text-neutral-900 outfit-semibold">
+                  <span className="text-5xl text-neutral-900 outfit-medium">
                     43
                   </span>
                   <div className="px-[5px] py-[2px] rounded-md bg-green-100 flex gap-1 items-center">
@@ -331,7 +338,7 @@ export default function BorrowingsContent() {
                   </div>
                 </div>
                 <div className="w-full flex items-center justify-start gap-4">
-                  <span className="text-5xl text-neutral-900 outfit-semibold">
+                  <span className="text-5xl text-neutral-900 outfit-medium">
                     7
                   </span>
                   <div className="px-[5px] py-[2px] rounded-md bg-red-100 flex gap-1 items-center">
@@ -377,18 +384,18 @@ export default function BorrowingsContent() {
               <table className="w-full">
                 <thead>
                   <tr className="bg-[#fcfcfc]">
-                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Borrower</th>
-                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Borrower Email</th>
-                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Book Title</th>
-                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Book Author</th>
-                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Quantity</th>
-                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Total Price</th>
-                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Company</th>
-                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Address</th>
-                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">City</th>
-                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Country</th>
-                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Postal</th>
-                    <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Deadline</th>
+                    <th className="outfit-medium px-2 py-3 text-start text-neutral-700">Borrower</th>
+                    <th className="outfit-medium px-2 py-3 text-start text-neutral-700">Borrower Email</th>
+                    <th className="outfit-medium px-2 py-3 text-start text-neutral-700">Book Title</th>
+                    <th className="outfit-medium px-2 py-3 text-start text-neutral-700">Book Author</th>
+                    <th className="outfit-medium px-2 py-3 text-start text-neutral-700">Quantity</th>
+                    <th className="outfit-medium px-2 py-3 text-start text-neutral-700">Total Price</th>
+                    <th className="outfit-medium px-2 py-3 text-start text-neutral-700">Company</th>
+                    <th className="outfit-medium px-2 py-3 text-start text-neutral-700">Address</th>
+                    <th className="outfit-medium px-2 py-3 text-start text-neutral-700">City</th>
+                    <th className="outfit-medium px-2 py-3 text-start text-neutral-700">Country</th>
+                    <th className="outfit-medium px-2 py-3 text-start text-neutral-700">Postal</th>
+                    <th className="outfit-medium px-2 py-3 text-start text-neutral-700">At</th>
                   </tr>
                 </thead>
                 <tbody id="bookTable">
@@ -429,12 +436,12 @@ export default function BorrowingsContent() {
                 <table className="w-full">
                   <thead>
                     <tr className="bg-[#fcfcfc]">
-                      <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Book ID</th>
-                      <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Title</th>
-                      <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Price</th>
-                      <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Status</th>
-                      <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Author</th>
-                      <th className="outfit-medium px-2 py-1 text-start text-neutral-700">Action</th>
+                      <th className="outfit-medium px-2 py-4 text-start text-neutral-700">Book ID</th>
+                      <th className="outfit-medium px-2 py-4 text-start text-neutral-700">Title</th>
+                      <th className="outfit-medium px-2 py-4 text-start text-neutral-700">Price</th>
+                      <th className="outfit-medium px-2 py-4 text-start text-neutral-700">Status</th>
+                      <th className="outfit-medium px-2 py-4 text-start text-neutral-700">Author</th>
+                      <th className="outfit-medium px-2 py-4 text-start text-neutral-700">Action</th>
                     </tr>
                   </thead>
                   <tbody id="bookTable">
