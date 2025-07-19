@@ -16,7 +16,7 @@ const FormSection = forwardRef(function FormSection(
   ref
 ) {
   return (
-    <div ref={ref} className="fixed z-20 bg-white inset-0 overflow-y-auto">
+    <div ref={ref} className="fixed z-20 bg-white top-[51px] left-[51px] right-0 bottom-0 overflow-y-auto">
       <div className="w-full p-4">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-xl font-semibold">Shopping Form</h1>
@@ -24,7 +24,7 @@ const FormSection = forwardRef(function FormSection(
             Close
           </button>
         </div>
-        <form onSubmit={onSubmit} className="bg-[#fafafa] border border-gray-300 rounded-md px-6 py-8 space-y-8">
+        <form onSubmit={onSubmit} className="bg-[#fafafa] border border-[#d7d7d7] rounded-md px-6 py-8 space-y-8">
           <div className="grid md:grid-cols-2 gap-8">
             {/* Left side form */}
             <div className="space-y-6">
@@ -81,7 +81,7 @@ const FormSection = forwardRef(function FormSection(
             {/* Right side summary */}
             <div>
               <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
-              <div className="border rounded-md divide-y divide-gray-200">
+              <div className="border border-[#d7d7d7] rounded-md divide-y divide-gray-200">
                 {cart.map((book) => (
                   <div key={book.book_id} className="p-4 flex justify-between items-center">
                     <div>
@@ -100,7 +100,7 @@ const FormSection = forwardRef(function FormSection(
                       <select
                         value={book.quantity}
                         onChange={(e) => onQuantityChange(book.book_id, e.target.value)}
-                        className="border rounded px-2 py-1"
+                        className="border border-[#d7d7d7] rounded px-2 py-1"
                       >
                         {[...Array(10)].map((_, i) => (
                           <option key={i + 1} value={i + 1}>
@@ -149,7 +149,7 @@ function InputField({ id, label, placeholder = "", type = "text", required = fal
         type={type}
         placeholder={placeholder}
         required={required}
-        className="w-full border rounded-md px-3 py-2 text-sm"
+        className="w-full border border-[#d7d7d7] rounded-md px-3 py-2 text-sm"
       />
     </div>
   );
@@ -169,7 +169,7 @@ function DeliveryOption({ label, desc, price, selected, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className={`border rounded-md p-4 w-full text-left ${selected ? "border-indigo-500" : "border-gray-300"} hover:bg-gray-50`}
+      className={`border border-[#d7d7d7] rounded-md p-4 w-full text-left ${selected ? "border-indigo-500" : "border-[#d7d7d7]"} hover:bg-gray-50`}
     >
       <h4 className="font-medium">{label}</h4>
       <p className="text-sm text-gray-600">{desc}</p>

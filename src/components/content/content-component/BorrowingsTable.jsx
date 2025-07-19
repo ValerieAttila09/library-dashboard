@@ -1,25 +1,25 @@
 import RowData from "./RowData";
 
-export default function BorrowingsTable({ data }) {
+export default function BorrowingsTable({ data, onSort, sortKey, sortOrder }) {
   return (
     <div className="w-full h-auto md:h-[26rem] p-5">
       <div className="shadow-md overflow-hidden rounded-lg border border-[#ebebeb]">
         <div className="w-full h-full overflow-y-auto overflow-x-auto pb-4">
-          <table className="w-full">
+          <table className="w-full text-sm">
             <thead>
-              <tr className="bg-[#fcfcfc]">
-                <TableHeader title="Borrower" />
-                <TableHeader title="Borrower Email" />
-                <TableHeader title="Book Title" />
-                <TableHeader title="Book Author" />
-                <TableHeader title="Quantity" />
-                <TableHeader title="Total Price" />
-                <TableHeader title="Company" />
-                <TableHeader title="Address" />
-                <TableHeader title="City" />
-                <TableHeader title="Country" />
-                <TableHeader title="Postal" />
-                <TableHeader title="At" />
+              <tr className="bg-[#fcfcfc] text-left">
+                <TableHeader label="Borrower" sortKeyValue="borrower" sortKey={sortKey} sortOrder={sortOrder} onSort={onSort} />
+                <TableHeader label="Borrower Email" sortKeyValue="borrower_email" sortKey={sortKey} sortOrder={sortOrder} onSort={onSort} />
+                <TableHeader label="Book Title" sortKeyValue="book_title" sortKey={sortKey} sortOrder={sortOrder} onSort={onSort} />
+                <TableHeader label="Book Author" sortKeyValue="book_author" sortKey={sortKey} sortOrder={sortOrder} onSort={onSort} />
+                <TableHeader label="Quantity" sortKeyValue="count" sortKey={sortKey} sortOrder={sortOrder} onSort={onSort} />
+                <TableHeader label="Total Price" sortKeyValue="total_price" sortKey={sortKey} sortOrder={sortOrder} onSort={onSort} />
+                <th className="px-2 py-3">Company</th>
+                <th className="px-2 py-3">Address</th>
+                <th className="px-2 py-3">City</th>
+                <th className="px-2 py-3">Country</th>
+                <th className="px-2 py-3">Postal</th>
+                <th className="px-2 py-3">At</th>
               </tr>
             </thead>
             <tbody>
@@ -48,10 +48,16 @@ export default function BorrowingsTable({ data }) {
   );
 }
 
-function TableHeader({ title }) {
+function TableHeader({ label, sortKeyValue, sortKey, sortOrder, onSort }) {
+  const isActive = sortKey === sortKeyValue;
+  const arrow = isActive ? (sortOrder === "asc" ? "↑" : "↓") : "";
+
   return (
-    <th className="outfit-medium px-2 py-3 text-start text-neutral-700">
-      {title}
+    <th
+      onClick={() => onSort(sortKeyValue)}
+      className="px-2 py-3 cursor-pointer select-none hover:underline text-neutral-700"
+    >
+      {label} {arrow}
     </th>
   );
 }

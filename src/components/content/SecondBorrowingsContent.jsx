@@ -11,12 +11,13 @@ import CartSidebar from "./content-component/CartSidebar";
 import SearchBar from "./content-component/SearchBar";
 import StatsCards from "./content-component/StatsCards";
 import BorrowingsTable from "./content-component/BorrowingsTable";
+import SkeletonTable from "./content-component/SkeletonTable";
 
 import { isBookInCart } from "./utils/helper";
 
 gsap.registerPlugin(useGSAP);
 
-export default function SecondBorrowingsContent() {
+export default function BorrowingsContent() {
   const [books, setBooks] = useState([]);
   const [borrowings, setBorrowings] = useState([]);
   const [search, setSearch] = useState("");
@@ -25,6 +26,9 @@ export default function SecondBorrowingsContent() {
   const [isOpenTwo, setIsOpenTwo] = useState(false);
   const [method, setMethod] = useState(0);
   const [totalLoan, setTotalLoan] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [sortKey, setSortKey] = useState("borrower");
+  const [sortOrder, setSortOrder] = useState("asc");
 
   const addLoan = useRef(null);
   const loanProcess = useRef(null);
@@ -54,11 +58,14 @@ export default function SecondBorrowingsContent() {
   };
 
   const fetchBorrowings = async () => {
+    setIsLoading(true);
     try {
       const res = await axios.get("http://localhost:3001/borrower");
       setBorrowings(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
       console.error("Failed to fetch borrowings", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -84,7 +91,30 @@ export default function SecondBorrowingsContent() {
     setIsOpenTwo(!isOpenTwo);
   };
 
-  const filteredBorrowings = borrowings.filter((item) => {
+  const handleSort = (key) => {
+    if (key === sortKey) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortKey(key);
+      setSortOrder("asc");
+    }
+  };
+
+  const sortedBorrowings = [...borrowings].sort((a, b) => {
+    const aRaw = a[sortKey];
+    const bRaw = b[sortKey];
+
+    const isNumeric = ["count", "total_price"].includes(sortKey);
+
+    const aValue = isNumeric ? Number(aRaw) : (aRaw?.toString().toLowerCase() || "");
+    const bValue = isNumeric ? Number(bRaw) : (bRaw?.toString().toLowerCase() || "");
+
+    if (aValue < bValue) return sortOrder === "asc" ? -1 : 1;
+    if (aValue > bValue) return sortOrder === "asc" ? 1 : -1;
+    return 0;
+  });
+
+  const filteredBorrowings = sortedBorrowings.filter((item) => {
     return [
       item.borrower,
       item.borrower_email,
@@ -137,7 +167,16 @@ export default function SecondBorrowingsContent() {
     <div className="relative w-full h-full overflow-y-auto bg-transparent">
       <StatsCards totalLoan={totalLoan} />
       <SearchBar search={search} setSearch={setSearch} toggleSidebar={toggleSidebar} />
-      <BorrowingsTable data={filteredBorrowings} />
+      {isLoading ? (
+        <SkeletonTable />
+      ) : (
+        <BorrowingsTable
+          data={filteredBorrowings}
+          onSort={handleSort}
+          sortKey={sortKey}
+          sortOrder={sortOrder}
+        />
+      )}
       <CartSidebar
         ref={addLoan}
         books={books}

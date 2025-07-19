@@ -1,4 +1,4 @@
-export default function StatsCards({ totalLoan }) {
+export default function StatsCards({ totalLoan, borrowerCount }) {
   return (
     <div className="w-full grid md:flex items-center flex-wrap gap-4 px-4 py-2">
       <Card
@@ -12,7 +12,7 @@ export default function StatsCards({ totalLoan }) {
       <Card
         title="Total loans this week"
         iconColor="bg-slate-100"
-        amount="43"
+        amount={borrowerCount}
         trend="+26.47%"
         trendColor="text-green-500"
         bgColor="bg-green-100"
@@ -42,9 +42,6 @@ function Card({ title, iconColor, amount, trend, trendColor, bgColor }) {
             </div>
             <span className="text-md text-neutral-900 outfit-medium text-nowrap">{title}</span>
           </div>
-          <svg xmlns="http://www.w3.org/2000/svg" className="size-5 text-neutral-500" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021" />
-          </svg>
         </div>
         <div className="flex items-center gap-4">
           <span className="text-4xl text-transparent bg-clip-text bg-gradient-to-br from-green-500 via-indigo-400 to-red-400 outfit-medium">{amount}</span>
