@@ -12,14 +12,32 @@ export default function App() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />}></Route>
+      <Route path='/home' element={
+        <ProtectedRoute>
+          <Dashboard />
+        </ProtectedRoute>
+      } />
+      <Route path='/list' element={
+        <ProtectedRoute>
+          <List />
+        </ProtectedRoute>
+      } />
+      <Route path='/borrowings' element={
+        <ProtectedRoute>
+          <Borrowings />
+        </ProtectedRoute>
+      } />
+      <Route path='/members' element={
+        <ProtectedRoute>
+          <Members />
+        </ProtectedRoute>
+      } />
+      <Route path='/calendar' element={
+        <ProtectedRoute>
+          <Calendar />
+        </ProtectedRoute>
+      } />
       <Route path='/register' element={<RegisterForm />} />
-      <ProtectedRoute>
-        <Route path='/home' element={<Dashboard />} />
-        <Route path="/list" element={<List />}></Route>
-        <Route path="/borrowings" element={<Borrowings />}></Route>
-        <Route path="/members" element={<Members />}></Route>
-        <Route path="/calendar" element={<Calendar />}></Route>
-      </ProtectedRoute>
     </Routes>
   )
 }

@@ -1,7 +1,8 @@
 import { useRef, useState, useEffect } from "react"
 import { gsap } from "gsap"
 import { useGSAP } from "@gsap/react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import useAuth from "../routes/useAuth"
 
 gsap.registerPlugin(useGSAP)
 
@@ -57,7 +58,7 @@ function MenuButton({ pathName, page, icon }) {
   const [pageName, setPageName] = useState(page)
 
   useEffect(() => {
-    if (pathName == "/" && pageName == "Dashboard") {
+    if (pathName == "/home" && pageName == "Dashboard") {
       setPageName("Dashboard")
     } else if (pathName == "/list" && pageName == "List") {
       setPageName("List")
@@ -166,10 +167,26 @@ export default function Sidebar({ isOpen, onToggleSidebar }) {
     }
   }, [isOpen])
 
-  const paths = ["/", "/list", "/borrowings", "/members", "/calendar"]
+  const paths = ["/home", "/list", "/borrowings", "/members", "/calendar"]
   const svgIcon = [
     <DashboardIcon />, <ListIcon />, <LoanIcon />, <MembersIcon />, <CalendarIcon />
   ]
+
+  const navigate = useNavigate()
+  const { isAuthenticated, user, isLoading } = useAuth()
+
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    alert('Kamu sudah logout.')
+    navigate('/login')
+  }
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      navigate('/login')
+    }
+  }, [isAuthenticated, isLoading, navigate])
+
 
   return (
     <div ref={sidebarRef} className="bg-white fixed z-30 left-0 top-0 bottom-0 border-r-1 border-[#ebebeb] md:border-0 md:relative md:w-[48px] md:max-h-[100vh]">
@@ -198,6 +215,26 @@ export default function Sidebar({ isOpen, onToggleSidebar }) {
             <div className="mx-auto mb-1 w-full h-[1px] bg-neutral-300"></div>
           </div>
           <MenuSidebar currentPath={paths} svgIcon={svgIcon} />
+          <div className="w-full flex flex-col gap-1 px-[6px]">
+            <div className="hiddenGem flex justify-start items-center px-3">
+              <span className="text-sm text-neutral-600">Status</span>
+            </div>
+            <div className="flex justify-start items-center">
+              <div className={`w-full bg-white p-2 rounded-md group hover:bg-[#f7f7f7] transition-all`}>
+                <button 
+                  onClick={handleLogout}
+                  className="w-full flex items-center justify-start gap-2 ">
+                  <div className="w-auto flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 text-neutral-600 transition-all">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+                    </svg>
+                  </div>
+                  <span className="hiddenGem text-sm text-left text-neutral-800 sg-medium">Log out</span>
+                </button>
+              </div>
+            </div>
+            <div className="mx-auto mt-4 w-full h-[1px] bg-neutral-300"></div>
+          </div>
         </div>
         <div className="w-full flex flex-col gap-1 px-[6px] pb-2">
           <div className="mx-auto mb-2 w-full h-[1px] bg-neutral-300"></div>

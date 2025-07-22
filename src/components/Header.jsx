@@ -9,7 +9,7 @@ import UserPic from "../assets/image/user.jpg"
 function SetContent() {
   const pathName = window.location.pathname
 
-  const linkDashboard = "/"
+  const linkDashboard = "/home"
   const linkList = "/list"
   const linkBorrowings = "/borrowings"
   const linkMembers = "/members"
@@ -31,7 +31,7 @@ function SetContent() {
 function SetContentLabel() {
   const pathName = window.location.pathname
 
-  const linkDashboard = "/"
+  const linkDashboard = "/home"
   const linkList = "/list"
   const linkBorrowings = "/borrowings"
   const linkMembers = "/members"

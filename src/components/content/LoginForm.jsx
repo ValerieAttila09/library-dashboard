@@ -11,7 +11,7 @@ export default function LoginForm() {
     e.preventDefault()
 
     try {
-      const response = await axios.post("http://localhost:4000/login", {
+      const response = await axios.post("http://localhost:3001/login", {
         email,
         password,
       })

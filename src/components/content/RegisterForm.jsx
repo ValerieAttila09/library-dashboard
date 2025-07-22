@@ -12,7 +12,7 @@ export default function RegisterForm() {
     e.preventDefault()
 
     try {
-      const response = await axios.post("http://localhost:4000/register", {
+      const response = await axios.post("http://localhost:3001/register", {
         name,
         email,
         password,
