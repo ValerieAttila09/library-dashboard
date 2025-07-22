@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import SkeletonTable from "./content-component/SkeletonTable"
 
 function RowData({ data, onDelete }) {
   const color = () => {
@@ -36,7 +37,8 @@ function RowData({ data, onDelete }) {
 }
 
 export default function ListContent() {
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -58,6 +60,8 @@ export default function ListContent() {
         setBooks(bookWithWeather)
       } catch (error) {
         console.log("gagal fetch data: ", error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
@@ -112,84 +116,90 @@ export default function ListContent() {
           </button>
         </div>
       </div>
-      <div className="flex justify-between items-center w-auto p-2">
-        <label htmlFor="search" className="w-1/2 relative rounded-full border border-[#ebebeb] flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-            stroke="currentColor" className="size-4 text-neutral-500 absolute left-2">
-            <path strokeLinecap="round" strokeLinejoin="round"
-              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-          </svg>
-          <input type="text" placeholder="search..." name="search" id="search" className="w-full ps-8 py-1 outline-none" />
-        </label>
-        <div className="flex gap-2">
-          <button id="menuWrapped"
-            className="flex gap-1 border border-[#dbdbdb] rounded-full p-1 hover:bg-[#f6f6f6] transition-all">
+      {isLoading ? (
+        <SkeletonTable/>
+      ) : (
+      <div className="">
+        <div className="flex justify-between items-center w-auto p-2">
+          <label htmlFor="search" className="w-1/2 relative rounded-full border border-[#ebebeb] flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-              stroke="currentColor" className="size-5 text-neutral-500">
+              stroke="currentColor" className="size-4 text-neutral-500 absolute left-2">
               <path strokeLinecap="round" strokeLinejoin="round"
-                d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25" />
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
             </svg>
-          </button>
-          <button id="menuWrapped"
-            className="flex items-center gap-1 border border-[#dbdbdb] rounded-full p-1 hover:bg-[#f6f6f6] transition-all">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-              stroke="currentColor" className="size-4 text-neutral-500">
-              <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-            </svg>
-            <span className="text-sm">
-              Rows
-            </span>
-          </button>
-          <button id="menuWrapped" className="border border-[#dbdbdb] rounded-full p-1 hover:bg-[#f6f6f6] transition-all">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-              stroke="currentColor" className="size-5 text-neutral-500">
-              <path strokeLinecap="round" strokeLinejoin="round"
-                d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-            </svg>
-          </button>
+            <input type="text" placeholder="search..." name="search" id="search" className="w-full ps-8 py-1 outline-none" />
+          </label>
+          <div className="flex gap-2">
+            <button id="menuWrapped"
+              className="flex gap-1 border border-[#dbdbdb] rounded-full p-1 hover:bg-[#f6f6f6] transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                stroke="currentColor" className="size-5 text-neutral-500">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                  d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25" />
+              </svg>
+            </button>
+            <button id="menuWrapped"
+              className="flex items-center gap-1 border border-[#dbdbdb] rounded-full p-1 hover:bg-[#f6f6f6] transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                stroke="currentColor" className="size-4 text-neutral-500">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              </svg>
+              <span className="text-sm">
+                Rows
+              </span>
+            </button>
+            <button id="menuWrapped" className="border border-[#dbdbdb] rounded-full p-1 hover:bg-[#f6f6f6] transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                stroke="currentColor" className="size-5 text-neutral-500">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                  d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div className="w-full overflow-x-scroll">
+          <table className="w-full table-auto">
+            <thead>
+              <tr className="bg-white/60">
+                <th className="px-2 py-1 text-center text-neutral-700">No</th>
+                <th className="border-s border-[#ebebeb] px-2 py-1 text-center text-neutral-700">Book ID</th>
+                <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Title</th>
+                <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Status</th>
+                <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Author</th>
+                <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Auhtor Email</th>
+                <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">City</th>
+                <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Action</th>
+              </tr>
+            </thead>
+            <tbody id="bookTable">
+              {books.map((book) => {
+                const status = book.status ? "available" : "unavailable"
+                const statusColor = book.status ? "green" : "red"
+                const statusBook = book.status
+
+                return (
+                  <RowData
+                    key={book.id}
+                    data={{
+                      number: books.indexOf(book) + 1,
+                      bookId: book.id,
+                      bookTitle: book.title,
+                      bookAuthor: book.author,
+                      bookStatus: status,
+                      bookElement: statusBook,
+                      statusColor: statusColor,
+                      authorEmail: book.email,
+                      authorCity: book.weather?.name || "N/A",
+                    }}
+                    onDelete={deleteBook}
+                  />
+                )
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
-      <div className="w-full overflow-x-scroll">
-        <table className="w-full table-auto">
-          <thead>
-            <tr className="bg-white/60">
-              <th className="px-2 py-1 text-center text-neutral-700">No</th>
-              <th className="border-s border-[#ebebeb] px-2 py-1 text-center text-neutral-700">Book ID</th>
-              <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Title</th>
-              <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Status</th>
-              <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Author</th>
-              <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Auhtor Email</th>
-              <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">City</th>
-              <th className="border-s border-[#ebebeb] px-2 py-1 text-start text-neutral-700">Action</th>
-            </tr>
-          </thead>
-          <tbody id="bookTable">
-            {books.map((book) => {
-              const status = book.status ? "available" : "unavailable"
-              const statusColor = book.status ? "green" : "red"
-              const statusBook = book.status
-
-              return (
-                <RowData
-                  key={book.id}
-                  data={{
-                    number: books.indexOf(book) + 1,
-                    bookId: book.id,
-                    bookTitle: book.title,
-                    bookAuthor: book.author,
-                    bookStatus: status,
-                    bookElement: statusBook,
-                    statusColor: statusColor,
-                    authorEmail: book.email,
-                    authorCity: book.weather?.name || "N/A",
-                  }}
-                  onDelete={deleteBook}
-                />
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
+      )}
     </ div>
   )
 }

@@ -26,7 +26,6 @@ const FormSection = forwardRef(function FormSection(
         </div>
         <form onSubmit={onSubmit} className="bg-[#fafafa] border border-[#d7d7d7] rounded-md px-6 py-8 space-y-8">
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Left side form */}
             <div className="space-y-6">
               <Section title="Contact Information">
                 <InputField id="email" label="Email Address" placeholder="example@mail.com" required />
@@ -78,7 +77,6 @@ const FormSection = forwardRef(function FormSection(
               </Section>
             </div>
 
-            {/* Right side summary */}
             <div>
               <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
               <div className="border border-[#d7d7d7] rounded-md divide-y divide-gray-200">
