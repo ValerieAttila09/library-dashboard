@@ -4,7 +4,6 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
-import { db_users } from "./db.js"
 
 dotenv.config()
 
@@ -13,8 +12,6 @@ const PORT = 3001
 
 app.use(cors())
 app.use(express.json())
-
-const router = express.Router()
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -29,6 +26,18 @@ db.connect(err => {
   } else {
     console.log("Terkoneksi ke MySQL!")
   }
+})
+
+export const db_users = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_USERS_NAME
+})
+
+db_users.connect((err) => {
+  if (err) throw err
+  console.log("Terhubung ke MySQL!")
 })
 
 app.get('/users', (req, res) => {
@@ -174,58 +183,58 @@ app.delete('/borrower/:id', (req, res) => {
 })
 
 // REGISTER
-router.post('/register', async (req, res) => {
-  const { email, password, name } = req.body;
+app.post('/register', async (req, res) => {
+  const { email, password, name } = req.body
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 10)
 
   db_users.query(
     'INSERT INTO tb_users (email, password, name) VALUES (?, ?, ?)',
     [email, hashedPassword, name],
     (err, result) => {
-      if (err) return res.status(500).json({ message: 'Gagal daftar', error: err });
-      res.json({ message: 'Registrasi berhasil!' });
+      if (err) return res.status(500).json({ message: 'Gagal daftar', error: err })
+      res.json({ message: 'Registrasi berhasil!' })
     }
-  );
-});
+  )
+})
 
 // LOGIN
-router.post('/login', (req, res) => {
-  const { email, password } = req.body;
+app.post('/login', (req, res) => {
+  const { email, password } = req.body
 
   db_users.query('SELECT * FROM tb_users WHERE email = ?', [email], async (err, results) => {
-    if (err) return res.status(500).json({ message: 'Query error' });
-    if (results.length === 0) return res.status(401).json({ message: 'User tidak ditemukan' });
+    if (err) return res.status(500).json({ message: 'Query error' })
+    if (results.length === 0) return res.status(401).json({ message: 'User tidak ditemukan' })
 
-    const user = results[0];
-    const match = await bcrypt.compare(password, user.password);
+    const user = results[0]
+    const match = await bcrypt.compare(password, user.password)
 
-    if (!match) return res.status(401).json({ message: 'Password salah' });
+    if (!match) return res.status(401).json({ message: 'Password salah' })
 
     const token = jwt.sign(
       { id: user.id, email: user.email, name: user.name, role: user.role },
       'RAHASIA_SECRET',
       { expiresIn: '1h' }
-    );
+    )
 
-    res.json({ token });
-  });
-});
+    res.json({ token })
+  })
+})
 
 // PROTECTED ROUTE
-router.get('/protected', (req, res) => {
-  const authHeader = req.headers.authorization;
+app.get('/protected', (req, res) => {
+  const authHeader = req.headers.authorization
 
-  if (!authHeader) return res.status(401).json({ message: 'Token diperlukan' });
+  if (!authHeader) return res.status(401).json({ message: 'Token diperlukan' })
 
-  const token = authHeader.split(' ')[1];
+  const token = authHeader.split(' ')[1]
 
   jwt.verify(token, 'RAHASIA_SECRET', (err, decoded) => {
-    if (err) return res.status(403).json({ message: 'Token tidak valid' });
+    if (err) return res.status(403).json({ message: 'Token tidak valid' })
 
-    res.json({ message: 'Akses diterima!', user: decoded });
-  });
-});
+    res.json({ message: 'Akses diterima!', user: decoded })
+  })
+})
 
 app.listen(PORT, () => {
   console.log(`Server berjalan di http://localhost:${PORT}`)
