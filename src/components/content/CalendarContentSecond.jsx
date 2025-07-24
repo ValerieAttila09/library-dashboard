@@ -1,7 +1,6 @@
 import { useState, useMemo, useEffect, useCallback } from "react";
 import axios from "axios";
 
-// --- Konstanta
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 const getCategoryColor = (category) => {
@@ -13,8 +12,6 @@ const getCategoryColor = (category) => {
   }
 };
 
-
-// --- Komponen Header
 function CalendarHeader({ bulan, tahun, onPrev, onNext, onYearChange }) {
   const yearOptions = [];
   const thisYear = new Date().getFullYear();
@@ -33,7 +30,6 @@ function CalendarHeader({ bulan, tahun, onPrev, onNext, onYearChange }) {
   );
 }
 
-// --- Build Calendar
 function buildCalendar({ bulan, tahun, isLarge, today, schedules, onDateClick }) {
   const isCurrentMonth = bulan === today.getMonth() && tahun === today.getFullYear();
   const hariIni = today.getDate();
@@ -62,26 +58,18 @@ function buildCalendar({ bulan, tahun, isLarge, today, schedules, onDateClick })
       >
         <span className="font-semibold">{i}</span>
         {isLarge ? (
-          // Tampilan untuk kalender besar
           <div className="flex flex-col gap-1 mt-1">
             {matchedSchedules.map((s, idx) => (
-              <div
-                key={idx}
-                className="flex items-center gap-2 text-xs truncate"
-              >
+              <div key={idx} className="flex items-center gap-2 text-xs truncate">
                 <div className={`w-2 h-2 rounded-full ${getCategoryColor(s.category)}`}></div>
                 <span className="text-neutral-700">{s.title}</span>
               </div>
             ))}
           </div>
         ) : (
-          // Tampilan untuk mini calendar (dot warna)
           <div className="flex justify-center gap-[2px] mt-1">
             {matchedSchedules.slice(0, 3).map((s, idx) => (
-              <div
-                key={idx}
-                className={`w-2 h-2 rounded-full ${getCategoryColor(s.category)}`}
-              ></div>
+              <div key={idx} className={`w-2 h-2 rounded-full ${getCategoryColor(s.category)}`}></div>
             ))}
           </div>
         )}
@@ -142,15 +130,14 @@ export default function CalendarContentSecond() {
       const res = await axios.get(`http://localhost:3002/schedule?month=${bulan + 1}&year=${tahun}`);
       const data = res.data.map(item => ({
         ...item,
-        date: item.date // ⬅️ biarkan tetap dalam format string YYYY-MM-DD
+        date: item.date.split('T')[0]
       }));
+      console.log("Schedules yang dimuat:", data);
       setSchedules(data);
     } catch (err) {
       console.error("Gagal mengambil data:", err);
     }
   }, [bulan, tahun]);
-
-
 
   const handleSaveSchedule = async () => {
     if (!selectedDate) return;
@@ -175,7 +162,7 @@ export default function CalendarContentSecond() {
     bulan, tahun, isLarge: true, today, schedules,
     onDateClick: handleDateClick
   });
-  
+
   return (
     <div className="w-full h-full flex p-4 overflow-y-auto">
       <div className="md:w-1/4 border-r overflow-y-auto">
@@ -200,7 +187,7 @@ export default function CalendarContentSecond() {
           <div className="flex flex-col gap-1">{calendarLarge}</div>
         </div>
       </div>
-      {/* Modal */}
+
       {showModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-md w-[300px]">
