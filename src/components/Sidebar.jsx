@@ -173,7 +173,7 @@ export default function Sidebar({ isOpen, onToggleSidebar }) {
   ]
 
   const navigate = useNavigate()
-  const { isAuthenticated, user, isLoading } = useAuth()
+  const { isAuthenticated, isLoading } = useAuth()
 
   const handleLogout = () => {
     localStorage.removeItem('token')

@@ -19,7 +19,7 @@ export default function RegisterForm() {
       })
 
       alert("Registrasi berhasil! Silakan login.")
-      navigate("/")
+      navigate("/login")
     } catch (err) {
       console.error("Register error:", err)
       alert("Registrasi gagal.")

@@ -28,7 +28,7 @@ db.connect(err => {
   }
 })
 
-export const db_users = mysql.createConnection({
+const db_users = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
