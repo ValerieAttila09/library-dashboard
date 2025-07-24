@@ -3,7 +3,8 @@ import DashboardContent from "./content/DashboardContent"
 import BorrowingsContent from "./content/BorrowingsContent"
 import SecondBorrowingsContent from "./content/SecondBorrowingsContent"
 import MembersContent from "./content/MembersContent"
-import CalendarContent from "./content/CalendarContent"
+import Second from "./content/CalendarContent"
+import CalendarContentSecond from "./content/CalendarContentSecond"
 import UserPic from "../assets/image/user.jpg"
 
 function SetContent() {
@@ -24,7 +25,7 @@ function SetContent() {
   } else if (pathName == linkMembers) {
     return <MembersContent />
   } else if (pathName == linkCalendar) {
-    return <CalendarContent />
+    return <CalendarContentSecond />
   }
 }
 

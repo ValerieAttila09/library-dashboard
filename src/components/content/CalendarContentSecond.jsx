@@ -1,8 +1,18 @@
-import { useState, useMemo, useEffect, useCallBack } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import axios from "axios";
 
 // --- Konstanta
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+const getCategoryColor = (category) => {
+  switch (category) {
+    case 'important': return 'bg-red-400';
+    case 'priority': return 'bg-yellow-400';
+    case 'sidejob': return 'bg-blue-400';
+    default: return 'bg-gray-400';
+  }
+};
+
 
 // --- Komponen Header
 function CalendarHeader({ bulan, tahun, onPrev, onNext, onYearChange }) {
@@ -51,9 +61,30 @@ function buildCalendar({ bulan, tahun, isLarge, today, schedules, onDateClick })
         className={`w-1/7 cursor-pointer border p-2 rounded-md ${isHariIni ? 'bg-blue-100' : ''}`}
       >
         <span className="font-semibold">{i}</span>
-        {matchedSchedules.map((s, idx) => (
-          <div key={idx} className="text-xs mt-1 px-1 py-[1px] rounded bg-blue-200 text-blue-800">{s.title}</div>
-        ))}
+        {isLarge ? (
+          // Tampilan untuk kalender besar
+          <div className="flex flex-col gap-1 mt-1">
+            {matchedSchedules.map((s, idx) => (
+              <div
+                key={idx}
+                className="flex items-center gap-2 text-xs truncate"
+              >
+                <div className={`w-2 h-2 rounded-full ${getCategoryColor(s.category)}`}></div>
+                <span className="text-neutral-700">{s.title}</span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          // Tampilan untuk mini calendar (dot warna)
+          <div className="flex justify-center gap-[2px] mt-1">
+            {matchedSchedules.slice(0, 3).map((s, idx) => (
+              <div
+                key={idx}
+                className={`w-2 h-2 rounded-full ${getCategoryColor(s.category)}`}
+              ></div>
+            ))}
+          </div>
+        )}
       </div>
     );
 
@@ -74,7 +105,21 @@ function buildCalendar({ bulan, tahun, isLarge, today, schedules, onDateClick })
   return calendar;
 }
 
-export default function CalendarContent() {
+function MiniCalendar({ bulan, tahun, onPrev, onNext, onYearChange, today, schedules, onDateClick }) {
+  const calendar = buildCalendar({ bulan, tahun, isLarge: false, today, schedules, onDateClick });
+  return (
+    <div className="w-full p-4">
+      <h1 className="text-2xl font-bold mb-2">Mini Calendar</h1>
+      <CalendarHeader bulan={bulan} tahun={tahun} onPrev={onPrev} onNext={onNext} onYearChange={onYearChange} />
+      <div className="grid grid-cols-7 text-center text-xs font-medium text-neutral-700 mb-2">
+        {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((d, i) => <div key={i}>{d}</div>)}
+      </div>
+      <div className="flex flex-col gap-1">{calendar}</div>
+    </div>
+  );
+}
+
+export default function CalendarContentSecond() {
   const today = useMemo(() => new Date(), []);
   const [bulan, setBulan] = useState(today.getMonth());
   const [tahun, setTahun] = useState(today.getFullYear());
@@ -88,26 +133,31 @@ export default function CalendarContent() {
   const handleYearChange = (e) => setTahun(Number(e.target.value));
 
   const handleDateClick = (day) => {
-    const clickedDate = new Date(tahun, bulan, day);
-    setSelectedDate(clickedDate);
+    setSelectedDate(`${tahun}-${String(bulan + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
     setShowModal(true);
   };
 
-  const fetchSchedules = useCallBack(async () => {
+  const fetchSchedules = useCallback(async () => {
     try {
       const res = await axios.get(`http://localhost:3002/schedule?month=${bulan + 1}&year=${tahun}`);
-      setSchedules(res.data);
+      const data = res.data.map(item => ({
+        ...item,
+        date: item.date // ⬅️ biarkan tetap dalam format string YYYY-MM-DD
+      }));
+      setSchedules(data);
     } catch (err) {
       console.error("Gagal mengambil data:", err);
     }
-  });
+  }, [bulan, tahun]);
+
+
 
   const handleSaveSchedule = async () => {
     if (!selectedDate) return;
     try {
       await axios.post('http://localhost:3002/schedule', {
         ...form,
-        date: selectedDate.toISOString().split('T')[0]
+        date: selectedDate
       });
       setShowModal(false);
       setForm({ title: '', description: '', category: 'important' });
@@ -125,17 +175,31 @@ export default function CalendarContent() {
     bulan, tahun, isLarge: true, today, schedules,
     onDateClick: handleDateClick
   });
-
+  
   return (
-    <div className="w-full h-full p-4 overflow-y-auto">
-      <CalendarHeader bulan={bulan} tahun={tahun} onPrev={handlePrevMonth} onNext={handleNextMonth} onYearChange={handleYearChange} />
-      <div className="flex flex-col gap-2 mt-4">
-        <div className="grid grid-cols-7 text-center font-bold text-neutral-700">
-          {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((d, i) => <div key={i}>{d}</div>)}
-        </div>
-        <div className="flex flex-col gap-1">{calendarLarge}</div>
+    <div className="w-full h-full flex p-4 overflow-y-auto">
+      <div className="md:w-1/4 border-r overflow-y-auto">
+        <MiniCalendar
+          bulan={bulan}
+          tahun={tahun}
+          onPrev={handlePrevMonth}
+          onNext={handleNextMonth}
+          onYearChange={handleYearChange}
+          today={today}
+          schedules={schedules}
+          onDateClick={handleDateClick}
+        />
       </div>
 
+      <div className="md:w-3/4 p-4 overflow-y-auto">
+        <CalendarHeader bulan={bulan} tahun={tahun} onPrev={handlePrevMonth} onNext={handleNextMonth} onYearChange={handleYearChange} />
+        <div className="flex flex-col gap-2 mt-4">
+          <div className="grid grid-cols-7 text-center font-bold text-neutral-700">
+            {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((d, i) => <div key={i}>{d}</div>)}
+          </div>
+          <div className="flex flex-col gap-1">{calendarLarge}</div>
+        </div>
+      </div>
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
