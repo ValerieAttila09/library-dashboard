@@ -5,7 +5,7 @@ const monthNames = ["January", "February", "March", "April", "May", "June", "Jul
 
 const getCategoryColor = (category) => {
   switch (category) {
-    case 'important': return 'bg-red-400';
+    case 'important': return 'bg-red-500';
     case 'priority': return 'bg-yellow-400';
     case 'sidejob': return 'bg-blue-400';
     default: return 'bg-gray-400';
@@ -42,7 +42,7 @@ function buildCalendar({ bulan, tahun, isLarge, today, schedules, onDateClick })
   let minggu = [];
 
   for (let i = jumlahHariKosong; i > 0; i--) {
-    minggu.push(<div key={`prev-${i}`} className={`w-1/7 text-neutral-400 p-2`}>{hariTerakhirBulanSebelumnya - i + 1}</div>);
+    minggu.push(<div key={`prev-${i}`} className={`w-1/7 ${isLarge ? "h-[144px]" : "h-auto"} text-neutral-400 p-2`}>{hariTerakhirBulanSebelumnya - i + 1}</div>);
   }
 
   for (let i = 1; i <= jumlahHari; i++) {
@@ -54,7 +54,7 @@ function buildCalendar({ bulan, tahun, isLarge, today, schedules, onDateClick })
       <div
         key={i}
         onClick={() => onDateClick(i)}
-        className={`w-1/7 cursor-pointer border p-2 rounded-md ${isHariIni ? 'bg-blue-100' : ''}`}
+        className={`w-1/7 ${isLarge ? "h-[144px]" : "h-auto"} cursor-pointer p-2 ${isHariIni ? 'bg-blue-100' : ''}`}
       >
         <span className="font-semibold">{i}</span>
         {isLarge ? (
@@ -77,7 +77,7 @@ function buildCalendar({ bulan, tahun, isLarge, today, schedules, onDateClick })
     );
 
     if (minggu.length === 7) {
-      calendar.push(<div key={`minggu-${i}`} className="flex">{minggu}</div>);
+      calendar.push(<div key={`minggu-${i}`} className={`flex ${isLarge ? "divide-x-1 divide-[#d7d7d7]" : ""}`}>{minggu}</div>);
       minggu = [];
     }
   }
@@ -85,9 +85,9 @@ function buildCalendar({ bulan, tahun, isLarge, today, schedules, onDateClick })
   if (minggu.length > 0) {
     let next = 1;
     while (minggu.length < 7) {
-      minggu.push(<div key={`next-${next}`} className="w-1/7 text-neutral-400 p-2">{next++}</div>);
+      minggu.push(<div key={`next-${next}`} className={`w-1/7 ${isLarge ? "h-[144px]" : "h-auto"} text-neutral-400 p-2`}>{next++}</div>);
     }
-    calendar.push(<div key="minggu-terakhir" className="flex">{minggu}</div>);
+    calendar.push(<div key="minggu-terakhir" className={`flex ${isLarge ? "divide-x-1 divide-[#d7d7d7]" : ""}`}>{minggu}</div>);
   }
 
   return calendar;
@@ -180,11 +180,11 @@ export default function CalendarContentSecond() {
 
       <div className="md:w-3/4 p-4 overflow-y-auto">
         <CalendarHeader bulan={bulan} tahun={tahun} onPrev={handlePrevMonth} onNext={handleNextMonth} onYearChange={handleYearChange} />
-        <div className="flex flex-col gap-2 mt-4">
-          <div className="grid grid-cols-7 text-center font-bold text-neutral-700">
-            {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((d, i) => <div key={i}>{d}</div>)}
+        <div className="flex flex-col mt-4">
+          <div className="grid grid-cols-7 divide-x-1 divide-[#d7d7d7] text-center outfit-regular text-neutral-700 border border-[#d7d7d7] border-b-0">
+            {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((d, i) => <div key={i} className="py-4">{d}</div>)}
           </div>
-          <div className="flex flex-col gap-1">{calendarLarge}</div>
+          <div className="flex flex-col border border-[#d7d7d7] divide-y-1 divide-[#d7d7d7]">{calendarLarge}</div>
         </div>
       </div>
 
