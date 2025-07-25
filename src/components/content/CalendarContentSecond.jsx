@@ -20,12 +20,20 @@ function CalendarHeader({ bulan, tahun, onPrev, onNext, onYearChange }) {
   }
   return (
     <div className="flex items-center justify-between gap-2 mb-3 px-2">
-      <button onClick={onPrev} className="p-1 border rounded-full hover:bg-neutral-100 transition-all">‹</button>
+      <button onClick={onPrev} className="p-1 border border-[#d7d7d7] rounded-full hover:bg-neutral-100 transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+        </svg>
+      </button>
       <span className="font-semibold text-lg">{monthNames[bulan]} {tahun}</span>
-      <select value={tahun} onChange={onYearChange} className="border rounded-md px-2 py-1">
+      <select value={tahun} onChange={onYearChange} className="border border-[#d7d7d7] hover:bg-[#fafafa] transition-all rounded-md px-2 py-1">
         {yearOptions}
       </select>
-      <button onClick={onNext} className="p-1 border rounded-full hover:bg-neutral-100 transition-all">›</button>
+      <button onClick={onNext} className="p-1 border border-[#d7d7d7] rounded-full hover:bg-neutral-100 transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+        </svg>
+      </button>
     </div>
   );
 }
@@ -54,7 +62,7 @@ function buildCalendar({ bulan, tahun, isLarge, today, schedules, onDateClick })
       <div
         key={i}
         onClick={() => onDateClick(i)}
-        className={`w-1/7 ${isLarge ? "h-[144px]" : "h-auto"} cursor-pointer p-2 ${isHariIni ? 'bg-blue-100' : ''}`}
+        className={`w-1/7 ${isLarge ? "h-[144px] bg-[#fcfcfc] hover:bg-[#ededed] transition-all" : "h-auto flex items-center justify-center"} cursor-pointer p-2 ${isHariIni ? 'bg-blue-300' : ''} ${isHariIni && !isLarge ? "rounded-md" : ""}`}
       >
         <span className="font-semibold">{i}</span>
         {isLarge ? (
@@ -164,8 +172,8 @@ export default function CalendarContentSecond() {
   });
 
   return (
-    <div className="w-full h-full flex p-4 overflow-y-auto">
-      <div className="md:w-1/4 border-r overflow-y-auto">
+    <div className="w-full h-full flex divide-x-1 divide-[#d7d7d7] overflow-y-auto">
+      <div className="md:w-1/4 overflow-y-auto">
         <MiniCalendar
           bulan={bulan}
           tahun={tahun}
@@ -181,7 +189,7 @@ export default function CalendarContentSecond() {
       <div className="md:w-3/4 p-4 overflow-y-auto">
         <CalendarHeader bulan={bulan} tahun={tahun} onPrev={handlePrevMonth} onNext={handleNextMonth} onYearChange={handleYearChange} />
         <div className="flex flex-col mt-4">
-          <div className="grid grid-cols-7 divide-x-1 divide-[#d7d7d7] text-center outfit-regular text-neutral-700 border border-[#d7d7d7] border-b-0">
+          <div className="grid grid-cols-7 divide-x-1 divide-[#d7d7d7] rounded-t-lg text-center outfit-regular text-neutral-700 border border-[#d7d7d7] border-b-0">
             {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((d, i) => <div key={i} className="py-4">{d}</div>)}
           </div>
           <div className="flex flex-col border border-[#d7d7d7] divide-y-1 divide-[#d7d7d7]">{calendarLarge}</div>
