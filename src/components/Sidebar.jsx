@@ -17,7 +17,7 @@ const DashboardIcon = ({ pathMatched }) => {
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-      stroke="currentColor" className={`size-5 ${isSelected ? "text-blue-400" : "text-neutral-700"} transition-all`}>
+      stroke="currentColor" className={`size-5 ${isSelected ? "text-blue-400" : "text-neutral-500"} transition-all`}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
     </svg>
@@ -33,7 +33,7 @@ const ListIcon = ({ pathMatched }) => {
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-      className={`size-5 ${isSelected ? "text-blue-400" : "text-neutral-700"} transition-all`}>
+      className={`size-5 ${isSelected ? "text-blue-400" : "text-neutral-500"} transition-all`}>
       <path fillRule="evenodd"
         d="M1.5 5.625c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v12.75c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 18.375V5.625ZM21 9.375A.375.375 0 0 0 20.625 9h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5ZM10.875 18.75a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5ZM3.375 15h7.5a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375Zm0-3.75h7.5a.375.375 0 0 0 .375-.375v-1.5A.375.375 0 0 0 10.875 9h-7.5A.375.375 0 0 0 3 9.375v1.5c0 .207.168.375.375.375Z"
         clipRule="evenodd" />
@@ -51,7 +51,7 @@ const LoanIcon = ({ pathMatched }) => {
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-      stroke="currentColor" className={`size-5 ${isSelected ? "text-blue-400" : "text-neutral-700"} transition-all`}>
+      stroke="currentColor" className={`size-5 ${isSelected ? "text-blue-400" : "text-neutral-500"} transition-all`}>
       <path strokeLinecap="round" strokeLinejoin="round"
         d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
     </svg>
@@ -68,7 +68,7 @@ const MembersIcon = ({ pathMatched }) => {
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-      stroke="currentColor" className={`size-5 ${isSelected ? "text-blue-400" : "text-neutral-700"} transition-all`}>
+      stroke="currentColor" className={`size-5 ${isSelected ? "text-blue-400" : "text-neutral-500"} transition-all`}>
       <path strokeLinecap="round" strokeLinejoin="round"
         d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
     </svg>
@@ -84,7 +84,7 @@ const CalendarIcon = ({ pathMatched }) => {
 
 
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`size-5 ${isSelected ? "text-blue-400" : "text-neutral-700"} transition-all`}>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`size-5 ${isSelected ? "text-blue-400" : "text-neutral-500"} transition-all`}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
     </svg>
   )
@@ -93,7 +93,9 @@ const CalendarIcon = ({ pathMatched }) => {
 
 function MenuButton({ pathName, page, icon }) {
   const [buttonColor, setButtonColor] = useState("")
+  const [borderColor, setBorderColor] = useState("border-transparent")
   const [pageName, setPageName] = useState(page)
+  const [isSelected, setIsSelected] = useState(false)
 
   useEffect(() => {
     if (pathName == "/home" && pageName == "Dashboard") {
@@ -110,13 +112,14 @@ function MenuButton({ pathName, page, icon }) {
 
     const currentPageName = window.location.pathname
     if (currentPageName == pathName) {
-      setButtonColor("bg-[#ebebeb]")
+      setButtonColor("bg-white")
+      setBorderColor("border-[#ebebeb]")
     }
   }, [pageName, pathName])
 
   return (
     <div className="flex justify-start items-center">
-      <Link to={pathName} className={`w-full ${buttonColor} p-2 rounded-md group hover:bg-[#f7f7f7] transition-all`}>
+      <Link to={pathName} className={`w-full border ${borderColor} ${buttonColor} px-2 py-[6px] rounded-md group hover:bg-[#f7f7f7] transition-all`}>
         <button
           className="w-full flex items-center justify-start gap-2 ">
           <div className="w-auto">
@@ -227,13 +230,13 @@ export default function Sidebar({ isOpen, onToggleSidebar }) {
 
 
   return (
-    <div ref={sidebarRef} className="bg-white fixed z-30 left-0 top-0 bottom-0 border-r-1 border-[#ebebeb] md:border-0 md:relative md:w-[48px] md:max-h-[100vh]">
+    <div ref={sidebarRef} className="bg-[#fafafa] fixed z-30 left-0 top-0 bottom-0 border-r-1 border-[#ebebeb] md:border-0 md:relative md:w-[48px] md:max-h-[100vh]">
       <div className="w-full h-full flex flex-col justify-between gap-4 overflow-x-hidden overflow-y-auto">
         <div className="w-full flex flex-col py-1 gap-4">
           <div className="w-full flex flex-col gap-1">
             <div
               className="w-full px-[11px] overflow-hidden flex justify-start items-center gap-2 rounded-md">
-              <div className="py-[10px] w-auto rounded-full bg-white p-[2px] group hover:bg-white transition-all">
+              <div className="py-[10px] w-auto rounded-full p-[2px] group hover:bg-white transition-all">
                 <div className="-translate-x-[1px] w-0 h-0 border-l-[12px] border-r-[12px] border-b-[22px] border-l-transparent border-r-transparent border-b-neutral-900"></div>
               </div>
               <div className="hiddenGem w-full flex items-center justify-between">
@@ -258,7 +261,7 @@ export default function Sidebar({ isOpen, onToggleSidebar }) {
               <span className="text-sm text-neutral-600">Status</span>
             </div>
             <div className="flex justify-start items-center">
-              <div className={`w-full bg-white p-2 rounded-md group hover:bg-[#f7f7f7] transition-all`}>
+              <div className={`w-full px-2 py-[6px] rounded-md group hover:bg-[#f7f7f7] transition-all`}>
                 <button
                   onClick={handleLogout}
                   className="w-full flex items-center justify-start gap-2 ">
@@ -281,7 +284,7 @@ export default function Sidebar({ isOpen, onToggleSidebar }) {
           </div>
           <div className="flex justify-start items-center">
             <button
-              className="w-full p-2 flex items-center justify-start gap-2 rounded-md group hover:bg-[#ebebeb] transition-all ">
+              className="w-full px-2 py-[6px] flex items-center justify-start gap-2 rounded-md group hover:bg-[#ebebeb] transition-all ">
               <div className="w-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                   stroke="currentColor" className="size-5 text-neutral-600 transition-all">

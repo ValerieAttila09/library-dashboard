@@ -179,7 +179,7 @@ export default function MembersContent() {
           <div className="w-full h-auto rounded-xl bg-[#fcfcfc] shadow border border-[#ebebeb] p-2">
             <div className="w-full flex justify-between items-center mb-3">
               <h1 className="text-2xl outfit-medium text-neutral-800">Quick Access</h1>
-              <button className="rounded-full p-2 border border-transparent hover:border-[#ebebeb] transition-all">
+              <button className="rounded-full p-2 border border-transparent hover:border-[#ebebeb] hover:bg-white transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                 </svg>
@@ -237,7 +237,7 @@ export default function MembersContent() {
                   <h1 className="text-xl text-neutral-800 outfit-medium">Members Overview</h1>
                 </div>
                 <div className="w-full flex items-center justify-end gap-2">
-                  <button className="rounded-full p-2 border border-transparent hover:border-[#ebebeb]">
+                  <button className="rounded-full p-2 border border-transparent hover:border-[#ebebeb] hover:bg-white transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-neutral-700">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                     </svg>
